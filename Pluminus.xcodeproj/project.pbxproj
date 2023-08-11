@@ -17,7 +17,7 @@
 		23B25C342A2864740022273F /* MulticomponentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C332A2864740022273F /* MulticomponentPicker.swift */; };
 		23B25C362A28B1120022273F /* ColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C352A28B1120022273F /* ColorHex.swift */; };
 		23B25C382A28B75B0022273F /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C372A28B75B0022273F /* CoreLocation.swift */; };
-		23E2243D2A2F214D003CD2C3 /* LocalityMocalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2243C2A2F214D003CD2C3 /* LocalityMocalView.swift */; };
+		23B3A82F2A860CD900E86DE0 /* LocalityModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3A82E2A860CD900E86DE0 /* LocalityModalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		23B25C332A2864740022273F /* MulticomponentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticomponentPicker.swift; sourceTree = "<group>"; };
 		23B25C352A28B1120022273F /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
 		23B25C372A28B75B0022273F /* CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocation.swift; sourceTree = "<group>"; };
-		23E2243C2A2F214D003CD2C3 /* LocalityMocalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityMocalView.swift; sourceTree = "<group>"; };
+		23B3A82E2A860CD900E86DE0 /* LocalityModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalityModalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 			children = (
 				23B25C0B2A2860860022273F /* MainContentView.swift */,
 				234E4EDB2A2BB13E00CA787D /* MainCenterStackView.swift */,
-				23E2243C2A2F214D003CD2C3 /* LocalityMocalView.swift */,
+				23B3A82E2A860CD900E86DE0 /* LocalityModalView.swift */,
 				23AAEE372A30A2F6007191B8 /* BackColorView.swift */,
 			);
 			path = View;
@@ -178,9 +178,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23B3A82F2A860CD900E86DE0 /* LocalityModalView.swift in Sources */,
 				23B25C342A2864740022273F /* MulticomponentPicker.swift in Sources */,
 				23B25C382A28B75B0022273F /* CoreLocation.swift in Sources */,
-				23E2243D2A2F214D003CD2C3 /* LocalityMocalView.swift in Sources */,
 				23B25C362A28B1120022273F /* ColorHex.swift in Sources */,
 				23B25C0C2A2860860022273F /* MainContentView.swift in Sources */,
 				234E4EDC2A2BB13E00CA787D /* MainCenterStackView.swift in Sources */,

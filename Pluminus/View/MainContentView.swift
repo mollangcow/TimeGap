@@ -126,7 +126,7 @@ func dateToString(date: Date, dateFormat: String) -> String {
     return formattedTime
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MainContentView_Previews: PreviewProvider {
     static var previews: some View {
         MainContentView()
     }
