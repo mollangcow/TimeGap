@@ -224,8 +224,6 @@ struct MainCenterStackView: View {
     } // calcUTC 메서드 닫기
 } // struct닫기
 
-
-
 // 세계시간 뷰 하단 나라 구름 스택 뷰
 struct ClockViewBottomCountryTagStackView: View {
     
@@ -339,7 +337,7 @@ struct ClockViewBottomCountryTagStackView: View {
     } // func닫기
 } // struct닫기
 
-struct MainPickerView_Previews: PreviewProvider {
+struct MainCenterStackView_Previews: PreviewProvider {
     static var previews: some View {
         MainCenterStackView(
             utcOffsetHours: .constant(locationManager.currentLocationUTC),

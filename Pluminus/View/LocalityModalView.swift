@@ -150,7 +150,7 @@ struct LocalityModalView: View {
     } // func닫기
 } // struct닫기
 
-struct LocalityMocalView_Previews: PreviewProvider {
+struct LocalityModalView_Previews: PreviewProvider {
     static var previews: some View {
         LocalityModalView(
             targetTimeHour: .constant("-"),
