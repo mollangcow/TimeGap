@@ -9,17 +9,17 @@ import SwiftUI
 
 struct BackColorView: View {
     
-    @Binding var isCenterContentView: Bool
+    @Binding var isPickerView: Bool
     @Binding var targetTimeHour: String
 
-    init(isCenterContentView: Binding<Bool>, targetTimeHour: Binding<String>) {
-        self._isCenterContentView = isCenterContentView
+    init(isPickerView: Binding<Bool>, targetTimeHour: Binding<String>) {
+        self._isPickerView = isPickerView
         self._targetTimeHour = targetTimeHour
     }
     
     var body: some View {
         ZStack {
-            if isCenterContentView {
+            if isPickerView {
                 EmptyView()
             } else {
                 getBackgroundColor()
@@ -90,7 +90,7 @@ struct BackColorView: View {
 struct BackColorView_Previews: PreviewProvider {
     static var previews: some View {
         BackColorView(
-            isCenterContentView: .constant(true),
+            isPickerView: .constant(true),
             targetTimeHour: .constant("--")
         )
     }

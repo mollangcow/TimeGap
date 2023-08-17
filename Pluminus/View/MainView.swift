@@ -14,7 +14,7 @@ struct MainView: View {
     @State private var currentTimeMinute: String = ""
     @State private var currentDate: String = ""
     @State private var currentLocationName: String = ""
-    @State private var isCenterContentView : Bool = true
+    @State private var isPickerView : Bool = true
     @State private var utcOffsetHours: Int = 0
     @State private var targetTimeHour: String = ""
     @State private var currentUTC: Int = 0
@@ -24,7 +24,7 @@ struct MainView: View {
     var body: some View {
         ZStack {
             BackColorView(
-                isCenterContentView: $isCenterContentView,
+                isPickerView: $isPickerView,
                 targetTimeHour: $targetTime
             )
             .onChange(of: targetTime) { newValue in
@@ -32,38 +32,41 @@ struct MainView: View {
             }
             
             VStack {
-                // 현재 위치 기반 현재 시간과 날짜
-                Text("\(currentTimeHour):\(currentTimeMinute)")
-                    .font(.system(size: 64, weight: isCenterContentView ? .heavy : .thin))
-                    .foregroundColor(isCenterContentView ? .primary : .white)
-                    .frame(width: screenWidth, alignment: .leading)
-                    .padding(.leading, screenWidth * 0.12)
-                    .padding(.top, screenWidth * 0.05)
-                Text(currentDate)
-                    .font(.system(size: 17, weight: .regular))
-                    .foregroundColor(isCenterContentView ? .primary : .white)
-                    .frame(width: screenWidth, alignment: .leading)
-                    .padding(.leading, screenWidth * 0.15)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(Date.currentTime(timeZoneOffset: 0))
+                            .font(.system(size: 64, weight: isPickerView ? .heavy : .thin))
+                            .foregroundColor(isPickerView ? .primary : .white)
+                            .padding(.leading, 20)
+                        Text(Date.currentDate(timeZoneOffset: 0))
+                            .font(.system(size: 17, weight: .regular))
+                            .foregroundColor(isPickerView ? .primary : .white)
+                            .padding(.leading, 24)
+                    }
+                    .frame(height: 120)
+                    
+                    Spacer()
+                }
                 
                 // 현재 위치
                 HStack {
-                    Image(isCenterContentView ? "locationPin.orange" : "locationPin.white")
+                    Spacer()
+
+                    Image(isPickerView ? "locationPin.orange" : "locationPin.white")
                         .resizable()
                         .frame(width: 15, height: 19)
                     Text(currentLocationName)
                         .font(.system(size: 20, weight: .heavy))
-                        .foregroundColor(isCenterContentView ? .primary : .white)
+                        .foregroundColor(isPickerView ? .primary : .white)
+                        .padding(.trailing, 20)
                 } // HStack닫기
-                .frame(width: screenWidth, alignment: .trailing)
-                .padding(.trailing, screenWidth * 0.12)
-                .padding(.top, screenWidth * 0.03)
                 
                 Spacer()
                 
                 // 타임 피커 뷰
                 PickerView(
                     utcOffsetHours: $utcOffsetHours,
-                    isShowingMainCenterStackView: $isCenterContentView,
+                    isPickerView: $isPickerView,
                     currentTimeHour: $currentTimeHour,
                     currentTimeMinute: $currentTimeMinute,
                     currentUTC: $currentUTC,
@@ -73,28 +76,23 @@ struct MainView: View {
                 
                 // 세계 시간 확인 토글 버튼
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.7)) {
-                        isCenterContentView.toggle()
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        isPickerView.toggle()
                         }
-                        print("ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ")
-                        print("SHOWING PICKER VIEW :", isCenterContentView)
-                        print("ㅛㅛㅛㅛㅛㅛㅛㅛㅛㅛ")
                 }, label: {
-                    Text(isCenterContentView ? "확인해보기" : "돌아가기")
-                        .foregroundColor(.white)
-                        .font(.system(size: 17, weight: .black))
-                        .frame(
-                            width: isCenterContentView ? screenWidth * 0.7 : screenWidth * 0.92,
-                            height: 70
-                        )
-                        .background(
-                            isCenterContentView ? .orange : .black)
-                        .cornerRadius(35)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 35)
+                            .frame(width: isPickerView ? 300 : 350, height: 70)
+                            .foregroundColor(isPickerView ? .orange : .black)
+                        Text(isPickerView ? "확인해보기" : "돌아가기")
+                            .foregroundColor(.white)
+                            .font(.system(size: 17, weight: .black))
+                    }
+                    .padding(.bottom, 30)
                 }) // Button닫기
                 .onChange(of: targetTime) { newValue in
                     targetTimeHour = newValue
                 }
-                .padding(.bottom, screenWidth * 0.03)
             } // VStack닫기
             
             // 위치 기반 현재 시간 받기
@@ -112,7 +110,6 @@ struct MainView: View {
         } // ZStack닫기
     } // body닫기
 } // struct닫기
-
 
 func dateToString(date: Date, dateFormat: String) -> String {
     let dateFormatter = DateFormatter()

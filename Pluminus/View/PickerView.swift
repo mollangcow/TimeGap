@@ -15,7 +15,7 @@ struct PickerView: View {
 
     @State private var dataSource: [[String]] = [["+","-"], []]
     @State private var pickerFastOrSlow: [String] = ["빠른", "+"]
-    @State private var pickerHour: Int = 0
+    @State var pickerHour: Int = 0
     @State var targetTimeHour: String = "-"
     @State private var targetTimeMinute: String = "--"
     @State private var targetDate: String = "-월 -일 -요일"
@@ -23,14 +23,14 @@ struct PickerView: View {
     @Binding var selected: [Int]
     @Binding var currentUTC: Int
     @Binding var utcOffsetHours: Int
-    @Binding var isShowingMainCenterStackView: Bool
+    @Binding var isPickerView: Bool
     @Binding var currentTimeHour: String
     @Binding var currentTimeMinute: String
     @Binding var targetTime: String
     
-    init(utcOffsetHours: Binding<Int>, isShowingMainCenterStackView: Binding<Bool>, currentTimeHour: Binding<String>, currentTimeMinute: Binding<String>, currentUTC: Binding<Int>, targetTime: Binding<String>, selected: Binding<[Int]>) {
+    init(utcOffsetHours: Binding<Int>, isPickerView: Binding<Bool>, currentTimeHour: Binding<String>, currentTimeMinute: Binding<String>, currentUTC: Binding<Int>, targetTime: Binding<String>, selected: Binding<[Int]>) {
         self._utcOffsetHours = utcOffsetHours
-        self._isShowingMainCenterStackView = isShowingMainCenterStackView
+        self._isPickerView = isPickerView
         self._currentTimeHour = currentTimeHour
         self._currentTimeMinute = currentTimeMinute
         self._currentUTC = currentUTC
@@ -38,6 +38,11 @@ struct PickerView: View {
         self._selected = selected
         
         _ = self.hourRange
+    }
+    
+    func pickerResult() -> Int {
+        let value = selected[1]
+        return selected[0] == 1 ? -value : value
     }
     
     private var hourRange: ClosedRange<Int> {
@@ -60,7 +65,7 @@ struct PickerView: View {
     
     var body: some View {
         VStack {
-            if isShowingMainCenterStackView {
+            if isPickerView {
                 // 메인 피커 뷰
                 Spacer()
                 HStack {
@@ -106,7 +111,7 @@ struct PickerView: View {
                 } // HStack닫기
                 
                 Spacer()
-                // 타임 피커 가이딩 텍스트
+                
                 Text("현위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 주요 지역")
                     .font(.system(size: 15, weight: .medium))
                     .padding(.bottom, screenWidth * 0.04)
@@ -127,22 +132,23 @@ struct PickerView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.white)
                         }
+                        
                         Spacer()
-                        // 타겟 시간대의 시계
-                        Text("\(targetTimeHour):\(targetTimeMinute)")
-                            .font(.system(size: 64, weight: .heavy))
-                            .frame(width: screenWidth, alignment: .leading)
-                            .foregroundColor(.white)
-                            .padding(.leading, screenWidth * 0.06)
-                        Text(targetDate)
-                            .font(.system(size: 17, weight: .semibold))
-                            .frame(width: screenWidth, alignment: .leading)
-                            .foregroundColor(.white)
-                            .padding(.leading, screenWidth * 0.08)
-                            .padding(.bottom, screenHeight * 0.25)
-                    } // VStack닫기
-                    // 하단 국가 태그 리스트
-                    VStack {
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(Date.currentTime(timeZoneOffset: pickerResult()))
+                                    .font(.system(size: 64, weight: .heavy))
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 20)
+                                Text(Date.currentDate(timeZoneOffset: pickerResult()))
+                                    .font(.system(size: 17, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 24)
+                            }
+                            .frame(height: 120)
+                        }
+                        
                         NationView(
                             targetTimeHour: $targetTimeHour,
                             targetTimeMinute: $targetTimeMinute,
@@ -153,12 +159,10 @@ struct PickerView: View {
                             targetUtcTime: calcUTC(),
                             calcUTC: calcUTC
                         )
-                        .padding(.top, screenHeight * 0.34)
                     } // VStack닫기
                 } // GeometryReader닫기
             } // if닫기
         } //VStack닫기
-        .frame(width: screenWidth)
         .onReceive(Just(dataSource)) { newValue in
             _ = hourRange
             dataSource[1] = Array(hourRange).map { String($0) }
@@ -230,7 +234,7 @@ struct PickerView_Previews: PreviewProvider {
     static var previews: some View {
         PickerView(
             utcOffsetHours: .constant(locationManager.currentLocationUTC),
-            isShowingMainCenterStackView: .constant(true),
+            isPickerView: .constant(true),
             currentTimeHour: .constant("--"),
             currentTimeMinute: .constant("--"),
             currentUTC: .constant(0),
