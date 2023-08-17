@@ -17,7 +17,7 @@ struct MulticomponentPicker: UIViewRepresentable {
     
     
     func makeUIView(context: Context) -> UIPickerView {
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 50))
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth/2, height: 50))
         
         pickerView.delegate = context.coordinator
         pickerView.dataSource = context.coordinator

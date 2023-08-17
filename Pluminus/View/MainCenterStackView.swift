@@ -109,7 +109,7 @@ struct MainCenterStackView: View {
                 // 타임 피커 가이딩 텍스트
                 Text("현위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 주요 지역")
                     .font(.system(size: 15, weight: .medium))
-                    .padding(.bottom, UIScreen.main.bounds.width * 0.04)
+                    .padding(.bottom, screenWidth * 0.04)
             } else {
                 // 세계시간 뷰
                 GeometryReader { geometry in
@@ -122,7 +122,7 @@ struct MainCenterStackView: View {
                                                    startPoint: .top, endPoint: .bottom)
                                 )
                                 .frame(width: 2, height: calcRoundedRectangleHeight(pickerHour: pickerHour))
-                                .padding(.leading, UIScreen.main.bounds.width * 0.13)
+                                .padding(.leading, screenWidth * 0.13)
                             Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
                                 .font(.system(size: 12))
                                 .foregroundColor(.white)
@@ -131,15 +131,15 @@ struct MainCenterStackView: View {
                         // 타겟 시간대의 시계
                         Text("\(targetTimeHour):\(targetTimeMinute)")
                             .font(.system(size: 64, weight: .heavy))
-                            .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                            .frame(width: screenWidth, alignment: .leading)
                             .foregroundColor(.white)
-                            .padding(.leading, UIScreen.main.bounds.width * 0.06)
+                            .padding(.leading, screenWidth * 0.06)
                         Text(targetDate)
                             .font(.system(size: 17, weight: .semibold))
-                            .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                            .frame(width: screenWidth, alignment: .leading)
                             .foregroundColor(.white)
-                            .padding(.leading, UIScreen.main.bounds.width * 0.08)
-                            .padding(.bottom, UIScreen.main.bounds.height * 0.25)
+                            .padding(.leading, screenWidth * 0.08)
+                            .padding(.bottom, screenHeight * 0.25)
                     } // VStack닫기
                     // 하단 국가 태그 리스트
                     VStack {
@@ -153,12 +153,12 @@ struct MainCenterStackView: View {
                             targetUtcTime: calcUTC(),
                             calcUTC: calcUTC
                         )
-                        .padding(.top, UIScreen.main.bounds.height * 0.34)
+                        .padding(.top, screenHeight * 0.34)
                     } // VStack닫기
                 } // GeometryReader닫기
             } // if닫기
         } //VStack닫기
-        .frame(width: UIScreen.main.bounds.width)
+        .frame(width: screenWidth)
         .onReceive(Just(dataSource)) { newValue in
             _ = hourRange
             dataSource[1] = Array(hourRange).map { String($0) }
@@ -167,8 +167,8 @@ struct MainCenterStackView: View {
     
     // 세계시간 뷰 시차 그래프의 높이를 동적으로 변환해주는 메서드
     private func calcRoundedRectangleHeight(pickerHour: Int) -> CGFloat {
-        let minHeight: CGFloat = UIScreen.main.bounds.height * 0.02
-        let maxHeight: CGFloat = UIScreen.main.bounds.height * 0.19
+        let minHeight: CGFloat = screenHeight * 0.02
+        let maxHeight: CGFloat = screenHeight * 0.19
         let hourRange: ClosedRange<Int> = 0...23
         
         let normalizedHour = CGFloat(pickerHour - hourRange.lowerBound) / CGFloat(hourRange.upperBound - hourRange.lowerBound)
@@ -250,9 +250,9 @@ struct ClockViewBottomCountryTagStackView: View {
                 Spacer()
                 Text("다시 시도해주세요.")
                     .font(.system(size: 17, weight: .black))
-                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(width: screenWidth)
                     .foregroundColor(.white)
-                    .padding(.bottom, UIScreen.main.bounds.height * 0.1)
+                    .padding(.bottom, screenHeight * 0.1)
             }
         } // VStack닫기
         .sheet(isPresented: $isShowingModal) {
@@ -333,7 +333,7 @@ struct ClockViewBottomCountryTagStackView: View {
                 })
             } // ForEach닫기
         } // ZStack닫기
-        .padding(.leading, UIScreen.main.bounds.width * 0.05)
+        .padding(.leading, screenWidth * 0.05)
     } // func닫기
 } // struct닫기
 

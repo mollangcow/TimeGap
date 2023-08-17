@@ -8,8 +8,6 @@
 import SwiftUI
 import SwiftUIVisualEffects
 
-let screenSize: CGRect = UIScreen.main.bounds
-
 struct MainContentView: View {
     
     @State private var currentTimeHour: String = ""
@@ -38,14 +36,14 @@ struct MainContentView: View {
                 Text("\(currentTimeHour):\(currentTimeMinute)")
                     .font(.system(size: 64, weight: isShowingMainCenterStackView ? .heavy : .thin))
                     .foregroundColor(isShowingMainCenterStackView ? .primary : .white)
-                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
-                    .padding(.leading, UIScreen.main.bounds.width * 0.12)
-                    .padding(.top, UIScreen.main.bounds.width * 0.05)
+                    .frame(width: screenWidth, alignment: .leading)
+                    .padding(.leading, screenWidth * 0.12)
+                    .padding(.top, screenWidth * 0.05)
                 Text(currentDate)
                     .font(.system(size: 17, weight: .regular))
                     .foregroundColor(isShowingMainCenterStackView ? .primary : .white)
-                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
-                    .padding(.leading, UIScreen.main.bounds.width * 0.15)
+                    .frame(width: screenWidth, alignment: .leading)
+                    .padding(.leading, screenWidth * 0.15)
                 
                 // 현재 위치
                 HStack {
@@ -56,9 +54,9 @@ struct MainContentView: View {
                         .font(.system(size: 20, weight: .heavy))
                         .foregroundColor(isShowingMainCenterStackView ? .primary : .white)
                 } // HStack닫기
-                .frame(width: UIScreen.main.bounds.width, alignment: .trailing)
-                .padding(.trailing, UIScreen.main.bounds.width * 0.12)
-                .padding(.top, UIScreen.main.bounds.width * 0.03)
+                .frame(width: screenWidth, alignment: .trailing)
+                .padding(.trailing, screenWidth * 0.12)
+                .padding(.top, screenWidth * 0.03)
                 
                 Spacer()
                 
@@ -75,20 +73,18 @@ struct MainContentView: View {
                 
                 // 세계 시간 확인 토글 버튼
                 Button(action: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        withAnimation {
+                    withAnimation(.easeInOut(duration: 0.7)) {
                             isShowingMainCenterStackView.toggle()
                         }
                         print("ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ")
                         print("SHOWING PICKER VIEW :", isShowingMainCenterStackView)
                         print("ㅛㅛㅛㅛㅛㅛㅛㅛㅛㅛ")
-                    }
                 }, label: {
                     Text(isShowingMainCenterStackView ? "확인해보기" : "돌아가기")
                         .foregroundColor(.white)
                         .font(.system(size: 17, weight: .black))
                         .frame(
-                            width: isShowingMainCenterStackView ? UIScreen.main.bounds.width * 0.7 : UIScreen.main.bounds.width * 0.92,
+                            width: isShowingMainCenterStackView ? screenWidth * 0.7 : screenWidth * 0.92,
                             height: 70
                         )
                         .background(
@@ -98,7 +94,7 @@ struct MainContentView: View {
                 .onChange(of: targetTime) { newValue in
                     targetTimeHour = newValue
                 }
-                .padding(.bottom, UIScreen.main.bounds.height * 0.03)
+                .padding(.bottom, screenWidth * 0.03)
             } // VStack닫기
             
             // 위치 기반 현재 시간 받기

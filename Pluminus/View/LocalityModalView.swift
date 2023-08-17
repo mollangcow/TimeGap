@@ -34,8 +34,8 @@ struct LocalityModalView: View {
             VStack(spacing: 0) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)
-                        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.13)
-                        .padding(.top, UIScreen.main.bounds.height * 0.02)
+                        .frame(width: screenWidth * 0.9, height: screenHeight * 0.13)
+                        .padding(.top, screenHeight * 0.02)
                         .foregroundColor(
                             getBackgroundColor()
                         )
@@ -48,8 +48,8 @@ struct LocalityModalView: View {
                                 .font(.system(size: 15, weight: .medium))
                                 .foregroundColor(.white)
                         }
-                        .frame(width: UIScreen.main.bounds.width * 0.57, alignment: .leading)
-                        .padding(.top, UIScreen.main.bounds.height * 0.01)
+                        .frame(width: screenWidth * 0.57, alignment: .leading)
+                        .padding(.top, screenHeight * 0.01)
                         Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
                             .font(.system(size: 12))
                             .foregroundColor(.white)
@@ -58,26 +58,26 @@ struct LocalityModalView: View {
                                 LinearGradient(gradient: Gradient(colors: [.white.opacity(0), .white.opacity(1)]),
                                                startPoint: .top, endPoint: .bottom)
                             )
-                            .frame(width: 2, height : UIScreen.main.bounds.height * 0.07)
+                            .frame(width: 2, height : screenHeight * 0.07)
                     }
                 }
                 
                 Text("\(countryName)에서 이 시간대에 해당하는 주요 지역")
                     .font(.system(size: 13, weight: .medium))
                     .foregroundColor(.gray)
-                    .frame(width: UIScreen.main.bounds.width * 0.8, alignment: .leading)
-                    .padding(.top, UIScreen.main.bounds.height * 0.03)
+                    .frame(width: screenWidth * 0.8, alignment: .leading)
+                    .padding(.top, screenHeight * 0.03)
                 
                 Divider()
-                    .padding(.top, UIScreen.main.bounds.height * 0.01)
-                    .frame(width: UIScreen.main.bounds.width * 0.8)
+                    .padding(.top, screenHeight * 0.01)
+                    .frame(width: screenWidth * 0.8)
                 
                 // 도시 리스트 출력 스크롤뷰
                 ScrollView(.vertical) {
                     ForEach(currentCountryList, id: \.self) { locality in
                         Text(locality)
-                            .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-                            .padding(.top, UIScreen.main.bounds.width*0.05)
+                            .frame(width: screenWidth * 0.8, alignment: .leading)
+                            .padding(.top, screenWidth * 0.05)
                             .font(.system(size: 20, weight: .bold))
                     }
                 }
@@ -92,14 +92,14 @@ struct LocalityModalView: View {
                 targetTimeHour = newValue
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem {
                     VStack {
                         RoundedRectangle(cornerRadius: 5)
                             .frame(width: 40, height: 6)
                             .foregroundColor(.primary)
                             .opacity(0.2)
                         Text(countryName)
-                            .frame(width: UIScreen.main.bounds.height, alignment: .center)
+                            .frame(width: screenWidth, alignment: .center)
                             .font(.system(size: 17, weight: .bold))
                     }
                 }
