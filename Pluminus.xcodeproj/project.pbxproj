@@ -18,6 +18,8 @@
 		23B25C362A28B1120022273F /* ColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C352A28B1120022273F /* ColorHex.swift */; };
 		23B25C382A28B75B0022273F /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C372A28B75B0022273F /* CoreLocation.swift */; };
 		23B3A82F2A860CD900E86DE0 /* LocalityModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3A82E2A860CD900E86DE0 /* LocalityModalView.swift */; };
+		23B67FAE2A8DE0D700229B81 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */; };
+		23B67FB02A8DE10800229B81 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FAF2A8DE10800229B81 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		23B25C352A28B1120022273F /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
 		23B25C372A28B75B0022273F /* CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocation.swift; sourceTree = "<group>"; };
 		23B3A82E2A860CD900E86DE0 /* LocalityModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalityModalView.swift; sourceTree = "<group>"; };
+		23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
+		23B67FAF2A8DE10800229B81 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,8 @@
 			isa = PBXGroup;
 			children = (
 				23B25C352A28B1120022273F /* ColorHex.swift */,
+				23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */,
+				23B67FAF2A8DE10800229B81 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -178,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23B67FAE2A8DE0D700229B81 /* ScreenSize.swift in Sources */,
 				23B3A82F2A860CD900E86DE0 /* LocalityModalView.swift in Sources */,
 				23B25C342A2864740022273F /* MulticomponentPicker.swift in Sources */,
 				23B25C382A28B75B0022273F /* CoreLocation.swift in Sources */,
@@ -185,6 +192,7 @@
 				23B25C0C2A2860860022273F /* MainContentView.swift in Sources */,
 				234E4EDC2A2BB13E00CA787D /* MainCenterStackView.swift in Sources */,
 				234E4ED22A2B899B00CA787D /* Country.swift in Sources */,
+				23B67FB02A8DE10800229B81 /* Date.swift in Sources */,
 				23B25C0A2A2860860022273F /* NC1App.swift in Sources */,
 				23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */,
 			);
