@@ -1,5 +1,5 @@
 //
-//  MainPickerView.swift
+//  PickerView.swift
 //  NC1
 //
 //  Created by kimsangwoo on 2023/06/04.
@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 // 중앙 스택 뷰 (타임 피커 + 세계 시간)
-struct MainCenterStackView: View {
+struct PickerView: View {
 
     @StateObject var locationManager = MyLocationManager()
 
@@ -65,7 +65,7 @@ struct MainCenterStackView: View {
                 Spacer()
                 HStack {
                     // 타임 피커 로직
-                    MulticomponentPicker(dataSource: $dataSource, selected: $selected)
+                    CustomPicker(dataSource: $dataSource, selected: $selected)
                         .frame(width:160)
                         .id(dataSource)
                         .onChange(of: selected[0]) { newValue in
@@ -143,7 +143,7 @@ struct MainCenterStackView: View {
                     } // VStack닫기
                     // 하단 국가 태그 리스트
                     VStack {
-                        ClockViewBottomCountryTagStackView(
+                        NationView(
                             targetTimeHour: $targetTimeHour,
                             targetTimeMinute: $targetTimeMinute,
                             targetDate: $targetDate,
@@ -180,7 +180,10 @@ struct MainCenterStackView: View {
     
     // 타임 피커와 UTC간 시차 계산 메서드
     func calcUTC() -> Int {
-        let date = Date()
+        print("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
+        print(">>> run : calcUTC method")
+
+        let date = Date.now
         let targetUTC: Int
         
         if pickerFastOrSlow[0] == "빠른" {
@@ -203,6 +206,8 @@ struct MainCenterStackView: View {
         formatter.dateFormat = "mm"
         let targetTimeMinute = formatter.string(from: date)
         
+        print("> TARGET HH:mm :",targetTimeHour, ":", targetTimeMinute)
+        
         // 타겟 날짜 관련 포맷
         formatter.dateFormat = "M월 d일 E요일"
         let targetDate = formatter.string(from: date)
@@ -213,133 +218,17 @@ struct MainCenterStackView: View {
             self.targetDate = targetDate
         }
         
-        // 현재 위치의 시간과 피커 시간을 계산하여 타겟 세계시간의 UTC값을 알려주는 리턴값
-        print("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
-        print("UTC Time Calc: \(locationManager.currentLocationUTC) \(pickerFastOrSlow[1]) \(pickerHour) = \(targetUTC)")
-        print("TARGET HH:mm :",targetTimeHour, ":", targetTimeMinute)
-        print("TARGET DATE :",targetDate)
-        print("ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ")
+        print("> UTC Time Calc: \(locationManager.currentLocationUTC) \(pickerFastOrSlow[1]) \(pickerHour) = \(targetUTC)")
+        print("> TARGET DATE :",targetDate)
+        print("ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ")
         
         return targetUTC
     } // calcUTC 메서드 닫기
 } // struct닫기
 
-// 세계시간 뷰 하단 나라 구름 스택 뷰
-struct ClockViewBottomCountryTagStackView: View {
-    
-    @State private var isShowingModal: Bool = false
-    @State private var tappedCountry: String = ""
-    
-    @Binding var targetTimeHour: String
-    @Binding var targetTimeMinute: String
-    @Binding var targetDate: String
-    @Binding var pickerHour: Int
-    @Binding var pickerFastOrSlow: [String]
-    
-    let geometry: GeometryProxy
-    let targetUtcTime: Int
-    
-    let calcUTC: () -> Int
-    
-    var body: some View {
-        VStack{
-            if let countries = CountryList.list.UTC[targetUtcTime] {
-                generateContent(in: geometry, countries: countries)
-            } else {
-                // targetUtcTime이 nil일 때 처리할 내용
-                Spacer()
-                Text("다시 시도해주세요.")
-                    .font(.system(size: 17, weight: .black))
-                    .frame(width: screenWidth)
-                    .foregroundColor(.white)
-                    .padding(.bottom, screenHeight * 0.1)
-            }
-        } // VStack닫기
-        .sheet(isPresented: $isShowingModal) {
-            LocalityModalView(
-                targetTimeHour: $targetTimeHour,
-                targetTimeMinute : $targetTimeMinute,
-                targetDate: $targetDate,
-                countryName: $tappedCountry,
-                pickerHour: $pickerHour,
-                pickerFastOrSlow: $pickerFastOrSlow,
-                targetUtcTime: targetUtcTime
-            )
-        } //sheet닫기
-    } // body닫기
-    private func showLocality(isShowingModal: Bool, countryName: String) {
-        if isShowingModal {
-            self.isShowingModal = true
-            self.tappedCountry = countryName
-        }
-    }
-    private func generateContent(in g: GeometryProxy, countries: [Country]) -> some View {
-        var width = CGFloat.zero
-        var height = CGFloat.zero
-        
-        return ZStack(alignment: .topLeading) {
-            ForEach(CountryList.list.UTC[targetUtcTime]!, id: \.self) { tag in
-                Button {
-                    showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
-                    pickerHour = self.pickerHour
-                    pickerFastOrSlow = self.pickerFastOrSlow
-                } label: {
-                    ZStack {
-                        HStack {
-                            Text(tag.countryName)
-                                .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(.black)
-                                .padding(.trailing, 4)
-                            if tag.isHaveLocality {
-                                Image(systemName: "ellipsis.circle.fill")
-                                    .foregroundColor(.orange)
-                                    .opacity(0)
-                                    .overlay(
-                                        Image(systemName: "ellipsis.circle.fill")
-                                            .resizable()
-                                            .frame(width: 24, height: 24)
-                                            .foregroundColor(.orange)
-                                    )
-                            } // if닫기
-                        } // HStack닫기
-                        .padding(.horizontal, 18)
-                        .padding(.vertical, 12)
-                        .background(.white)
-                        .cornerRadius(32)
-                    } // ZStack닫기
-                } // Button닫기
-                .padding([.horizontal], 4)
-                .padding([.vertical], 8)
-                .alignmentGuide(.leading, computeValue: { d in
-                    if (abs(width - d.width - 8) > g.size.width)
-                    {
-                        width = 0
-                        height -= d.height
-                    }
-                    let result = width
-                    if tag == CountryList.list.UTC[targetUtcTime]!.first! {
-                        width = 0 //last item
-                    } else {
-                        width -= d.width
-                    }
-                    return result
-                })
-                .alignmentGuide(.top, computeValue: {d in
-                    let result = height
-                    if tag == CountryList.list.UTC[targetUtcTime]!.first! {
-                        height = 0 // last item
-                    }
-                    return result
-                })
-            } // ForEach닫기
-        } // ZStack닫기
-        .padding(.leading, screenWidth * 0.05)
-    } // func닫기
-} // struct닫기
-
-struct MainCenterStackView_Previews: PreviewProvider {
+struct PickerView_Previews: PreviewProvider {
     static var previews: some View {
-        MainCenterStackView(
+        PickerView(
             utcOffsetHours: .constant(locationManager.currentLocationUTC),
             isShowingMainCenterStackView: .constant(true),
             currentTimeHour: .constant("--"),

@@ -1,5 +1,5 @@
 //
-//  MulticomponentPicker.swift
+//  CustomPicker.swift
 //  NC1
 //
 //  Created by kimsangwoo on 2023/06/01.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct MulticomponentPicker: UIViewRepresentable {
+struct CustomPicker: UIViewRepresentable {
     
     typealias UIViewType = UIPickerView
     
@@ -37,11 +37,11 @@ struct MulticomponentPicker: UIViewRepresentable {
     
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         
-        var parent: MulticomponentPicker
+        var parent: CustomPicker
         @Binding var dataSource: [[String]]
         @Binding var selected: [Int]
         
-        init(parent: MulticomponentPicker, dataSource: Binding<[[String]]>, selected: Binding<[Int]>) {
+        init(parent: CustomPicker, dataSource: Binding<[[String]]>, selected: Binding<[Int]>) {
             self.parent = parent
             self._dataSource = dataSource
             self._selected = selected

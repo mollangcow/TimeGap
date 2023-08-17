@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  NC1
 //  Created by kimsangwoo on 2023/06/01.
 //
@@ -8,13 +8,13 @@
 import SwiftUI
 import SwiftUIVisualEffects
 
-struct MainContentView: View {
+struct MainView: View {
     
     @State private var currentTimeHour: String = ""
     @State private var currentTimeMinute: String = ""
     @State private var currentDate: String = ""
     @State private var currentLocationName: String = ""
-    @State private var isShowingMainCenterStackView : Bool = true
+    @State private var isCenterContentView : Bool = true
     @State private var utcOffsetHours: Int = 0
     @State private var targetTimeHour: String = ""
     @State private var currentUTC: Int = 0
@@ -24,7 +24,7 @@ struct MainContentView: View {
     var body: some View {
         ZStack {
             BackColorView(
-                isShowingMainCenterStackView: $isShowingMainCenterStackView,
+                isCenterContentView: $isCenterContentView,
                 targetTimeHour: $targetTime
             )
             .onChange(of: targetTime) { newValue in
@@ -34,25 +34,25 @@ struct MainContentView: View {
             VStack {
                 // 현재 위치 기반 현재 시간과 날짜
                 Text("\(currentTimeHour):\(currentTimeMinute)")
-                    .font(.system(size: 64, weight: isShowingMainCenterStackView ? .heavy : .thin))
-                    .foregroundColor(isShowingMainCenterStackView ? .primary : .white)
+                    .font(.system(size: 64, weight: isCenterContentView ? .heavy : .thin))
+                    .foregroundColor(isCenterContentView ? .primary : .white)
                     .frame(width: screenWidth, alignment: .leading)
                     .padding(.leading, screenWidth * 0.12)
                     .padding(.top, screenWidth * 0.05)
                 Text(currentDate)
                     .font(.system(size: 17, weight: .regular))
-                    .foregroundColor(isShowingMainCenterStackView ? .primary : .white)
+                    .foregroundColor(isCenterContentView ? .primary : .white)
                     .frame(width: screenWidth, alignment: .leading)
                     .padding(.leading, screenWidth * 0.15)
                 
                 // 현재 위치
                 HStack {
-                    Image(isShowingMainCenterStackView ? "locationPin.orange" : "locationPin.white")
+                    Image(isCenterContentView ? "locationPin.orange" : "locationPin.white")
                         .resizable()
                         .frame(width: 15, height: 19)
                     Text(currentLocationName)
                         .font(.system(size: 20, weight: .heavy))
-                        .foregroundColor(isShowingMainCenterStackView ? .primary : .white)
+                        .foregroundColor(isCenterContentView ? .primary : .white)
                 } // HStack닫기
                 .frame(width: screenWidth, alignment: .trailing)
                 .padding(.trailing, screenWidth * 0.12)
@@ -61,9 +61,9 @@ struct MainContentView: View {
                 Spacer()
                 
                 // 타임 피커 뷰
-                MainCenterStackView(
+                PickerView(
                     utcOffsetHours: $utcOffsetHours,
-                    isShowingMainCenterStackView: $isShowingMainCenterStackView,
+                    isShowingMainCenterStackView: $isCenterContentView,
                     currentTimeHour: $currentTimeHour,
                     currentTimeMinute: $currentTimeMinute,
                     currentUTC: $currentUTC,
@@ -74,21 +74,21 @@ struct MainContentView: View {
                 // 세계 시간 확인 토글 버튼
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.7)) {
-                            isShowingMainCenterStackView.toggle()
+                        isCenterContentView.toggle()
                         }
                         print("ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ")
-                        print("SHOWING PICKER VIEW :", isShowingMainCenterStackView)
+                        print("SHOWING PICKER VIEW :", isCenterContentView)
                         print("ㅛㅛㅛㅛㅛㅛㅛㅛㅛㅛ")
                 }, label: {
-                    Text(isShowingMainCenterStackView ? "확인해보기" : "돌아가기")
+                    Text(isCenterContentView ? "확인해보기" : "돌아가기")
                         .foregroundColor(.white)
                         .font(.system(size: 17, weight: .black))
                         .frame(
-                            width: isShowingMainCenterStackView ? screenWidth * 0.7 : screenWidth * 0.92,
+                            width: isCenterContentView ? screenWidth * 0.7 : screenWidth * 0.92,
                             height: 70
                         )
                         .background(
-                            isShowingMainCenterStackView ? .orange : .black)
+                            isCenterContentView ? .orange : .black)
                         .cornerRadius(35)
                 }) // Button닫기
                 .onChange(of: targetTime) { newValue in
@@ -122,8 +122,8 @@ func dateToString(date: Date, dateFormat: String) -> String {
     return formattedTime
 }
 
-struct MainContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainContentView()
+        MainView()
     }
 }

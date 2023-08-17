@@ -1,5 +1,5 @@
 //
-//  LocalityModalView.swift
+//  LocalityDetailView.swift
 //  NC1
 //
 //  Created by kimsangwoo on 2023/06/06.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LocalityModalView: View {
+struct LocalityDetailView: View {
     
     @Binding var targetTimeHour: String
     @Binding var targetTimeMinute: String
@@ -150,9 +150,9 @@ struct LocalityModalView: View {
     } // func닫기
 } // struct닫기
 
-struct LocalityModalView_Previews: PreviewProvider {
+struct LocalityDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocalityModalView(
+        LocalityDetailView(
             targetTimeHour: .constant("-"),
             targetTimeMinute: .constant("--"),
             targetDate: .constant("-월 -일 -요일"),

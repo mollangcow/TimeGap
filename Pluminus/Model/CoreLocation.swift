@@ -55,7 +55,8 @@ class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
             self.currentLocationUTC = utcOffsetHours >= 0 ? utcOffsetHours : -utcOffsetHours
             
             print("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
-            print("Current UTC:", self.currentLocationUTC)
+            print(">>> run : locationManager method")
+            print("> Current UTC:", self.currentLocationUTC)
             print("ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ")
         }
     }
