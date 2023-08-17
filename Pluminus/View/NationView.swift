@@ -7,27 +7,56 @@
 
 import SwiftUI
 
-// 세계시간 뷰 하단 나라 구름 스택 뷰
 struct NationView: View {
     
     @State private var isShowingModal: Bool = false
     @State private var tappedCountry: String = ""
     
-    @Binding var targetTimeHour: String
-    @Binding var targetTimeMinute: String
-    @Binding var targetDate: String
+//    @Binding var targetTimeHour: String
+//    @Binding var targetTimeMinute: String
+//    @Binding var targetDate: String
     @Binding var pickerHour: Int
     @Binding var pickerFastOrSlow: [String]
+    @Binding var selected: [Int]
     
     let geometry: GeometryProxy
-    let targetUtcTime: Int
+//    let targetUtcTime: Int
     
-    let calcUTC: () -> Int
+//    let calcUTC: () -> Int
+    
+    func pickerResult() -> Int {
+        let value = selected[1]
+        return selected[0] == 1 ? -value : value
+    }
+    
+    func gmtHereResult() -> Int {
+        let formattedString = Date.now.formatted(.dateTime.timeZone())
+        
+        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
+           let dateOffset = Int(formattedString[range].dropFirst()) {
+            return dateOffset
+        }
+        
+        return 0
+    }
+    
+    func gmtTargetResult() -> Int {
+        let formattedString = Date.now.formatted(.dateTime.timeZone())
+        
+        let pickerValue = pickerResult()
+        
+        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
+           let dateOffset = Int(formattedString[range].dropFirst()) {
+            return dateOffset + pickerValue
+        }
+        
+        return 0
+    }
     
     var body: some View {
         VStack{
-            if let countries = CountryList.list.UTC[targetUtcTime] {
-                generateContent(in: geometry, countries: countries)
+            if let countries = CountryList.list.UTC[gmtTargetResult()] {
+                nationChips(in: geometry, countries: countries)
             } else {
                 // targetUtcTime이 nil일 때 처리할 내용
                 Spacer()
@@ -40,13 +69,14 @@ struct NationView: View {
         } // VStack닫기
         .sheet(isPresented: $isShowingModal) {
             LocalityDetailView(
-                targetTimeHour: $targetTimeHour,
-                targetTimeMinute : $targetTimeMinute,
-                targetDate: $targetDate,
+//                targetTimeHour: $targetTimeHour,
+//                targetTimeMinute : $targetTimeMinute,
+//                targetDate: $targetDate,
                 countryName: $tappedCountry,
                 pickerHour: $pickerHour,
                 pickerFastOrSlow: $pickerFastOrSlow,
-                targetUtcTime: targetUtcTime
+                selected: $selected
+//                targetUtcTime: targetUtcTime
             )
         } //sheet닫기
     } // body닫기
@@ -56,16 +86,14 @@ struct NationView: View {
             self.tappedCountry = countryName
         }
     }
-    private func generateContent(in g: GeometryProxy, countries: [Country]) -> some View {
+    private func nationChips(in g: GeometryProxy, countries: [Country]) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
         
         return ZStack(alignment: .topLeading) {
-            ForEach(CountryList.list.UTC[targetUtcTime]!, id: \.self) { tag in
+            ForEach(CountryList.list.UTC[gmtTargetResult()]!, id: \.self) { tag in
                 Button {
                     showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
-                    pickerHour = self.pickerHour
-                    pickerFastOrSlow = self.pickerFastOrSlow
                 } label: {
                     ZStack {
                         HStack {
@@ -74,9 +102,8 @@ struct NationView: View {
                                 .foregroundColor(.black)
                                 .padding(.trailing, 4)
                             if tag.isHaveLocality {
-                                Image(systemName: "ellipsis.circle.fill")
-                                    .foregroundColor(.orange)
-                                    .opacity(0)
+                                Image(systemName: "circle")
+                                    .foregroundColor(.clear)
                                     .overlay(
                                         Image(systemName: "ellipsis.circle.fill")
                                             .resizable()
@@ -91,8 +118,8 @@ struct NationView: View {
                         .cornerRadius(32)
                     } // ZStack닫기
                 } // Button닫기
-                .padding([.horizontal], 4)
-                .padding([.vertical], 8)
+                .padding(.trailing, 8)
+                .padding(.bottom, 16)
                 .alignmentGuide(.leading, computeValue: { d in
                     if (abs(width - d.width - 8) > g.size.width)
                     {
@@ -100,7 +127,7 @@ struct NationView: View {
                         height -= d.height
                     }
                     let result = width
-                    if tag == CountryList.list.UTC[targetUtcTime]!.first! {
+                    if tag == CountryList.list.UTC[gmtTargetResult()]!.first! {
                         width = 0 //last item
                     } else {
                         width -= d.width
@@ -109,13 +136,13 @@ struct NationView: View {
                 })
                 .alignmentGuide(.top, computeValue: {d in
                     let result = height
-                    if tag == CountryList.list.UTC[targetUtcTime]!.first! {
+                    if tag == CountryList.list.UTC[gmtTargetResult()]!.first! {
                         height = 0 // last item
                     }
                     return result
                 })
             } // ForEach닫기
         } // ZStack닫기
-        .padding(.leading, screenWidth * 0.05)
+        .padding(.leading, 20)
     } // func닫기
 } // struct닫기

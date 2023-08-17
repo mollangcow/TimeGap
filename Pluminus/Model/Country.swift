@@ -48,19 +48,22 @@ struct CountryList {
             -8: [
                 Country(countryName: "멕시코",
                         isHaveLocality: true,
-                        countryLocality: ["바하칼리포르니아노르테주 (멕시칼리)"]
+                        countryLocality: ["바하칼리포르니아노르테주 (멕시칼리)"
+                                         ]
                        ),
                 Country(countryName: "미국",
                         isHaveLocality: true,
                         countryLocality: ["캘리포니아주 (새크라멘토, LA)",
                                           "워싱턴주 (올림피아, 시애틀)",
                                           "네바다주 (카슨시티, 라스베이가스)",
-                                          "오리건주 (세일럼, 포틀랜드)"]
+                                          "오리건주 (세일럼, 포틀랜드)"
+                                         ]
                        ),
                 Country(countryName: "캐나다",
                         isHaveLocality: true,
                         countryLocality: ["브리티시컬럼비아주 (벤쿠버, 빅토리아)",
-                                          "유콘준주 (화이트호스)"]
+                                          "유콘준주 (화이트호스)"
+                                         ]
                        )
             ],
             -7: [
@@ -70,7 +73,8 @@ struct CountryList {
                                           "치와와주 (치와와)",
                                           "나야리트주 (테픽)",
                                           "시날로아주 (쿨리아칸)",
-                                          "소노라주 (에르모시요)"]
+                                          "소노라주 (에르모시요)"
+                                         ]
                        ),
                 Country(countryName: "미국",
                         isHaveLocality: true,
@@ -80,13 +84,15 @@ struct CountryList {
                                           "몬태나주 (헬레나, 빌링스)",
                                           "유타주 (솔트레이크시티)",
                                           "와이오밍주 (샤이엔)",
-                                          "애리조나주 (피닉스)"]
+                                          "애리조나주 (피닉스)"
+                                         ]
                        ),
                 Country(countryName: "캐나다",
                         isHaveLocality: true,
                         countryLocality: ["앨버타주 (에드먼턴, 캘거리)",
                                           "누나부트준주 서부 (쿠글루크툭)",
-                                          "노스웨스트준주 (옐로나이프)"]
+                                          "노스웨스트준주 (옐로나이프)"
+                                         ]
                        )
             ],
             -6: [
@@ -111,11 +117,15 @@ struct CountryList {
                                           "노스다코타주 (비즈마크, 파고)",
                                           "사우스다코다주 (피어, 수폴스)",
                                           "테네시주 (내슈빌)",
-                                          "텍사스주 (오스틴, 휴스턴)"]
+                                          "텍사스주 (오스틴, 휴스턴)"
+                                         ]
                        ),
                 Country(countryName: "캐나다",
                         isHaveLocality: true,
-                        countryLocality: ["서스캐처원주 (리자이나, 새스커툰)", "누나부트준주 중부 (랭킷인라잇)", "매니토바주 (위니펙)"]
+                        countryLocality: ["서스캐처원주 (리자이나, 새스커툰)",
+                                          "누나부트준주 중부 (랭킷인라잇)",
+                                          "매니토바주 (위니펙)"
+                                         ]
                        ),
                 Country(countryName: "멕시코",
                         isHaveLocality: true,
@@ -143,7 +153,8 @@ struct CountryList {
                                           "타바스코주 (비야에르모사)",
                                           "캄페체주 (캄페체)",
                                           "치아파스주 (툭스틀라구티에레스)",
-                                          "유카탄주 (메리다)"]
+                                          "유카탄주 (메리다)"
+                                         ]
                        ),
                 Country(countryName: "과테말라",
                         isHaveLocality: false,
@@ -190,13 +201,15 @@ struct CountryList {
                                           "플로리다주 (탤러해시, 잭슨빌)",
                                           "인디애나주 (인디애나폴리스)",
                                           "미시간주 (랜싱, 디트로이트)",
-                                          "켄터키주 (프랭크퍼트, 루이빌)"]
+                                          "켄터키주 (프랭크퍼트, 루이빌)"
+                                         ]
                        ),
                 Country(countryName: "캐나다",
                         isHaveLocality: true,
                         countryLocality: ["누나부투준주 동부 (이칼루이트)",
                                           "온타리오주 (토론토)",
-                                          "퀘백주 (퀘벡, 몬트리올)"]
+                                          "퀘백주 (퀘벡, 몬트리올)"
+                                         ]
                        ),
                 Country(countryName: "자메이카",
                         isHaveLocality: false,
@@ -234,11 +247,18 @@ struct CountryList {
                        ),
                 Country(countryName: "캐나다",
                         isHaveLocality: true,
-                        countryLocality: ["뉴브런즈윅주 (프레더릭턴, 멍크턴)", "뉴펀들랜드 래브라도주 (세인트존스)"]
+                        countryLocality: ["뉴브런즈윅주 (프레더릭턴, 멍크턴)",
+                                          "뉴펀들랜드 래브라도주 (세인트존스)"
+                                         ]
                        ),
                 Country(countryName: "브라질",
                         isHaveLocality: true,
-                        countryLocality: ["아마조나스주 (마나우스)", "혼도니아주 (포르투벨류)", "호라이마주 (보아비스타)", "마투그로수주 (쿠이아바)", "마투그로수두술주 (캄푸그란지)"]
+                        countryLocality: ["아마조나스주 (마나우스)",
+                                          "혼도니아주 (포르투벨류)",
+                                          "호라이마주 (보아비스타)",
+                                          "마투그로수주 (쿠이아바)",
+                                          "마투그로수두술주 (캄푸그란지)"
+                                         ]
                        ),
                 Country(countryName: "칠레",
                         isHaveLocality: false,
@@ -262,7 +282,8 @@ struct CountryList {
                                           "도미니카 공화국 (산토도밍고)",
                                           "과들루프 (바스테르)",
                                           "마르티니크 (포르드프랑스)",
-                                          "신트마르턴 (필립스뷔르흐)"]
+                                          "신트마르턴 (필립스뷔르흐)"
+                                         ]
                        ),
                 Country(countryName: "가이아나",
                         isHaveLocality: false,
@@ -421,7 +442,8 @@ struct CountryList {
                                           "스페인 (마그리드)",
                                           "스웨덴 (스톡홀름)",
                                           "스위스 (베른)",
-                                          "바티칸 시국 (바티칸)"]
+                                          "바티칸 시국 (바티칸)"
+                                         ]
                        ),
                 Country(countryName: "모로코",
                         isHaveLocality: false,
@@ -455,7 +477,8 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["킬리닌그라두즈 (킬리닌그라드)"]
+                        countryLocality: ["킬리닌그라두즈 (킬리닌그라드)"
+                                         ]
                        ),
                 Country(countryName: "중앙아프리카",
                         isHaveLocality: true,
@@ -473,7 +496,8 @@ struct CountryList {
                                           "짐바브웨 (하라레)",
                                           "나미비아 (빈트후크)",
                                           "남아프리카 공화국 (케이프타운)",
-                                          "수단 (하르툼, 옴두르만)"]
+                                          "수단 (하르툼, 옴두르만)"
+                                         ]
                        ),
                 Country(countryName: "동유럽",
                         isHaveLocality: true,
@@ -486,7 +510,8 @@ struct CountryList {
                                           "리투아니아 (빌뉴스)",
                                           "몰도바 (키시너우)",
                                           "루마니아 (부쿠레슈티)",
-                                          "우크라이나 (키이우)"]
+                                          "우크라이나 (키이우)"
+                                         ]
                        ),
                 Country(countryName: "레바논",
                         isHaveLocality: false,
@@ -500,11 +525,26 @@ struct CountryList {
             3: [
                 Country(countryName: "중동",
                         isHaveLocality: true,
-                        countryLocality: ["바레인 (마나마)", "이라크 (바그다드)", "요르단 (암만)", "쿠웨이트 (쿠웨이트)", "사우디아라비아 (리야드)", "예멘 (사나)", "카타르 (도하)", "시리아 (다마스쿠스)", "튀르키예 (앙카라)"]
+                        countryLocality: ["바레인 (마나마)",
+                                          "이라크 (바그다드)",
+                                          "요르단 (암만)",
+                                          "쿠웨이트 (쿠웨이트)",
+                                          "사우디아라비아 (리야드)",
+                                          "예멘 (사나)",
+                                          "카타르 (도하)",
+                                          "시리아 (다마스쿠스)",
+                                          "튀르키예 (앙카라)"
+                                         ]
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["모스크바", "상트페테르부르크", "로스토프나도누", "노바야제믈랴 제도", "제믈랴프란차이오시파 제도", "크림 공화국 (크림 반도)"]
+                        countryLocality: ["모스크바",
+                                          "상트페테르부르크",
+                                          "로스토프나도누",
+                                          "노바야제믈랴 제도",
+                                          "제믈랴프란차이오시파 제도",
+                                          "크림 공화국 (크림 반도)"
+                                         ]
                        ),
                 Country(countryName: "남수단",
                         isHaveLocality: false,
@@ -542,7 +582,10 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["사마라주 (사마라)", "우드무르트 공화국 (이젭스크)", "아스트라한주 (아스트라한)"]
+                        countryLocality: ["사마라주 (사마라)",
+                                          "우드무르트 공화국 (이젭스크)",
+                                          "아스트라한주 (아스트라한)"
+                                         ]
                        ),
                 Country(countryName: "아랍에미리트",
                         isHaveLocality: false,
@@ -576,7 +619,14 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["바시키르 공화국 (우파)", "첼랴빈스크주 (첼랴빈스크)", "쿠르간주 (쿠르간)", "오렌부르크주 (오렌부르크)", "페름 변경주 (페름)", "스베르들롭스크주 (예카테린부르크)", "튜멘주 (튜멘)"]
+                        countryLocality: ["바시키르 공화국 (우파)",
+                                          "첼랴빈스크주 (첼랴빈스크)",
+                                          "쿠르간주 (쿠르간)",
+                                          "오렌부르크주 (오렌부르크)",
+                                          "페름 변경주 (페름)",
+                                          "스베르들롭스크주 (예카테린부르크)",
+                                          "튜멘주 (튜멘)"
+                                         ]
                        ),
                 Country(countryName: "투르크메니스탄",
                         isHaveLocality: false,
@@ -624,11 +674,22 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["알타이 공화국 (고르노알타이스크)", "케메로보주 (케메로보)", "하카스 공화국 (아바칸)", "크라스노야르스크주 (크라스노야르스크)", "노보시비르스크주 (노보시비르스크)", "톰스크주 (톰스크)", "투바 공화국 (키질)"]
+                        countryLocality: ["알타이 공화국 (고르노알타이스크)",
+                                          "케메로보주 (케메로보)",
+                                          "하카스 공화국 (아바칸)",
+                                          "크라스노야르스크주 (크라스노야르스크)",
+                                          "노보시비르스크주 (노보시비르스크)",
+                                          "톰스크주 (톰스크)",
+                                          "투바 공화국 (키질)"
+                                         ]
                        ),
                 Country(countryName: "인도네시아",
                         isHaveLocality: true,
-                        countryLocality: ["중앙칼리만탄주 (팔랑카라야)", "서칼리만탄주 (폰티아낙)", "수마트라섬 (메단)", "자와섬 (자카르타)"]
+                        countryLocality: ["중앙칼리만탄주 (팔랑카라야)",
+                                          "서칼리만탄주 (폰티아낙)",
+                                          "수마트라섬 (메단)",
+                                          "자와섬 (자카르타)"
+                                         ]
                        ),
                 Country(countryName: "태국",
                         isHaveLocality: false,
@@ -650,11 +711,16 @@ struct CountryList {
                        ),
                 Country(countryName: "인도네시아",
                         isHaveLocality: true,
-                        countryLocality: ["동칼리만탄주 (사마린다, 발릭파판)", "남칼리만탄주 (반자르바루, 반자르마신)", "술라웨시섬 (마카사르, 마나도)"]
+                        countryLocality: ["동칼리만탄주 (사마린다, 발릭파판)",
+                                          "남칼리만탄주 (반자르바루, 반자르마신)",
+                                          "술라웨시섬 (마카사르, 마나도)"
+                                         ]
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["부랴트 공화국 (울란우데)", "이르쿠츠크주 (이르쿠츠크)"]
+                        countryLocality: ["부랴트 공화국 (울란우데)",
+                                          "이르쿠츠크주 (이르쿠츠크)"
+                                         ]
                        ),
                 Country(countryName: "대만",
                         isHaveLocality: false,
@@ -688,11 +754,17 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["아무르주 (블라고베센스크)", "자바이칼 변경주 (치타)", "사하 공화국 (야쿠츠크)"]
+                        countryLocality: ["아무르주 (블라고베센스크)",
+                                          "자바이칼 변경주 (치타)",
+                                          "사하 공화국 (야쿠츠크)"
+                                         ]
                        ),
                 Country(countryName: "인도네시아",
                         isHaveLocality: true,
-                        countryLocality: ["말루쿠 제도", "파푸아주 (자야푸라)", "서파푸아주 (마노콰리)"]
+                        countryLocality: ["말루쿠 제도",
+                                          "파푸아주 (자야푸라)",
+                                          "서파푸아주 (마노콰리)"
+                                         ]
                        ),
                 Country(countryName: "일본",
                         isHaveLocality: false,
@@ -718,15 +790,24 @@ struct CountryList {
                        ),
                 Country(countryName: "미국",
                         isHaveLocality: true,
-                        countryLocality: ["괌 (하갓냐)", "북마리나 제도 (사이판)"]
+                        countryLocality: ["괌 (하갓냐)",
+                                          "북마리나 제도 (사이판)"
+                                         ]
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["프리모르스키 변경주 (블라디보스토크)", "하바롭스크 변경주 (하바롭스크)"]
+                        countryLocality: ["프리모르스키 변경주 (블라디보스토크)",
+                                          "하바롭스크 변경주 (하바롭스크)"
+                                         ]
                        ),
                 Country(countryName: "호주",
                         isHaveLocality: true,
-                        countryLocality: ["퀸즐랜드주 (브리즈번)", "수도 특구 (캔버라)", "뉴사우스웨일스주 (시드니)", "태즈메이니아주 (호바트)", "빅토리아주 (멜버른)"]
+                        countryLocality: ["퀸즐랜드주 (브리즈번)",
+                                          "수도 특구 (캔버라)",
+                                          "뉴사우스웨일스주 (시드니)",
+                                          "태즈메이니아주 (호바트)",
+                                          "빅토리아주 (멜버른)"
+                                         ]
                        )
             ],
             11: [
@@ -736,7 +817,9 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["마가단주 (마가단)", "사할린주 (유즈노사할린스크)"]
+                        countryLocality: ["마가단주 (마가단)",
+                                          "사할린주 (유즈노사할린스크)"
+                                         ]
                        ),
                 Country(countryName: "바누아투",
                         isHaveLocality: false,
@@ -758,7 +841,9 @@ struct CountryList {
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["축지 자치구 (아나디리)", "캄차카 변경주 (페르로파블롭스크캄차츠키)"]
+                        countryLocality: ["축지 자치구 (아나디리)",
+                                          "캄차카 변경주 (페트로파블롭스크캄차츠키)"
+                                         ]
                        ),
                 Country(countryName: "피지",
                         isHaveLocality: false,
@@ -811,8 +896,4 @@ struct CountryList {
             ]
         ]
     )
-}
-
-class CountryDetailList {
-    
 }

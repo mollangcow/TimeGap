@@ -10,26 +10,27 @@ import SwiftUIVisualEffects
 
 struct MainView: View {
     
-    @State private var currentTimeHour: String = ""
-    @State private var currentTimeMinute: String = ""
-    @State private var currentDate: String = ""
+//    @State private var currentTimeHour: String = ""
+//    @State private var currentTimeMinute: String = ""
+//    @State private var currentDate: String = ""
     @State private var currentLocationName: String = ""
     @State private var isPickerView : Bool = true
-    @State private var utcOffsetHours: Int = 0
-    @State private var targetTimeHour: String = ""
-    @State private var currentUTC: Int = 0
-    @State var targetTime: String = ""
+//    @State private var utcOffsetHours: Int = 0
+//    @State private var targetTimeHour: String = ""
+//    @State private var currentUTC: Int = 0
+//    @State var targetTime: String = ""
     @State var selected: [Int] = [0, 0]
+
     
     var body: some View {
         ZStack {
             BackColorView(
-                isPickerView: $isPickerView,
-                targetTimeHour: $targetTime
+                isPickerView: $isPickerView
+//                targetTimeHour: $targetTime
             )
-            .onChange(of: targetTime) { newValue in
-                targetTime = newValue
-            }
+//            .onChange(of: targetTime) { newValue in
+//                targetTime = newValue
+//            }
             
             VStack {
                 HStack {
@@ -65,12 +66,12 @@ struct MainView: View {
                 
                 // 타임 피커 뷰
                 PickerView(
-                    utcOffsetHours: $utcOffsetHours,
+//                    utcOffsetHours: $utcOffsetHours,
                     isPickerView: $isPickerView,
-                    currentTimeHour: $currentTimeHour,
-                    currentTimeMinute: $currentTimeMinute,
-                    currentUTC: $currentUTC,
-                    targetTime: $targetTime,
+//                    currentTimeHour: $currentTimeHour,
+//                    currentTimeMinute: $currentTimeMinute,
+//                    currentUTC: $currentUTC,
+//                    targetTime: $targetTime,
                     selected: $selected
                 )
                 
@@ -90,24 +91,25 @@ struct MainView: View {
                     }
                     .padding(.bottom, 30)
                 }) // Button닫기
-                .onChange(of: targetTime) { newValue in
-                    targetTimeHour = newValue
-                }
+//                .onChange(of: targetTime) { newValue in
+//                    targetTimeHour = newValue
+//                }
             } // VStack닫기
             
             // 위치 기반 현재 시간 받기
-            .onReceive(locationManager.$date) { newDate in
-                self.currentTimeHour = dateToString(date: newDate, dateFormat: "HH")
-                self.currentTimeMinute = dateToString(date: newDate, dateFormat: "mm")
-                self.currentDate = dateToString(date: newDate, dateFormat: "M월 d일 E요일")
-                self.currentUTC = locationManager.currentLocationUTC
-            }
+//            .onReceive(locationManager.$date) { newDate in
+//                self.currentTimeHour = dateToString(date: newDate, dateFormat: "HH")
+//                self.currentTimeMinute = dateToString(date: newDate, dateFormat: "mm")
+//                self.currentDate = dateToString(date: newDate, dateFormat: "M월 d일 E요일")
+//                self.currentUTC = locationManager.currentLocationUTC
+//            }
             
             // 위치 기반 지역명 받기
             .onReceive(locationManager.$currentLocationName) { newLocation in
                 self.currentLocationName = newLocation
             }
         } // ZStack닫기
+        .statusBarHidden()
     } // body닫기
 } // struct닫기
 

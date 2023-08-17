@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 
-// 중앙 스택 뷰 (타임 피커 + 세계 시간)
 struct PickerView: View {
 
     @StateObject var locationManager = MyLocationManager()
@@ -16,25 +15,25 @@ struct PickerView: View {
     @State private var dataSource: [[String]] = [["+","-"], []]
     @State private var pickerFastOrSlow: [String] = ["빠른", "+"]
     @State var pickerHour: Int = 0
-    @State var targetTimeHour: String = "-"
-    @State private var targetTimeMinute: String = "--"
-    @State private var targetDate: String = "-월 -일 -요일"
+//    @State var targetTimeHour: String = "-"
+//    @State private var targetTimeMinute: String = "--"
+//    @State private var targetDate: String = "-월 -일 -요일"
     
     @Binding var selected: [Int]
-    @Binding var currentUTC: Int
-    @Binding var utcOffsetHours: Int
+//    @Binding var currentUTC: Int
+//    @Binding var utcOffsetHours: Int
     @Binding var isPickerView: Bool
-    @Binding var currentTimeHour: String
-    @Binding var currentTimeMinute: String
-    @Binding var targetTime: String
+//    @Binding var currentTimeHour: String
+//    @Binding var currentTimeMinute: String
+//    @Binding var targetTime: String
     
-    init(utcOffsetHours: Binding<Int>, isPickerView: Binding<Bool>, currentTimeHour: Binding<String>, currentTimeMinute: Binding<String>, currentUTC: Binding<Int>, targetTime: Binding<String>, selected: Binding<[Int]>) {
-        self._utcOffsetHours = utcOffsetHours
+    init(isPickerView: Binding<Bool>, selected: Binding<[Int]>) {
+//        self._utcOffsetHours = utcOffsetHours
         self._isPickerView = isPickerView
-        self._currentTimeHour = currentTimeHour
-        self._currentTimeMinute = currentTimeMinute
-        self._currentUTC = currentUTC
-        self._targetTime = targetTime
+//        self._currentTimeHour = currentTimeHour
+//        self._currentTimeMinute = currentTimeMinute
+//        self._currentUTC = currentUTC
+//        self._targetTime = targetTime
         self._selected = selected
         
         _ = self.hourRange
@@ -45,9 +44,33 @@ struct PickerView: View {
         return selected[0] == 1 ? -value : value
     }
     
+    func gmtHereResult() -> Int {
+        let formattedString = Date.now.formatted(.dateTime.timeZone())
+        
+        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
+           let dateOffset = Int(formattedString[range].dropFirst()) {
+            return dateOffset
+        }
+        
+        return 0
+    }
+    
+    func gmtTargetResult() -> Int {
+        let formattedString = Date.now.formatted(.dateTime.timeZone())
+        
+        let pickerValue = pickerResult()
+        
+        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
+           let dateOffset = Int(formattedString[range].dropFirst()) {
+            return dateOffset + pickerValue
+        }
+        
+        return 0
+    }
+    
     private var hourRange: ClosedRange<Int> {
-        var wrappedUTC = currentUTC <= -11 ? -10 : currentUTC
-        wrappedUTC = currentUTC >= 14 ? 13 : currentUTC
+        var wrappedUTC = gmtHereResult() <= -11 ? -10 : gmtHereResult()
+        wrappedUTC = gmtHereResult() >= 14 ? 13 : gmtHereResult()
         
         if selected[0] == 0 {
             let min = 0
@@ -78,14 +101,14 @@ struct PickerView: View {
                             pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
-                            _ = calcUTC()
+                            _ = gmtTargetResult()
                         }
                         .onChange(of: selected[1]) { newValue in
                             print(">>>>> PICKER OnChange(selected[1])")
                             pickerHour = newValue
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
-                            _ = calcUTC()
+                            _ = gmtTargetResult()
                         }
                         .onChange(of: dataSource) { newValue in
                             print(">>>>> PICKER OnChange(dataSource)")
@@ -94,14 +117,14 @@ struct PickerView: View {
                         }
                         .onAppear(perform: {
                             print(">>>>> PICKER OnAppear")
-                            _ = calcUTC()
+                            _ = gmtTargetResult()
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
                         })
                         .onDisappear {
                             print(">>>>> PICKER OnDisappear")
-                            _ = calcUTC()
-                            targetTime = targetTimeHour
+                            _ = gmtTargetResult()
+//                            targetTime = targetTimeHour
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
                         }
@@ -119,21 +142,23 @@ struct PickerView: View {
                 // 세계시간 뷰
                 GeometryReader { geometry in
                     VStack(alignment: .leading) {
-                        HStack(alignment: .bottom) {
-                            // 시차 그래프
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(
-                                    LinearGradient(gradient: Gradient(colors: [.white.opacity(0), .white.opacity(1)]),
-                                                   startPoint: .top, endPoint: .bottom)
-                                )
-                                .frame(width: 2, height: calcRoundedRectangleHeight(pickerHour: pickerHour))
-                                .padding(.leading, screenWidth * 0.13)
-                            Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
-                                .font(.system(size: 12))
-                                .foregroundColor(.white)
+                        VStack {
+                            HStack(alignment: .bottom) {
+                                RoundedRectangle(cornerRadius: 2)
+                                    .fill(
+                                        LinearGradient(gradient: Gradient(colors: [.white.opacity(0), .white.opacity(1)]),
+                                                       startPoint: .top, endPoint: .bottom)
+                                    )
+                                    .frame(width: 2, height: calcRoundedRectangleHeight(pickerHour: pickerHour))
+                                    .padding(.leading, screenWidth * 0.13)
+                                Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            Spacer()
                         }
-                        
-                        Spacer()
+                        .frame(height: screenHeight * 0.2)
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -149,16 +174,21 @@ struct PickerView: View {
                             .frame(height: 120)
                         }
                         
-                        NationView(
-                            targetTimeHour: $targetTimeHour,
-                            targetTimeMinute: $targetTimeMinute,
-                            targetDate: $targetDate,
-                            pickerHour: $pickerHour,
-                            pickerFastOrSlow: $pickerFastOrSlow, // 첫 번째 인덱스의 값을 바인딩
-                            geometry: geometry,
-                            targetUtcTime: calcUTC(),
-                            calcUTC: calcUTC
-                        )
+//                        ScrollView {
+                            NationView(
+//                                targetTimeHour: $targetTimeHour,
+//                                targetTimeMinute: $targetTimeMinute,
+//                                targetDate: $targetDate,
+                                pickerHour: $pickerHour,
+                                pickerFastOrSlow: $pickerFastOrSlow,
+                                selected: $selected,
+                                geometry: geometry
+//                                targetUtcTime: calcUTC(),
+//                                calcUTC: calcUTC
+                            )
+//                        }
+//                        .frame(width: 350)
+//                        .scrollIndicators(.hidden)
                     } // VStack닫기
                 } // GeometryReader닫기
             } // if닫기
@@ -183,62 +213,62 @@ struct PickerView: View {
     }
     
     // 타임 피커와 UTC간 시차 계산 메서드
-    func calcUTC() -> Int {
-        print("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
-        print(">>> run : calcUTC method")
-
-        let date = Date.now
-        let targetUTC: Int
-        
-        if pickerFastOrSlow[0] == "빠른" {
-            targetUTC = locationManager.currentLocationUTC + pickerHour
-        } else {
-            targetUTC = locationManager.currentLocationUTC - pickerHour
-        }
-        
-        // targetUtcTime값에 따라 targetTime을 업데이트
-        let formatter = DateFormatter()
-        let offsetSeconds = targetUTC * 3600 // 시간 차이를 초 단위로 변환
-        let timeZone = TimeZone(secondsFromGMT: offsetSeconds)
-        formatter.timeZone = timeZone
-        formatter.locale = Locale(identifier: "ko_KR")
-        
-        // 타겟 시간 관련 포맷
-        formatter.dateFormat = "HH"
-        let targetTimeHour = formatter.string(from: date)
-        targetTime = targetTimeHour
-        formatter.dateFormat = "mm"
-        let targetTimeMinute = formatter.string(from: date)
-        
-        print("> TARGET HH:mm :",targetTimeHour, ":", targetTimeMinute)
-        
-        // 타겟 날짜 관련 포맷
-        formatter.dateFormat = "M월 d일 E요일"
-        let targetDate = formatter.string(from: date)
-        
-        DispatchQueue.main.async {
-            self.targetTimeHour = targetTimeHour
-            self.targetTimeMinute = targetTimeMinute
-            self.targetDate = targetDate
-        }
-        
-        print("> UTC Time Calc: \(locationManager.currentLocationUTC) \(pickerFastOrSlow[1]) \(pickerHour) = \(targetUTC)")
-        print("> TARGET DATE :",targetDate)
-        print("ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ")
-        
-        return targetUTC
-    } // calcUTC 메서드 닫기
+//    func calcUTC() -> Int {
+//        print("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
+//        print(">>> run : calcUTC method")
+//
+//        let date = Date.now
+//        let targetUTC: Int
+//
+//        if pickerFastOrSlow[0] == "빠른" {
+//            targetUTC = locationManager.currentLocationUTC + pickerHour
+//        } else {
+//            targetUTC = locationManager.currentLocationUTC - pickerHour
+//        }
+//
+//        // targetUtcTime값에 따라 targetTime을 업데이트
+//        let formatter = DateFormatter()
+//        let offsetSeconds = targetUTC * 3600 // 시간 차이를 초 단위로 변환
+//        let timeZone = TimeZone(secondsFromGMT: offsetSeconds)
+//        formatter.timeZone = timeZone
+//        formatter.locale = Locale(identifier: "ko_KR")
+//
+//        // 타겟 시간 관련 포맷
+//        formatter.dateFormat = "HH"
+//        let targetTimeHour = formatter.string(from: date)
+//        targetTime = targetTimeHour
+//        formatter.dateFormat = "mm"
+//        let targetTimeMinute = formatter.string(from: date)
+//
+//        print("> TARGET HH:mm :",targetTimeHour, ":", targetTimeMinute)
+//
+//        // 타겟 날짜 관련 포맷
+//        formatter.dateFormat = "M월 d일 E요일"
+//        let targetDate = formatter.string(from: date)
+//
+//        DispatchQueue.main.async {
+//            self.targetTimeHour = targetTimeHour
+//            self.targetTimeMinute = targetTimeMinute
+//            self.targetDate = targetDate
+//        }
+//
+//        print("> UTC Time Calc: \(locationManager.currentLocationUTC) \(pickerFastOrSlow[1]) \(pickerHour) = \(targetUTC)")
+//        print("> TARGET DATE :",targetDate)
+//        print("ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ")
+//
+//        return targetUTC
+//    } // calcUTC 메서드 닫기
 } // struct닫기
 
 struct PickerView_Previews: PreviewProvider {
     static var previews: some View {
         PickerView(
-            utcOffsetHours: .constant(locationManager.currentLocationUTC),
+//            utcOffsetHours: .constant(locationManager.currentLocationUTC),
             isPickerView: .constant(true),
-            currentTimeHour: .constant("--"),
-            currentTimeMinute: .constant("--"),
-            currentUTC: .constant(0),
-            targetTime: .constant("--"),
+//            currentTimeHour: .constant("--"),
+//            currentTimeMinute: .constant("--"),
+//            currentUTC: .constant(0),
+//            targetTime: .constant("--"),
             selected: .constant([0, 0])
         )
     }
