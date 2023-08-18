@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
-import SwiftUIVisualEffects
 
 struct MainView: View {
 
     @State private var currentLocationName: String = ""
     @State private var isPickerView : Bool = true
     @State private var selected: [Int] = [0, 0]
-
     
     var body: some View {
         ZStack {
