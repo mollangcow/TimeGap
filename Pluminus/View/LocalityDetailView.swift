@@ -9,12 +9,13 @@ import SwiftUI
 
 struct LocalityDetailView: View {
     
+    @State var currentCountryList: [String] = []
+    
     @Binding var countryName: String
     @Binding var pickerFastOrSlow: [String]
     @Binding var pickerHour: Int
     @Binding var selected: [Int]
     
-    @State var currentCountryList: [String] = []
     
     init(countryName: Binding<String>, pickerHour: Binding<Int>, pickerFastOrSlow: Binding<[String]>, selected: Binding<[Int]>) {
         self._countryName = countryName
@@ -52,6 +53,17 @@ struct LocalityDetailView: View {
         return 0
     }
     
+    func targetHourResult() -> Int {
+        let formattedString = Date.currentTime(timeZoneOffset: pickerResult())
+        
+        if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
+           let timeOffset = Int(formattedString[range].dropLast()) {
+            return timeOffset
+        }
+        
+        return 0
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -60,7 +72,7 @@ struct LocalityDetailView: View {
                         .frame(width: screenWidth * 0.9, height: screenHeight * 0.13)
                         .padding(.top, screenHeight * 0.02)
                         .foregroundColor(
-                            .white
+                            getBackgroundColor()
                         )
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading) {
@@ -126,47 +138,47 @@ struct LocalityDetailView: View {
         } // NavigationView닫기
     } // body닫기
     
-//    func getBackgroundColor() -> Color {
-//        if targetTimeHour == "05" || targetTimeHour == "06" {
-//            return Color.G0506_Top
-//        }
-//        else if targetTimeHour == "07" || targetTimeHour == "08" {
-//            return Color.G0708_Top
-//        }
-//        else if targetTimeHour == "09" || targetTimeHour == "10" {
-//            return Color.G0910_Top
-//        }
-//        else if targetTimeHour == "11" || targetTimeHour == "12" {
-//            return Color.G1112_Top
-//        }
-//        else if targetTimeHour == "13" || targetTimeHour == "14" {
-//            return Color.G1314_Top
-//        }
-//        else if targetTimeHour == "15" || targetTimeHour == "16" {
-//            return Color.G1516_Top
-//        }
-//        else if targetTimeHour == "17" || targetTimeHour == "18" {
-//            return Color.G1718_Top
-//        }
-//        else if targetTimeHour == "19" || targetTimeHour == "20" {
-//            return Color.G1920_Top
-//        }
-//        else if targetTimeHour == "21" || targetTimeHour == "22" {
-//            return Color.G2122_Top
-//        }
-//        else if targetTimeHour == "23" || targetTimeHour == "00" {
-//            return Color.G2300_Top
-//        }
-//        else if targetTimeHour == "01" || targetTimeHour == "02" {
-//            return Color.G0102_Top
-//        }
-//        else if targetTimeHour == "03" || targetTimeHour == "04" {
-//            return Color.G0304_Top
-//        }
-//        else {
-//            return Color.primary
-//        }
-//    } // func닫기
+    func getBackgroundColor() -> Color {
+        if targetHourResult() == 1 || targetHourResult() == 2 {
+            return Color.G0102_Top
+        }
+        else if targetHourResult() == 3 || targetHourResult() == 4 {
+            return Color.G0304_Top
+        }
+        else if targetHourResult() == 5 || targetHourResult() == 6 {
+            return Color.G0506_Top
+        }
+        else if targetHourResult() == 7 || targetHourResult() == 8 {
+            return Color.G0708_Top
+        }
+        else if targetHourResult() == 9 || targetHourResult() == 10 {
+            return Color.G0910_Top
+        }
+        else if targetHourResult() == 11 || targetHourResult() == 12 {
+            return Color.G1112_Top
+        }
+        else if targetHourResult() == 13 || targetHourResult() == 14 {
+            return Color.G1314_Top
+        }
+        else if targetHourResult() == 15 || targetHourResult() == 16 {
+            return Color.G1516_Top
+        }
+        else if targetHourResult() == 17 || targetHourResult() == 18 {
+            return Color.G1718_Top
+        }
+        else if targetHourResult() == 19 || targetHourResult() == 20 {
+            return Color.G1920_Top
+        }
+        else if targetHourResult() == 21 || targetHourResult() == 22 {
+            return Color.G2122_Top
+        }
+        else if targetHourResult() == 23 || targetHourResult() == 0 {
+            return Color.G2300_Top
+        }
+        else {
+            return Color.primary
+        }
+    } // func닫기
 } // struct닫기
 
 struct LocalityDetailView_Previews: PreviewProvider {

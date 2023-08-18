@@ -16,7 +16,8 @@ struct MainView: View {
     var body: some View {
         ZStack {
             BackColorView(
-                isPickerView: $isPickerView
+                isPickerView: $isPickerView,
+                selected: $selected
             )
             
             VStack {

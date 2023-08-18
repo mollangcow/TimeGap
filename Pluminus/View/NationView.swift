@@ -48,7 +48,7 @@ struct NationView: View {
     
     var body: some View {
         VStack{
-            if let countries = CountryList.list.UTC[gmtTargetResult()] {
+            if CountryList.list.UTC[gmtTargetResult()] != nil {
                 WrappingHStack(CountryList.list.UTC[gmtTargetResult()]!, id: \.self) { tag in
                     Button {
                         showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
@@ -79,7 +79,6 @@ struct NationView: View {
                     } // Button닫기
                 } // WrappingHStack
                 .padding(.leading, 20)
-                .background(.red)
             } else {
                 Spacer()
                 Text("다시 시도해주세요.")
