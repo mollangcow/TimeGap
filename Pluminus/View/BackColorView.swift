@@ -7,8 +7,43 @@
 
 import SwiftUI
 
-struct BackColorView: View {
+enum TimeGradient {
+    case G0001, G0203, G0405, G0607, G0809, G1011, G1213, G1415, G1617, G1819, G2021, G2223, GNone
+    
+    @ViewBuilder var gradient: some View {
+        switch self {
+        case .G0001:
+            Gradient0001()
+        case .G0203:
+            Gradient0203()
+        case .G0405:
+            Gradient0405()
+        case .G0607:
+            Gradient0607()
+        case .G0809:
+            Gradient0809()
+        case .G1011:
+            Gradient1011()
+        case .G1213:
+            Gradient1213()
+        case .G1415:
+            Gradient1415()
+        case .G1617:
+            Gradient1617()
+        case .G1819:
+            Gradient1819()
+        case .G2021:
+            Gradient2021()
+        case .G2223:
+            Gradient2223()
+        case .GNone:
+            GradientNone()
+        }
+    }
+}
 
+struct BackColorView: View {
+    
     @Binding var isPickerView: Bool
     @Binding var selected: [Int]
     
@@ -30,67 +65,42 @@ struct BackColorView: View {
     
     var body: some View {
         ZStack {
-            if isPickerView {
-                EmptyView()
-            } else {
-                getBackgroundColor()
+            if !isPickerView {
+                getBackgroundColor(targetHourResult: targetHourResult())
                     .edgesIgnoringSafeArea(.all)
             }
         }
     } // body닫기
-
-    func getBackgroundColor() -> LinearGradient {
-        if targetHourResult() == 1 || targetHourResult() == 2 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G0102_Top, Color.G0102_Center, Color.G0102_Bottom]),
-                            startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 3 || targetHourResult() == 4 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G0304_Top, Color.G0304_Center, Color.G0304_Bottom]),
-                            startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 5 || targetHourResult() == 6 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G0506_Top, Color.G0506_Center, Color.G0506_Bottom]),
-                            startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 7 || targetHourResult() == 8 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G0708_Top, Color.G0708_Center, Color.G0708_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 9 || targetHourResult() == 10 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G0910_Top, Color.G0910_Center, Color.G0910_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 11 || targetHourResult() == 12 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G1112_Top, Color.G1112_Center, Color.G1112_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 13 || targetHourResult() == 14 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G1314_Top, Color.G1314_Center, Color.G1314_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 15 || targetHourResult() == 16 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G1516_Top, Color.G1516_Center, Color.G1516_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 17 || targetHourResult() == 18 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G1718_Top, Color.G1718_Center, Color.G1718_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 19 || targetHourResult() == 20 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G1920_Top, Color.G1920_Center, Color.G1920_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 21 || targetHourResult() == 22 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G2122_Top, Color.G2122_Center, Color.G2122_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else if targetHourResult() == 23 || targetHourResult() == 0 {
-            return LinearGradient(gradient: Gradient(colors: [Color.G2300_Top, Color.G2300_Center, Color.G2300_Bottom]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-        else {
-            return LinearGradient(gradient: Gradient(colors: [Color.primary, Color.primary, Color.primary]),
-                           startPoint: .center, endPoint: .bottom)
-        }
-    } // func닫기
 } // struct닫기
+
+func getBackgroundColor(targetHourResult: Int) -> some View {
+    switch targetHourResult {
+    case 0...1:
+        return TimeGradient.G0001.gradient
+    case 2...3:
+        return TimeGradient.G0203.gradient
+    case 4...5:
+        return TimeGradient.G0405.gradient
+    case 6...7:
+        return TimeGradient.G0607.gradient
+    case 8...9:
+        return TimeGradient.G0809.gradient
+    case 10...11:
+        return TimeGradient.G1011.gradient
+    case 12...13:
+        return TimeGradient.G1213.gradient
+    case 14...15:
+        return TimeGradient.G1415.gradient
+    case 16...17:
+        return TimeGradient.G1617.gradient
+    case 18...19:
+        return TimeGradient.G1819.gradient
+    case 20...21:
+        return TimeGradient.G2021.gradient
+    case 22...23:
+        return TimeGradient.G2223.gradient
+    default:
+        return TimeGradient.GNone.gradient
+    }
+}
+

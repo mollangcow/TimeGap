@@ -91,8 +91,8 @@ struct NationView: View {
         .sheet(isPresented: $isShowingModal) {
             LocalityDetailView(
                 countryName: $tappedCountry,
-                pickerHour: $pickerHour,
                 pickerFastOrSlow: $pickerFastOrSlow,
+                pickerHour: $pickerHour,
                 selected: $selected
             )
         } //sheet닫기
