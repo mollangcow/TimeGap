@@ -1,5 +1,5 @@
 //
-//  CoreLocation.swift
+//  Location.swift
 //  NC1
 //
 //  Created by kimsangwoo on 2023/06/01.
