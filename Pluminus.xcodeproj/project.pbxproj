@@ -21,6 +21,7 @@
 		23B67FAE2A8DE0D700229B81 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */; };
 		23B67FB02A8DE10800229B81 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FAF2A8DE10800229B81 /* Date.swift */; };
 		23B67FB22A8DEE5F00229B81 /* NationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FB12A8DEE5F00229B81 /* NationView.swift */; };
+		23B67FB72A8F319800229B81 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 23B67FB62A8F319800229B81 /* WrappingHStack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23B67FB72A8F319800229B81 /* WrappingHStack in Frameworks */,
 				234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +132,7 @@
 			name = Pluminus;
 			packageProductDependencies = (
 				234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */,
+				23B67FB62A8F319800229B81 /* WrappingHStack */,
 			);
 			productName = NC1;
 			productReference = 23B25C062A2860860022273F /* Pluminus.app */;
@@ -161,6 +164,7 @@
 			mainGroup = 23B25BFD2A2860860022273F;
 			packageReferences = (
 				234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
+				23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 23B25C072A2860860022273F /* Products */;
 			projectDirPath = "";
@@ -433,6 +437,14 @@
 				kind = branch;
 			};
 		};
+		23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -440,6 +452,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */;
 			productName = SwiftUIVisualEffects;
+		};
+		23B67FB62A8F319800229B81 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

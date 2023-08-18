@@ -10,11 +10,9 @@ import SwiftUI
 struct BackColorView: View {
 
     @Binding var isPickerView: Bool
-//    @Binding var targetTimeHour: String
 
     init(isPickerView: Binding<Bool>) {
         self._isPickerView = isPickerView
-//        self._targetTimeHour = targetTimeHour
     }
 
     var body: some View {
@@ -22,14 +20,10 @@ struct BackColorView: View {
             if isPickerView {
                 EmptyView()
             } else {
-//                getBackgroundColor()
-                Color(.black)
+                Color(.gray)
                     .edgesIgnoringSafeArea(.all)
             }
         }
-//        .onChange(of: targetTimeHour) { newValue in
-//            targetTimeHour = newValue
-//        }
     } // body닫기
 
 //    func getBackgroundColor() -> LinearGradient {
@@ -92,7 +86,6 @@ struct BackColorView_Previews: PreviewProvider {
     static var previews: some View {
         BackColorView(
             isPickerView: .constant(true)
-//            targetTimeHour: .constant("--")
         )
     }
 }

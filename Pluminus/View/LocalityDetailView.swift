@@ -9,26 +9,18 @@ import SwiftUI
 
 struct LocalityDetailView: View {
     
-//    @Binding var targetTimeHour: String
-//    @Binding var targetTimeMinute: String
-//    @Binding var targetDate: String
     @Binding var countryName: String
     @Binding var pickerFastOrSlow: [String]
     @Binding var pickerHour: Int
     @Binding var selected: [Int]
     
     @State var currentCountryList: [String] = []
-//    var targetUtcTime: Int
     
     init(countryName: Binding<String>, pickerHour: Binding<Int>, pickerFastOrSlow: Binding<[String]>, selected: Binding<[Int]>) {
-//        self._targetTimeHour = targetTimeHour
-//        self._targetTimeMinute = targetTimeMinute
-//        self._targetDate = targetDate
         self._countryName = countryName
         self._pickerHour = pickerHour
         self._pickerFastOrSlow = pickerFastOrSlow
         self._selected = selected
-//        self.targetUtcTime = targetUtcTime
     }
     
     func pickerResult() -> Int {
@@ -68,7 +60,6 @@ struct LocalityDetailView: View {
                         .frame(width: screenWidth * 0.9, height: screenHeight * 0.13)
                         .padding(.top, screenHeight * 0.02)
                         .foregroundColor(
-//                            getBackgroundColor()
                             .white
                         )
                     HStack(alignment: .bottom) {
@@ -104,7 +95,6 @@ struct LocalityDetailView: View {
                     .padding(.top, screenHeight * 0.01)
                     .frame(width: screenWidth * 0.8)
                 
-                // 도시 리스트 출력 스크롤뷰
                 ScrollView(.vertical) {
                     ForEach(currentCountryList, id: \.self) { locality in
                         Text(locality)
@@ -120,9 +110,6 @@ struct LocalityDetailView: View {
                     country.countryName == self.countryName
                 }?.countryLocality ?? []
             }
-//            .onChange(of: targetTimeHour) { newValue in
-//                targetTimeHour = newValue
-//            }
             .toolbar {
                 ToolbarItem {
                     VStack {
@@ -185,14 +172,10 @@ struct LocalityDetailView: View {
 struct LocalityDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LocalityDetailView(
-//            targetTimeHour: .constant("-"),
-//            targetTimeMinute: .constant("--"),
-//            targetDate: .constant("-월 -일 -요일"),
             countryName: .constant("국가명"),
             pickerHour: .constant(0),
             pickerFastOrSlow: .constant(["빠른", "+"]),
             selected: .constant([0])
-//            targetUtcTime: 0
         )
     }
 }
