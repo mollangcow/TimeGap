@@ -95,6 +95,7 @@ struct NationView: View {
                 pickerHour: $pickerHour,
                 selected: $selected
             )
+            .presentationBackground(.regularMaterial)
         } //sheet닫기
     } // body닫기
     private func showLocality(isShowingModal: Bool, countryName: String) {
