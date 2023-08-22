@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct PickerView: View {
 
@@ -15,7 +14,7 @@ struct PickerView: View {
     @State private var dataSource: [[String]] = [["+","-"], []]
     @State private var pickerFastOrSlow: [String] = ["빠른", "+"]
     @State private var rectangleHeight: CGFloat = 1
-    @State var pickerHour: Int = 0
+    @State private var pickerHour: Int = 0
     
     @Binding var selected: [Int]
     @Binding var isPickerView: Bool
@@ -24,53 +23,6 @@ struct PickerView: View {
         self._isPickerView = isPickerView
         self._selected = selected
         _ = self.hourRange
-    }
-    
-    func pickerResult() -> Int {
-        let value = selected[1]
-        return selected[0] == 1 ? -value : value
-    }
-    
-    func gmtHereResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset
-        }
-        
-        return 0
-    }
-    
-    func gmtTargetResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        let pickerValue = pickerResult()
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset + pickerValue
-        }
-        
-        return 0
-    }
-    
-    private var hourRange: ClosedRange<Int> {
-        var wrappedUTC = gmtHereResult() <= -11 ? -10 : gmtHereResult()
-        wrappedUTC = gmtHereResult() >= 14 ? 13 : gmtHereResult()
-        
-        if selected[0] == 0 {
-            let min = 0
-            let max = 14 - wrappedUTC
-            
-            return min...max
-            
-        } else {
-            let min = 0
-            let max = abs(-11 - wrappedUTC)
-            
-            return min...max
-        }
     }
     
     var body: some View {
@@ -121,9 +73,48 @@ struct PickerView: View {
                 
                 Spacer()
                 
-                Text("현위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 주요 지역")
-                    .font(.system(size: 15, weight: .medium))
-                    .padding(.bottom, screenWidth * 0.04)
+                ZStack {
+                    HStack {
+                        Text("GMT-12")
+                            .font(.system(size: 11, weight: .light))
+                        
+                        Rectangle()
+                            .frame(width: 260, height: 1)
+                            .foregroundColor(.secondary)
+                        
+                        Text("GMT+14")
+                            .font(.system(size: 11, weight: .light))
+                    }
+                    
+                    HStack {
+                        Spacer()
+                            .frame(width: pickerVisualStaticSpacer())
+                        
+                        Rectangle()
+                            .frame(width: 2, height: 10)
+                            .foregroundColor(.primary.opacity(0.3))
+                        
+                        Spacer()
+                    }
+                    .frame(width: 260)
+                    
+                    HStack {
+                        Spacer()
+                            .frame(width: pickerVisualMovingSpacer())
+                        
+                        Rectangle()
+                            .frame(width: 2, height: 10)
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                    }
+                    .frame(width: 260)
+                }
+                
+                Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 지역")
+                    .font(.system(size: 14, weight: .regular))
+                    .padding(.top, 10)
+                    .padding(.bottom, 40)
             } else {
                 VStack(alignment: .leading) {
                     VStack {
@@ -183,11 +174,35 @@ struct PickerView: View {
                 } // VStack닫기
             } // if닫기
         } //VStack닫기
-        .onReceive(Just(dataSource)) { newValue in
-            _ = hourRange
-            dataSource[1] = Array(hourRange).map { String($0) }
-        }
     } // body닫기
+    
+    private func pickerVisualMovingSpacer() -> CGFloat {
+        let hour = gmtTargetResult()
+        
+        if hour == -12 {
+            return 0
+        } else if hour == 0 {
+            return 130
+        } else if hour >= -11 && hour <= 14 {
+            return CGFloat(hour + 12) * 10
+        }
+        
+        return 0
+    }
+    
+    private func pickerVisualStaticSpacer() -> CGFloat {
+        let hour = gmtHereResult()
+        
+        if hour == -12 {
+            return 0
+        } else if hour == 0 {
+            return 130
+        } else if hour >= -11 && hour <= 14 {
+            return CGFloat(hour + 12) * 10
+        }
+        
+        return 0
+    }
     
     private func calcTimeGapStrokeHeight(pickerHour: Int) -> CGFloat {
         let minHeight: CGFloat = screenHeight * 0.02
@@ -199,5 +214,52 @@ struct PickerView: View {
         let calculatedHeight = minHeight + (maxHeight - minHeight) * normalizedHour
         
         return calculatedHeight
+    }
+    
+    func pickerResult() -> Int {
+        let value = selected[1]
+        return selected[0] == 1 ? -value : value
+    }
+    
+    func gmtHereResult() -> Int {
+        let formattedString = Date.now.formatted(.dateTime.timeZone())
+        
+        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
+           let dateOffset = Int(formattedString[range].dropFirst()) {
+            return dateOffset
+        }
+        
+        return 0
+    }
+    
+    func gmtTargetResult() -> Int {
+        let formattedString = Date.now.formatted(.dateTime.timeZone())
+        
+        let pickerValue = pickerResult()
+        
+        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
+           let dateOffset = Int(formattedString[range].dropFirst()) {
+            return dateOffset + pickerValue
+        }
+        
+        return 0
+    }
+    
+    private var hourRange: ClosedRange<Int> {
+        var wrappedGMT = gmtHereResult() <= -11 ? -10 : gmtHereResult()
+        wrappedGMT = gmtHereResult() >= 14 ? 13 : gmtHereResult()
+        
+        if selected[0] == 0 {
+            let min = 0
+            let max = 14 - wrappedGMT
+            
+            return min...max
+            
+        } else {
+            let min = 0
+            let max = abs(-12 - wrappedGMT)
+            
+            return min...max
+        }
     }
 } // struct닫기

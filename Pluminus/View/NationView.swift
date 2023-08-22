@@ -20,12 +20,13 @@ struct NationView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            if CountryList.list.UTC[gmtTargetResult()] != nil {
-                WrappingHStack(CountryList.list.UTC[gmtTargetResult()]!, id: \.self) { tag in
+            if CountryList.list.GMT[gmtTargetResult()] != nil {
+                WrappingHStack(CountryList.list.GMT[gmtTargetResult()]!, id: \.self) { tag in
                     Button {
                         if tag.isHaveLocality {
                             showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
                         } else {
+                            showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
                             self.isShowingMap = true
                         }
                     } label: {
@@ -56,12 +57,9 @@ struct NationView: View {
                 } // WrappingHStack
                 .frame(width: screenWidth * 0.88)
             } else {
-                Spacer()
                 Text("다시 시도해주세요.")
                     .font(.system(size: 17, weight: .black))
-                    .frame(width: screenWidth)
                     .foregroundColor(.white)
-                    .padding(.bottom, screenHeight * 0.1)
             }
         } // VStack닫기
         .sheet(isPresented: $isShowingModal) {
@@ -71,11 +69,13 @@ struct NationView: View {
                 pickerHour: $pickerHour,
                 selected: $selected
             )
-            .presentationBackground(.thinMaterial)
+            .presentationBackground(.regularMaterial)
         } //sheet닫기
         .sheet(isPresented: $isShowingMap) {
-            MapView()
-            .presentationBackground(.thinMaterial)
+            MapView(
+                countryName: $tappedCountry
+            )
+            .presentationBackground(.regularMaterial)
         } //sheet닫기
     } // body닫기
     
@@ -111,6 +111,8 @@ struct NationView: View {
     private func showLocality(isShowingModal: Bool, countryName: String) {
         if isShowingModal {
             self.isShowingModal = true
+            self.tappedCountry = countryName
+        } else {
             self.tappedCountry = countryName
         }
     }

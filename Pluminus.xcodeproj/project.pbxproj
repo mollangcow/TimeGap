@@ -24,6 +24,7 @@
 		23B67FB72A8F319800229B81 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 23B67FB62A8F319800229B81 /* WrappingHStack */; };
 		23B67FB92A8F7EEF00229B81 /* BackgroundColorDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */; };
 		23B67FD72A93C0FC00229B81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD62A93C0FC00229B81 /* MapView.swift */; };
+		23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD82A94819400229B81 /* MapFocusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		23B67FB12A8DEE5F00229B81 /* NationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationView.swift; sourceTree = "<group>"; };
 		23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorDB.swift; sourceTree = "<group>"; };
 		23B67FD62A93C0FC00229B81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		23B67FD82A94819400229B81 /* MapFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFocusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				23B3A82E2A860CD900E86DE0 /* LocalityDetailView.swift */,
 				23AAEE372A30A2F6007191B8 /* BackColorView.swift */,
 				23B67FD62A93C0FC00229B81 /* MapView.swift */,
+				23B67FD82A94819400229B81 /* MapFocusView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */,
 				23B67FD72A93C0FC00229B81 /* MapView.swift in Sources */,
 				234E4ED22A2B899B00CA787D /* NationDB.swift in Sources */,
+				23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */,
 				23B67FB02A8DE10800229B81 /* Date.swift in Sources */,
 				23B25C0A2A2860860022273F /* NC1App.swift in Sources */,
 				23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */,

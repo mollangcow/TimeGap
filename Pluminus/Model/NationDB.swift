@@ -14,10 +14,16 @@ struct Country: Hashable {
 }
 
 struct CountryList {
-    var UTC: [Int: [Country]]
+    var GMT: [Int: [Country]]
     static var list: CountryList =
     CountryList(
-        UTC: [
+        GMT: [
+            -12: [
+                Country(countryName: "미국령 군소 제도",
+                        isHaveLocality: false,
+                        countryLocality: [""]
+                       )
+            ],
             -11: [
                 Country(countryName: "니우에",
                         isHaveLocality: false,
@@ -747,22 +753,22 @@ struct CountryList {
                        )
             ],
             9: [
-                Country(countryName: "조선민주주의인민공화국",
+                Country(countryName: "북한",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
                         isHaveLocality: true,
-                        countryLocality: ["아무르주 (블라고베센스크)",
-                                          "자바이칼 변경주 (치타)",
-                                          "사하 공화국 (야쿠츠크)"
+                        countryLocality: ["아무르 주",
+                                          "자바이칼 변경 주",
+                                          "사하 공화국"
                                          ]
                        ),
                 Country(countryName: "인도네시아",
                         isHaveLocality: true,
                         countryLocality: ["말루쿠 제도",
-                                          "파푸아주 (자야푸라)",
-                                          "서파푸아주 (마노콰리)"
+                                          "파푸아주",
+                                          "서파푸아주"
                                          ]
                        ),
                 Country(countryName: "일본",
@@ -773,7 +779,7 @@ struct CountryList {
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
-                Country(countryName: "필라우",
+                Country(countryName: "팔라우",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
@@ -888,7 +894,7 @@ struct CountryList {
                        )
             ],
             14: [
-                Country(countryName: "키리바시 라인 제도",
+                Country(countryName: "키리바시 라인",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )

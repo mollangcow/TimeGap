@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LocalityDetailView: View {
     
+    @State private var isShowingMap: Bool = false
+    @State private var tappedLocality: String = ""
     @State var currentCountryList: [String] = []
     
     @Binding var countryName: String
@@ -27,26 +29,24 @@ struct LocalityDetailView: View {
                     .background(
                         getBackgroundColor(targetHourResult: targetHourResult())
                     )
+                
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(countryName)
-                            .font(.system(size: 17, weight: .bold))
-                            .foregroundColor(.white)
                         Spacer()
-                        Button(action: {
-                            dismiss()
-                        }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(.white.opacity(0.2))
-                        })
+                        
+                        RoundedRectangle(cornerRadius: 3)
+                            .frame(width: 40, height: 6)
+                            .foregroundColor(.black.opacity(0.2))
+                        
+                        Spacer()
                     }
-                    .padding(.trailing, 30)
-                    Rectangle()
-                        .frame(width: 50, height: 2)
-                        .foregroundColor(.white.opacity(0.2))
+                    
+                    Text(countryName)
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundColor(.white)
                         .padding(.leading, 2)
+                        .padding(.top, 10)
+                    
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading) {
                             Text(Date.currentTime(timeZoneOffset: pickerResult()))
@@ -76,39 +76,46 @@ struct LocalityDetailView: View {
                                     endPoint: .bottom
                                 )
                             )
-                            .frame(width: 2, height : 70)
+                            .frame(width: 2, height : 100)
                     }
-                    .padding(.top, 20)
-                    .padding(.trailing, 40)
                 }
-                .padding(.leading, 40)
+                .padding(.horizontal, 40)
             }
             .edgesIgnoringSafeArea(.top)
 
             Text("\(countryName)에서 이 시간대에 해당하는 주요 지역")
                 .font(.system(size: 13, weight: .medium))
-                .foregroundColor(.gray)
+                .foregroundColor(.white)
                 .frame(width: screenWidth * 0.8, alignment: .leading)
-                .padding(.top, 20)
+                .padding(.top, 30)
 
             Divider()
-                .padding(.top, 10)
                 .frame(width: screenWidth * 0.8)
+                .background(Color.white)
+                .padding(.top, 10)
 
             ScrollView(.vertical) {
                 ForEach(currentCountryList, id: \.self) { locality in
-                    Text(locality)
-                        .frame(width: screenWidth * 0.8, alignment: .leading)
-                        .padding(.top, 30)
-                        .font(.system(size: 20, weight: .bold))
+                    Button(action: {
+                        showLocalityMap(isShowingMap: true, countryLocality: locality)
+                    }, label: {
+                        Text(locality)
+                            .frame(width: screenWidth * 0.8, alignment: .leading)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.primary)
+                    })
+                    .padding(.top, 30)
                 }
             }
             .scrollIndicators(.hidden)
         } // VStack닫기
         .onAppear {
-            currentCountryList = CountryList.list.UTC[gmtTargetResult()]?.first{ country in
+            currentCountryList = CountryList.list.GMT[gmtTargetResult()]?.first { country in
                 country.countryName == self.countryName
             }?.countryLocality ?? []
+        }
+        .sheet(isPresented: $isShowingMap) {
+            MapView(countryName: $tappedLocality)
         }
     } // body닫기
     
@@ -150,5 +157,12 @@ struct LocalityDetailView: View {
         }
         
         return 0
+    }
+    
+    private func showLocalityMap(isShowingMap: Bool, countryLocality: String) {
+        if isShowingMap {
+            self.isShowingMap = true
+            self.tappedLocality = countryLocality
+        }
     }
 } // struct닫기
