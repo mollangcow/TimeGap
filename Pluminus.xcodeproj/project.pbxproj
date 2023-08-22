@@ -25,6 +25,7 @@
 		23B67FB92A8F7EEF00229B81 /* BackgroundColorDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */; };
 		23B67FD72A93C0FC00229B81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD62A93C0FC00229B81 /* MapView.swift */; };
 		23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD82A94819400229B81 /* MapFocusView.swift */; };
+		23B67FDB2A954CE200229B81 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FDA2A954CE200229B81 /* Haptics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorDB.swift; sourceTree = "<group>"; };
 		23B67FD62A93C0FC00229B81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		23B67FD82A94819400229B81 /* MapFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFocusView.swift; sourceTree = "<group>"; };
+		23B67FDA2A954CE200229B81 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				23B25C352A28B1120022273F /* ColorHex.swift */,
 				23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */,
 				23B67FAF2A8DE10800229B81 /* Date.swift */,
+				23B67FDA2A954CE200229B81 /* Haptics.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				23B3A82F2A860CD900E86DE0 /* LocalityDetailView.swift in Sources */,
 				23B25C342A2864740022273F /* CustomPicker.swift in Sources */,
 				23B25C382A28B75B0022273F /* Location.swift in Sources */,
+				23B67FDB2A954CE200229B81 /* Haptics.swift in Sources */,
 				23B25C362A28B1120022273F /* ColorHex.swift in Sources */,
 				23B25C0C2A2860860022273F /* MainView.swift in Sources */,
 				234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */,

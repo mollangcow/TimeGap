@@ -57,6 +57,7 @@ struct MainView: View {
                     selected: $selected
                 )
                 Button(action: {
+                    HapticManager.instance.notification(type: .success)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             isPickerView.toggle()

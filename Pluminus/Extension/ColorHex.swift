@@ -46,19 +46,19 @@ extension Color {
     static let G0607_Bottom = Color(hex: "FFC260")
     
     // 08시 ~ 09시 배경 색상
-    static let G0809_Top = Color(hex: "80BCFF")
+    static let G0809_Top = Color(hex: "6AB0FF")
     static let G0809_Center = Color(hex: "D2D2FF")
     static let G0809_Bottom = Color(hex: "DDE0FF")
     
     // 10시 ~ 11시 배경 색상
     static let G1011_Top = Color(hex: "8FCEFF")
-    static let G1011_Center = Color(hex: "D2E5FF")
+    static let G1011_Center = Color(hex: "B2D3FF")
     static let G1011_Bottom = Color(hex: "D8DEFF")
     
     // 12시 ~ 13시 배경 색상
-    static let G1213_Top = Color(hex: "DAEFFF")
+    static let G1213_Top = Color(hex: "BCE2FF")
     static let G1213_Center = Color(hex: "A9DAFF")
-    static let G1213_Bottom = Color(hex: "68D7FF")
+    static let G1213_Bottom = Color(hex: "A3DCFF")
     
     // 14시 ~ 15시 배경 색상
     static let G1415_Top = Color(hex: "579FFF")

@@ -23,6 +23,7 @@ struct NationView: View {
             if CountryList.list.GMT[gmtTargetResult()] != nil {
                 WrappingHStack(CountryList.list.GMT[gmtTargetResult()]!, id: \.self) { tag in
                     Button {
+                        HapticManager.instance.impact(style: .light)
                         if tag.isHaveLocality {
                             showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
                         } else {
@@ -36,7 +37,16 @@ struct NationView: View {
                                     .font(.system(size: 17, weight: .bold))
                                     .foregroundColor(.black)
                                     .padding(.trailing, 4)
-                                if tag.isHaveLocality {
+                                if tag.isHaveLocality && tag.countryName == "대한민국" {
+                                    Image(systemName: "circle")
+                                        .foregroundColor(.clear)
+                                        .overlay(
+                                            Image(systemName: "ellipsis.circle.fill")
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                                .foregroundColor(.blue)
+                                        )
+                                } else if tag.isHaveLocality {
                                     Image(systemName: "circle")
                                         .foregroundColor(.clear)
                                         .overlay(
@@ -45,7 +55,7 @@ struct NationView: View {
                                                 .frame(width: 24, height: 24)
                                                 .foregroundColor(.orange)
                                         )
-                                }// if닫기
+                                }
                             } // HStack닫기
                             .padding(.horizontal, 18)
                             .padding(.vertical, 12)

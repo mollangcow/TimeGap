@@ -22,16 +22,20 @@ struct MapView: View {
                 HStack {
                     Spacer()
                     Button(action: {
+                        HapticManager.instance.impact(style: .medium)
                         dismiss()
                     }, label: {
                         ZStack(alignment: .topTrailing) {
                             Rectangle()
                                 .frame(width: 44, height: 44)
                                 .foregroundColor(.clear)
+                            Circle()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.gray)
                             Image(systemName: "xmark.circle.fill")
                                 .resizable()
                                 .frame(width: 24, height: 24)
-                                .foregroundColor(.white.opacity(0.3))
+                                .foregroundColor(.white)
                         }
                     })
                 }
@@ -40,14 +44,9 @@ struct MapView: View {
             
             VStack(alignment: .leading) {
                 Text("\(countryName)")
-                    .font(.system(size: 22, weight: .bold))
+                    .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.primary)
                     .padding(.top, 20)
-                
-                Text("Location Date")
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundColor(.primary)
-                    .padding(.top, 4)
             }
             .padding(.leading, 20)
             

@@ -25,7 +25,7 @@ struct LocalityDetailView: View {
             ZStack {
                 Rectangle()
                     .foregroundColor(.clear)
-                    .frame(height: 200)
+                    .frame(height: 240)
                     .background(
                         getBackgroundColor(targetHourResult: targetHourResult())
                     )
@@ -85,7 +85,7 @@ struct LocalityDetailView: View {
 
             Text("\(countryName)에서 이 시간대에 해당하는 주요 지역")
                 .font(.system(size: 13, weight: .medium))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(width: screenWidth * 0.8, alignment: .leading)
                 .padding(.top, 30)
 
@@ -97,6 +97,7 @@ struct LocalityDetailView: View {
             ScrollView(.vertical) {
                 ForEach(currentCountryList, id: \.self) { locality in
                     Button(action: {
+                        HapticManager.instance.impact(style: .light)
                         showLocalityMap(isShowingMap: true, countryLocality: locality)
                     }, label: {
                         Text(locality)
@@ -104,7 +105,7 @@ struct LocalityDetailView: View {
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.primary)
                     })
-                    .padding(.top, 30)
+                    .padding(.top, 20)
                 }
             }
             .scrollIndicators(.hidden)

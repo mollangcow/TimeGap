@@ -43,6 +43,7 @@ struct PickerView: View {
                             _ = gmtTargetResult()
                         }
                         .onChange(of: selected[1]) { newValue in
+                            HapticManager.instance.impact(style: .medium)
                             print(">>>>> PICKER OnChange(selected[1])")
                             pickerHour = newValue
                             _ = hourRange
@@ -50,6 +51,7 @@ struct PickerView: View {
                             _ = gmtTargetResult()
                         }
                         .onChange(of: dataSource) { newValue in
+                            HapticManager.instance.impact(style: .medium)
                             print(">>>>> PICKER OnChange(dataSource)")
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
@@ -111,7 +113,7 @@ struct PickerView: View {
                     .frame(width: 260)
                 }
                 
-                Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 지역")
+                Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 주요 지역")
                     .font(.system(size: 14, weight: .regular))
                     .padding(.top, 10)
                     .padding(.bottom, 40)
@@ -141,8 +143,8 @@ struct PickerView: View {
                                 .onDisappear {
                                     rectangleHeight = 1
                                 }
-                            Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
-                                .font(.system(size: 12))
+                            Text("\(pickerFastOrSlow[1]) \(pickerHour)시간")
+                                .font(.system(size: 12, weight: .semibold))
                                 .foregroundColor(.white)
                         }
                         
@@ -150,18 +152,23 @@ struct PickerView: View {
                     }
                     .frame(height: screenHeight * 0.2)
                     
-                    HStack {
-                        VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(alignment: .bottom) {
                             Text(Date.currentTime(timeZoneOffset: pickerResult()))
                                 .font(.system(size: 64, weight: .heavy))
                                 .foregroundColor(.white)
-                            Text(Date.currentDate(timeZoneOffset: pickerResult()))
-                                .font(.system(size: 17, weight: .semibold))
-                                .foregroundColor(.white)
-                                .padding(.leading, 4)
+                            Text("GMT\(gmtVisual())")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(.white.opacity(0.7))
+                                .padding(.bottom, 16)
                         }
-                        .frame(height: 120)
+                        Text(Date.currentDate(timeZoneOffset: pickerResult()))
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(.leading, 4)
                     }
+                    .frame(height: 120)
+                    .padding(.bottom, 10)
                     
                     ScrollView {
                         NationView(
@@ -172,6 +179,7 @@ struct PickerView: View {
                     }
                     .scrollIndicators(.hidden)
                 } // VStack닫기
+                .padding(.horizontal, 20)
             } // if닫기
         } //VStack닫기
     } // body닫기
@@ -206,8 +214,8 @@ struct PickerView: View {
     
     private func calcTimeGapStrokeHeight(pickerHour: Int) -> CGFloat {
         let minHeight: CGFloat = screenHeight * 0.02
-        let maxHeight: CGFloat = screenHeight * 0.19
-        let hourRange: ClosedRange<Int> = 0...23
+        let maxHeight: CGFloat = screenHeight * 0.2
+        let hourRange: ClosedRange<Int> = 0...27
         
         let normalizedHour = CGFloat(pickerHour - hourRange.lowerBound) / CGFloat(hourRange.upperBound - hourRange.lowerBound)
         
@@ -243,6 +251,20 @@ struct PickerView: View {
         }
         
         return 0
+    }
+    
+    func gmtVisual() -> String {
+        let gmt = gmtTargetResult()
+        
+        if gmt > 0 {
+            let posGMT = "+\(gmt)"
+            return posGMT
+        } else if gmt < 0 {
+            let negGMT = "\(gmt)"
+            return negGMT
+        }
+        
+        return "+0"
     }
     
     private var hourRange: ClosedRange<Int> {
