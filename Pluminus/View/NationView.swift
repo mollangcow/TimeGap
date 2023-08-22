@@ -11,11 +11,73 @@ import WrappingHStack
 struct NationView: View {
     
     @State private var isShowingModal: Bool = false
+    @State private var isShowingMap: Bool = false
     @State private var tappedCountry: String = ""
     
     @Binding var pickerHour: Int
     @Binding var pickerFastOrSlow: [String]
     @Binding var selected: [Int]
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if CountryList.list.UTC[gmtTargetResult()] != nil {
+                WrappingHStack(CountryList.list.UTC[gmtTargetResult()]!, id: \.self) { tag in
+                    Button {
+                        if tag.isHaveLocality {
+                            showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
+                        } else {
+                            self.isShowingMap = true
+                        }
+                    } label: {
+                        ZStack {
+                            HStack {
+                                Text(tag.countryName)
+                                    .font(.system(size: 17, weight: .bold))
+                                    .foregroundColor(.black)
+                                    .padding(.trailing, 4)
+                                if tag.isHaveLocality {
+                                    Image(systemName: "circle")
+                                        .foregroundColor(.clear)
+                                        .overlay(
+                                            Image(systemName: "ellipsis.circle.fill")
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                                .foregroundColor(.orange)
+                                        )
+                                }// if닫기
+                            } // HStack닫기
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 12)
+                            .background(.white)
+                            .cornerRadius(32)
+                        } // ZStack닫기
+                        .padding(.bottom, 16)
+                    } // Button닫기
+                } // WrappingHStack
+                .frame(width: screenWidth * 0.88)
+            } else {
+                Spacer()
+                Text("다시 시도해주세요.")
+                    .font(.system(size: 17, weight: .black))
+                    .frame(width: screenWidth)
+                    .foregroundColor(.white)
+                    .padding(.bottom, screenHeight * 0.1)
+            }
+        } // VStack닫기
+        .sheet(isPresented: $isShowingModal) {
+            LocalityDetailView(
+                countryName: $tappedCountry,
+                pickerFastOrSlow: $pickerFastOrSlow,
+                pickerHour: $pickerHour,
+                selected: $selected
+            )
+            .presentationBackground(.thinMaterial)
+        } //sheet닫기
+        .sheet(isPresented: $isShowingMap) {
+            MapView()
+            .presentationBackground(.thinMaterial)
+        } //sheet닫기
+    } // body닫기
     
     func pickerResult() -> Int {
         let value = selected[1]
@@ -46,58 +108,6 @@ struct NationView: View {
         return 0
     }
     
-    var body: some View {
-        VStack{
-            if CountryList.list.UTC[gmtTargetResult()] != nil {
-                WrappingHStack(CountryList.list.UTC[gmtTargetResult()]!, id: \.self) { tag in
-                    Button {
-                        showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
-                    } label: {
-                        ZStack {
-                            HStack {
-                                Text(tag.countryName)
-                                    .font(.system(size: 17, weight: .bold))
-                                    .foregroundColor(.black)
-                                    .padding(.trailing, 4)
-                                if tag.isHaveLocality {
-                                    Image(systemName: "circle")
-                                        .foregroundColor(.clear)
-                                        .overlay(
-                                            Image(systemName: "ellipsis.circle.fill")
-                                                .resizable()
-                                                .frame(width: 24, height: 24)
-                                                .foregroundColor(.orange)
-                                        )
-                                } // if닫기
-                            } // HStack닫기
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 12)
-                            .background(.white)
-                            .cornerRadius(32)
-                        } // ZStack닫기
-                        .padding(.bottom, 16)
-                    } // Button닫기
-                } // WrappingHStack
-                .padding(.leading, 20)
-            } else {
-                Spacer()
-                Text("다시 시도해주세요.")
-                    .font(.system(size: 17, weight: .black))
-                    .frame(width: screenWidth)
-                    .foregroundColor(.white)
-                    .padding(.bottom, screenHeight * 0.1)
-            }
-        } // VStack닫기
-        .sheet(isPresented: $isShowingModal) {
-            LocalityDetailView(
-                countryName: $tappedCountry,
-                pickerFastOrSlow: $pickerFastOrSlow,
-                pickerHour: $pickerHour,
-                selected: $selected
-            )
-            .presentationBackground(.regularMaterial)
-        } //sheet닫기
-    } // body닫기
     private func showLocality(isShowingModal: Bool, countryName: String) {
         if isShowingModal {
             self.isShowingModal = true

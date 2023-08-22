@@ -57,14 +57,16 @@ struct MainView: View {
                     selected: $selected
                 )
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        isPickerView.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            isPickerView.toggle()
                         }
+                    }
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 35)
                             .frame(width: isPickerView ? 300 : 350, height: 70)
-                            .foregroundColor(isPickerView ? .orange : .black)
+                            .foregroundColor(isPickerView ? .orange : .black.opacity(0.3))
                         Text(isPickerView ? "확인해보기" : "돌아가기")
                             .foregroundColor(.white)
                             .font(.system(size: 17, weight: .black))

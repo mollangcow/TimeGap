@@ -14,15 +14,15 @@ struct PickerView: View {
 
     @State private var dataSource: [[String]] = [["+","-"], []]
     @State private var pickerFastOrSlow: [String] = ["빠른", "+"]
+    @State private var rectangleHeight: CGFloat = 1
     @State var pickerHour: Int = 0
     
     @Binding var selected: [Int]
     @Binding var isPickerView: Bool
-    
+
     init(isPickerView: Binding<Bool>, selected: Binding<[Int]>) {
         self._isPickerView = isPickerView
         self._selected = selected
-        
         _ = self.hourRange
     }
     
@@ -130,11 +130,26 @@ struct PickerView: View {
                         HStack(alignment: .bottom) {
                             RoundedRectangle(cornerRadius: 2)
                                 .fill(
-                                    LinearGradient(gradient: Gradient(colors: [.white.opacity(0), .white.opacity(1)]),
-                                                   startPoint: .top, endPoint: .bottom)
+                                    LinearGradient(
+                                        gradient: Gradient(
+                                            colors: [
+                                                .white.opacity(0),
+                                                .white.opacity(1)
+                                            ]
+                                        ),
+                                        startPoint: .top,
+                                        endPoint: .bottom)
                                 )
-                                .frame(width: 2, height: calcTimeGapStrokeHeight(pickerHour: pickerHour))
-                                .padding(.leading, screenWidth * 0.13)
+                                .frame(width: 2, height: rectangleHeight)
+                                .padding(.leading, 20)
+                                .onAppear {
+                                    withAnimation(.easeInOut(duration: 1.0)) {
+                                        rectangleHeight = calcTimeGapStrokeHeight(pickerHour: pickerHour)
+                                    }
+                                }
+                                .onDisappear {
+                                    rectangleHeight = 1
+                                }
                             Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
                                 .font(.system(size: 12))
                                 .foregroundColor(.white)
@@ -149,11 +164,10 @@ struct PickerView: View {
                             Text(Date.currentTime(timeZoneOffset: pickerResult()))
                                 .font(.system(size: 64, weight: .heavy))
                                 .foregroundColor(.white)
-                                .padding(.leading, 20)
                             Text(Date.currentDate(timeZoneOffset: pickerResult()))
                                 .font(.system(size: 17, weight: .semibold))
                                 .foregroundColor(.white)
-                                .padding(.leading, 24)
+                                .padding(.leading, 4)
                         }
                         .frame(height: 120)
                     }
@@ -187,12 +201,3 @@ struct PickerView: View {
         return calculatedHeight
     }
 } // struct닫기
-
-struct PickerView_Previews: PreviewProvider {
-    static var previews: some View {
-        PickerView(
-            isPickerView: .constant(true),
-            selected: .constant([0, 0])
-        )
-    }
-}
