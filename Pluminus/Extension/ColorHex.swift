@@ -25,63 +25,63 @@ extension Color {
 
 extension Color {
     
-    // 05시 ~ 06시 배경 색상
-    static let G0506_Top = Color(hex: "3453A5")
-    static let G0506_Center = Color(hex: "AC5BB6")
-    static let G0506_Bottom = Color(hex: "F05D5D")
+    // 00시 ~ 01시 배경 색상
+    static let G0001_Top = Color(hex: "000924")
+    static let G0001_Center = Color(hex: "00084B")
+    static let G0001_Bottom = Color(hex: "001153")
     
-    // 07시 ~ 08시 배경 색상
-    static let G0708_Top = Color(hex: "5785DC")
-    static let G0708_Center = Color(hex: "DF9FE6")
-    static let G0708_Bottom = Color(hex: "FFC260")
+    // 02시 ~ 03시 배경 색상
+    static let G0203_Top = Color(hex: "00045B")
+    static let G0203_Center = Color(hex: "0D176E")
+    static let G0203_Bottom = Color(hex: "2B2283")
     
-    // 09시 ~ 10시 배경 색상
-    static let G0910_Top = Color(hex: "80BCFF")
-    static let G0910_Center = Color(hex: "E5D2FF")
-    static let G0910_Bottom = Color(hex: "DDE0FF")
+    // 04시 ~ 05시 배경 색상
+    static let G0405_Top = Color(hex: "4A7BFF")
+    static let G0405_Center = Color(hex: "8F87FF")
+    static let G0405_Bottom = Color(hex: "F05D5D")
     
-    // 11시 ~ 12시 배경 색상
-    static let G1112_Top = Color(hex: "8FCEFF")
-    static let G1112_Center = Color(hex: "D2E5FF")
-    static let G1112_Bottom = Color(hex: "C5E4FF")
+    // 06시 ~ 07시 배경 색상
+    static let G0607_Top = Color(hex: "5785DC")
+    static let G0607_Center = Color(hex: "B49FE6")
+    static let G0607_Bottom = Color(hex: "FFC260")
     
-    // 13시 ~ 14시 배경 색상
-    static let G1314_Top = Color(hex: "67C1FF")
-    static let G1314_Center = Color(hex: "CDF1FF")
-    static let G1314_Bottom = Color(hex: "F0FBFF")
+    // 08시 ~ 09시 배경 색상
+    static let G0809_Top = Color(hex: "6AB0FF")
+    static let G0809_Center = Color(hex: "D2D2FF")
+    static let G0809_Bottom = Color(hex: "DDE0FF")
     
-    // 15시 ~ 16시 배경 색상
-    static let G1516_Top = Color(hex: "579FFF")
-    static let G1516_Center = Color(hex: "B3EAFF")
-    static let G1516_Bottom = Color(hex: "E7F2FF")
+    // 10시 ~ 11시 배경 색상
+    static let G1011_Top = Color(hex: "8FCEFF")
+    static let G1011_Center = Color(hex: "B2D3FF")
+    static let G1011_Bottom = Color(hex: "D8DEFF")
     
-    // 17시 ~ 18시 배경 색상
-    static let G1718_Top = Color(hex: "5A8FF2")
-    static let G1718_Center = Color(hex: "FFCC8C")
-    static let G1718_Bottom = Color(hex: "FFE5BB")
+    // 12시 ~ 13시 배경 색상
+    static let G1213_Top = Color(hex: "BCE2FF")
+    static let G1213_Center = Color(hex: "A9DAFF")
+    static let G1213_Bottom = Color(hex: "A3DCFF")
     
-    // 19시 ~ 20시 배경 색상
-    static let G1920_Top = Color(hex: "344291")
-    static let G1920_Center = Color(hex: "AC4F6A")
-    static let G1920_Bottom = Color(hex: "F67E0D")
+    // 14시 ~ 15시 배경 색상
+    static let G1415_Top = Color(hex: "579FFF")
+    static let G1415_Center = Color(hex: "85DDFF")
+    static let G1415_Bottom = Color(hex: "E7F2FF")
     
-    // 21시 ~ 22시 배경 색상
-    static let G2122_Top = Color(hex: "1A1F51")
-    static let G2122_Center = Color(hex: "642E81")
-    static let G2122_Bottom = Color(hex: "B938C2")
+    // 16시 ~ 17시 배경 색상
+    static let G1617_Top = Color(hex: "5A8FF2")
+    static let G1617_Center = Color(hex: "8CCBFF")
+    static let G1617_Bottom = Color(hex: "FFE5BB")
     
-    // 23시 ~ 00시 배경 색상
-    static let G2300_Top = Color(hex: "001634")
-    static let G2300_Center = Color(hex: "421F6D")
-    static let G2300_Bottom = Color(hex: "23006D")
+    // 18시 ~ 19시 배경 색상
+    static let G1819_Top = Color(hex: "203CD6")
+    static let G1819_Center = Color(hex: "765DBF")
+    static let G1819_Bottom = Color(hex: "F67A0D")
     
-    // 01시 ~ 02시 배경 색상
-    static let G0102_Top = Color(hex: "000F25")
-    static let G0102_Center = Color(hex: "1B2051")
-    static let G0102_Bottom = Color(hex: "17296D")
+    // 20시 ~ 21시 배경 색상
+    static let G2021_Top = Color(hex: "0A1473")
+    static let G2021_Center = Color(hex: "3325BB")
+    static let G2021_Bottom = Color(hex: "8138C2")
     
-    // 03시 ~ 04시 배경 색상
-    static let G0304_Top = Color(hex: "183A68")
-    static let G0304_Center = Color(hex: "1B2051")
-    static let G0304_Bottom = Color(hex: "17296D")
+    // 22시 ~ 23시 배경 색상
+    static let G2223_Top = Color(hex: "00052D")
+    static let G2223_Center = Color(hex: "1A104A")
+    static let G2223_Bottom = Color(hex: "32009C")
 }

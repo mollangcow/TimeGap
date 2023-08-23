@@ -1,23 +1,17 @@
 //
-//  CoreLocation.swift
+//  Location.swift
 //  NC1
 //
 //  Created by kimsangwoo on 2023/06/01.
 //
 
-import UIKit
-import MapKit
+import SwiftUI
 import CoreLocation
-import Combine
 
 class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     let locationManager = CLLocationManager()
-    @Published var currentTimeHour: String = "--"
-    @Published var currentTimeMinut: String = "--"
-    @Published var date: Date = Date()
     @Published var currentLocationName: String = "현재 위치 알 수 없음"
-    @Published var currentLocationUTC: Int = 0
     
     override init() {
         super.init()
@@ -30,34 +24,17 @@ class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
         // 위치 권한
         locationManager.requestWhenInUseAuthorization()
 
-        // 위치 업데이트
+        // 위치 업데이트 수신
         locationManager.startUpdatingLocation()
+        
+        // 위치 기반 지역명 출력
         currentLocationName { placemark in
             if let placemark = placemark, let _ = placemark.country, let _ = placemark.locality {
             } else { }
         }
-    }
-
-    // 위치 업데이트 발생 시 호출되는 메서드
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-
-        let timestamp = location.timestamp
-
-        DispatchQueue.main.async {
-            self.date = timestamp
-
-            // 현재 위치의 UTC 정보 받기
-            let timeZone = TimeZone.current
-            let utcOffsetSeconds = timeZone.secondsFromGMT(for: self.date)
-            let utcOffsetHours = utcOffsetSeconds / 3600
-
-            self.currentLocationUTC = utcOffsetHours >= 0 ? utcOffsetHours : -utcOffsetHours
-            
-            print("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
-            print("Current UTC:", self.currentLocationUTC)
-            print("ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ")
-        }
+        
+        // 위치 업데이트 종료
+        locationManager.stopUpdatingLocation()
     }
     
     // 현재 위치의 지역명을 알려주는 메서드
