@@ -90,7 +90,7 @@ struct NationView: View {
                 continent: $tappedContinent,
                 locality: $tappedLocality
             )
-            .presentationBackground(.regularMaterial)
+//            .presentationBackground(.regularMaterial)
         } //sheet닫기
     } // body닫기
     
