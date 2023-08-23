@@ -150,7 +150,7 @@ struct PickerView: View {
                         
                         Spacer()
                     }
-                    .frame(height: screenHeight * 0.2)
+                    .frame(height: screenHeight * 0.18)
                     
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .bottom) {

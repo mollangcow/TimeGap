@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Country: Hashable {
     let countryName: String
+    let continent: String
     let isHaveLocality: Bool
     let countryLocality: [String]
 }
@@ -20,62 +21,75 @@ struct CountryList {
         GMT: [
             -12: [
                 Country(countryName: "미국령 군소 제도",
+                        continent: "태평양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -11: [
-                Country(countryName: "니우에섬",
+                Country(countryName: "니우에",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미국령 사모아",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미국령 군소 제도",
+                        continent: "태평양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -10: [
                 Country(countryName: "하와이",
+                        continent: "태평양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "프랑스령 폴리네시아",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미국령 군소 제도",
+                        continent: "태평양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "쿡 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "앤드리아노프 제도",
+                        continent: "북아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -9: [
                 Country(countryName: "알래스카",
+                        continent: "북아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "강비에 제도",
+                        continent: "태평양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -8: [
                 Country(countryName: "멕시코",
+                        continent: "중앙아메리카",
                         isHaveLocality: true,
                         countryLocality: ["바하 칼리포니아"]
                        ),
                 Country(countryName: "미국",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["캘리포니아",
                                           "로스앤젤레스",
@@ -88,6 +102,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "캐나다",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["브리티시 컬럼비아",
                                           "밴쿠버",
@@ -97,12 +112,14 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "클리퍼튼아일랜드",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -7: [
                 Country(countryName: "멕시코",
+                        continent: "중앙아메리카",
                         isHaveLocality: true,
                         countryLocality: ["바하 칼리포니아 수르주",
                                           "치와와",
@@ -112,6 +129,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "미국",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["아이다호",
                                           "콜로라도",
@@ -123,6 +141,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "캐나다",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["앨버타",
                                           "누나부트",
@@ -132,10 +151,12 @@ struct CountryList {
             ],
             -6: [
                 Country(countryName: "니카라과",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미국",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["앨라배마",
                                           "버밍햄, MI",
@@ -164,6 +185,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "캐나다",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["서스캐처원",
                                           "누나부트",
@@ -171,18 +193,22 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "과테말라",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "온두라스",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "코스타리카",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "멕시코",
+                        continent: "중앙아메리카",
                         isHaveLocality: true,
                         countryLocality: ["코아우일라",
                                           "누에보레온",
@@ -206,16 +232,19 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "엘살바도르",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -5: [
                 Country(countryName: "에콰도르",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미국",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["코네티컷",
                                           "델라웨어",
@@ -246,6 +275,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "캐나다",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["아이퀘루이트, NU",
                                           "온타리오",
@@ -255,60 +285,73 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "자메이카",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "아이티",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "페루",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "쿠바",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "바하마",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "콜롬비아",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "파나마",
+                        continent: "중앙아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "이스터 섬",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -4: [
                 Country(countryName: "베네수엘라",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "캐나다",
+                        continent: "북아메리카",
                         isHaveLocality: true,
                         countryLocality: ["뉴브런즈윅",
                                           "뉴펀들랜드 래브라도"
                                          ]
                        ),
                 Country(countryName: "브라질",
+                        continent: "남아메리카",
                         isHaveLocality: true,
                         countryLocality: ["Mato Grosso",
                                           "Moto Grosso do Sul"
                                          ]
                        ),
                 Country(countryName: "칠레",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
-                Country(countryName: "카브리해",
+                Country(countryName: "카리브 해",
+                        continent: "중앙아메리카",
                         isHaveLocality: true,
                         countryLocality: ["앵귈라",
                                           "앤티가 바부다",
@@ -329,24 +372,29 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "가이아나",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "파라과이",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "볼리비아",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -3: [
                 Country(countryName: "그린란드",
+                        continent: "북아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "브라질",
+                        continent: "남아메리카",
                         isHaveLocality: true,
                         countryLocality: ["Brasilia",
                                           "Rio de Janeiro",
@@ -354,110 +402,135 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "수리남",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "우루과이",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "프랑스령 기아나",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "아르헨티나",
+                        continent: "남아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "생피에르 미클롱",
+                        continent: "북아메리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -2: [
                 Country(countryName: "사우스 샌드위치 제도",
+                        continent: "대서양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             -1: [
                 Country(countryName: "아조레스",
+                        continent: "대서양",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "카보베르데",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             0: [
                 Country(countryName: "아이슬란드",
+                        continent: "북유럽",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "영국",
+                        continent: "서유럽",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "아일랜드",
+                        continent: "서유럽",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "포르투갈",
+                        continent: "서유럽",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "모리타니",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "가나",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "기니",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "말리",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "감비아",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "세네갈",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "페로 제도",
+                        continent: "북유럽",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "부르키나파소",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "코트디부아르",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "시에라리온",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "라이베리아",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "토고",
+                        continent: "서아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             1: [
                 Country(countryName: "중앙유럽",
+                        continent: "중앙유럽",
                         isHaveLocality: true,
                         countryLocality: ["알바니아 (티라나)",
                                           "안도라 (안도라라벨랴)",
@@ -492,44 +565,54 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "모로코",
+                        continent: "북아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "알제리",
+                        continent: "북아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "나이지리아",
+                        continent: "중앙아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "튀니지",
+                        continent: "북아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "니제르",
+                        continent: "북아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "콩고 공화국",
+                        continent: "중앙아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "중앙아프리카 공화국",
+                        continent: "중앙아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             2: [
                 Country(countryName: "팔레스타인",
+                        continent: "중동",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["칼리닌그라드"]
                        ),
                 Country(countryName: "중앙아프리카",
+                        continent: "중앙아프리카",
                         isHaveLocality: true,
                         countryLocality: ["보츠와나",
                                           "부룬디",
@@ -548,6 +631,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "동유럽",
+                        continent: "동유럽",
                         isHaveLocality: true,
                         countryLocality: ["불가리아 (소피아)",
                                           "키프로스 (니코시아)",
@@ -562,16 +646,19 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "레바논",
+                        continent: "중동",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "이스라엘",
+                        continent: "중동",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             3: [
                 Country(countryName: "중동",
+                        continent: "중동",
                         isHaveLocality: true,
                         countryLocality: ["바레인",
                                           "이라크",
@@ -585,6 +672,7 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["모스크바",
                                           "상트페테르부르크",
@@ -595,44 +683,54 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "남수단",
+                        continent: "중앙아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "우간다",
+                        continent: "중앙아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "탄자니아",
+                        continent: "중앙아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "마다가스카르",
+                        continent: "동아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "소말리아",
+                        continent: "동아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "에티오피아",
+                        continent: "동아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "케냐",
+                        continent: "동아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "이란(GMT+3:30)",
+                        continent: "중동",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             4: [
                 Country(countryName: "조지아",
+                        continent: "서아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["사마라주 (사마라)",
                                           "우드무르트 공화국 (이젭스크)",
@@ -640,36 +738,44 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "아랍에미리트",
+                        continent: "중동",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "오만",
+                        continent: "중동",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "모리셔스",
+                        continent: "동아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "세이셸",
+                        continent: "동아프리카",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "아르메니아",
+                        continent: "서아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "아제르바이잔",
+                        continent: "서아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             5: [
                 Country(countryName: "타지키스탄",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["바쉬코르스탄 공화국",
                                           "첼랴빈스크",
@@ -681,77 +787,93 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "투르크메니스탄",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "우즈베키스탄",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "카자흐스탄 악퇴베",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "파키스탄",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "인도(GMT+5:30)",
+                        continent: "남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "스리랑카(GMT+5:30)",
+                        continent: "남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             6: [
                 Country(countryName: "동카자흐스탄",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["옴스크"]
                        ),
                 Country(countryName: "방글라데시",
+                        continent: "남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "부탄",
+                        continent: "남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "키르기스스탄",
+                        continent: "중앙아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미얀마(GMT+6:30)",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "코코스 제도(GMT+6:30)",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             7: [
                 Country(countryName: "베트남",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
-                        countryLocality: ["알타이 공화국 (고르노알타이스크)",
-                                          "케메로보주 (케메로보)",
-                                          "하카스 공화국 (아바칸)",
-                                          "크라스노야르스크주 (크라스노야르스크)",
-                                          "노보시비르스크주 (노보시비르스크)",
-                                          "톰스크주 (톰스크)",
-                                          "투바 공화국 (키질)"
+                        countryLocality: ["알타이 공화국",
+                                          "케메로보",
+                                          "하카시아 공화국",
+                                          "크라스노야르스크",
+                                          "노보시비르스크",
+                                          "톰스크",
+                                          "투바 공화국"
                                          ]
                        ),
                 Country(countryName: "인도네시아",
+                        continent: "동남아시아",
                         isHaveLocality: true,
                         countryLocality: ["팔랑카라야",
                                           "서칼리만탄",
@@ -760,24 +882,29 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "태국",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "캄보디아",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "라오스",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             8: [
                 Country(countryName: "중국",
+                        continent: "동아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "인도네시아",
+                        continent: "동남아시아",
                         isHaveLocality: true,
                         countryLocality: ["동칼리만탄",
                                           "남칼리만탄",
@@ -785,38 +912,46 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["부랴트 공화국",
                                           "이르쿠츠크"
                                          ]
                        ),
                 Country(countryName: "대만",
+                        continent: "동아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "싱가포르",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "말레이시아",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "몽골",
+                        continent: "동아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "호주",
+                        continent: "오세아니아",
                         isHaveLocality: true,
                         countryLocality: ["웨스턴 오스트레일리아"]
                        ),
                 Country(countryName: "필리핀",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             9: [
                 Country(countryName: "대한민국",
+                        continent: "동아시아",
                         isHaveLocality: true,
                         countryLocality: ["독도",
                                           "서울특별시",
@@ -835,34 +970,41 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "북한",
+                        continent: "동아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["아무르",
                                           "야쿠츠크"
                                          ]
                        ),
                 Country(countryName: "인도네시아",
+                        continent: "동남아시아",
                         isHaveLocality: true,
                         countryLocality: ["말루쿠 제도",
                                           "서파푸아"
                                          ]
                        ),
                 Country(countryName: "일본",
+                        continent: "동아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "동티모르",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "팔라우",
+                        continent: "동남아시아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "호주(GMT+9:30)",
+                        continent: "오세아니아",
                         isHaveLocality: true,
                         countryLocality: ["노던 준주",
                                           "사우스오스트레일리아"
@@ -871,18 +1013,21 @@ struct CountryList {
             ],
             10: [
                 Country(countryName: "미국",
+                        continent: "태평양",
                         isHaveLocality: true,
                         countryLocality: ["괌",
                                           "북마리아나 제도"
                                          ]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["블라디보스토크",
                                           "하바롭스크"
                                          ]
                        ),
                 Country(countryName: "호주",
+                        continent: "오세아니아",
                         isHaveLocality: true,
                         countryLocality: ["퀸즐랜드",
                                           "시드니",
@@ -891,16 +1036,19 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "파푸아뉴기니",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             11: [
                 Country(countryName: "뉴칼레도니아",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["마가단",
                                           "사할린",
@@ -909,74 +1057,90 @@ struct CountryList {
                                          ]
                        ),
                 Country(countryName: "바누아투",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "솔로몬 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "미크로네시아",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             12: [
                 Country(countryName: "뉴질랜드",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "러시아",
+                        continent: "아시아",
                         isHaveLocality: true,
                         countryLocality: ["추코트카",
                                           "페트로파블롭스크 캄차트스키"
                                          ]
                        ),
                 Country(countryName: "피지",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "마셜 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "길버트 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "왈리스 퓌튀나",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "나우루",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "투발루",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             13: [
                 Country(countryName: "피닉스 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "토켈라우 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "사모아",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        ),
                 Country(countryName: "통가",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )
             ],
             14: [
                 Country(countryName: "라인 제도",
+                        continent: "오세아니아",
                         isHaveLocality: false,
                         countryLocality: [""]
                        )

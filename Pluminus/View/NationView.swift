@@ -13,6 +13,8 @@ struct NationView: View {
     @State private var isShowingModal: Bool = false
     @State private var isShowingMap: Bool = false
     @State private var tappedCountry: String = ""
+    @State private var tappedContinent: String = ""
+    @State private var tappedLocality: String = ""
     
     @Binding var pickerHour: Int
     @Binding var pickerFastOrSlow: [String]
@@ -25,9 +27,9 @@ struct NationView: View {
                     Button {
                         HapticManager.instance.impact(style: .light)
                         if tag.isHaveLocality {
-                            showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
+                            showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName, continent: tag.continent)
                         } else {
-                            showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName)
+                            showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName, continent: tag.continent)
                             self.isShowingMap = true
                         }
                     } label: {
@@ -75,6 +77,7 @@ struct NationView: View {
         .sheet(isPresented: $isShowingModal) {
             LocalityDetailView(
                 countryName: $tappedCountry,
+                continent: $tappedContinent,
                 pickerFastOrSlow: $pickerFastOrSlow,
                 pickerHour: $pickerHour,
                 selected: $selected
@@ -83,7 +86,9 @@ struct NationView: View {
         } //sheet닫기
         .sheet(isPresented: $isShowingMap) {
             MapView(
-                countryName: $tappedCountry
+                countryName: $tappedCountry,
+                continent: $tappedContinent,
+                locality: $tappedLocality
             )
             .presentationBackground(.regularMaterial)
         } //sheet닫기
@@ -118,12 +123,14 @@ struct NationView: View {
         return 0
     }
     
-    private func showLocality(isShowingModal: Bool, countryName: String) {
+    private func showLocality(isShowingModal: Bool, countryName: String, continent: String) {
         if isShowingModal {
             self.isShowingModal = true
             self.tappedCountry = countryName
+            self.tappedContinent = continent
         } else {
             self.tappedCountry = countryName
+            self.tappedContinent = continent
         }
     }
 } // struct닫기

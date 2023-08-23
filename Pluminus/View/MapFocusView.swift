@@ -10,11 +10,12 @@ import MapKit
 
 struct MapFocusView: UIViewRepresentable {
     @Binding var countryName: String
+    @Binding var locality: String
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         
         let geocoder = CLGeocoder()
-        let countryName = countryName
+        let countryName = locality == "" ? countryName : locality
         
         geocoder.geocodeAddressString(countryName) { placemarks, error in
             if let placemark = placemarks?.first,

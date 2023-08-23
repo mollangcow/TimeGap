@@ -15,6 +15,7 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
+            //시간대에 달라지는 배경 색상
             BackColorView(
                 isPickerView: $isPickerView,
                 selected: $selected
@@ -22,6 +23,7 @@ struct MainView: View {
             
             VStack {
                 HStack {
+                    // 현재 위치 시간
                     VStack(alignment: .leading) {
                         Text(Date.currentTime(timeZoneOffset: 0))
                             .font(.system(size: 64, weight: isPickerView ? .heavy : .thin))
@@ -31,16 +33,16 @@ struct MainView: View {
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(isPickerView ? .primary : .white)
                             .padding(.leading, 24)
-                    }
+                    } //HStack닫기
                     .frame(height: 120)
                     
                     Spacer()
-                }
+                } //VStack닫기
                 
-                // 현재 위치
+                // 현재 위치 표기
                 HStack {
                     Spacer()
-
+                    
                     Image(isPickerView ? "locationPin.orange" : "locationPin.white")
                         .resizable()
                         .frame(width: 15, height: 19)
@@ -52,10 +54,13 @@ struct MainView: View {
                 
                 Spacer()
                 
+                // 중앙 커스텀 피커
                 PickerView(
                     isPickerView: $isPickerView,
                     selected: $selected
                 )
+                
+                // 하단 버튼
                 Button(action: {
                     HapticManager.instance.notification(type: .success)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

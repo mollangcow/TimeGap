@@ -14,6 +14,7 @@ struct LocalityDetailView: View {
     @State var currentCountryList: [String] = []
     
     @Binding var countryName: String
+    @Binding var continent: String
     @Binding var pickerFastOrSlow: [String]
     @Binding var pickerHour: Int
     @Binding var selected: [Int]
@@ -23,7 +24,7 @@ struct LocalityDetailView: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
-                Rectangle()
+                RoundedRectangle(cornerRadius: 6)
                     .foregroundColor(.clear)
                     .frame(height: 240)
                     .background(
@@ -36,17 +37,25 @@ struct LocalityDetailView: View {
                         
                         RoundedRectangle(cornerRadius: 3)
                             .frame(width: 40, height: 6)
-                            .foregroundColor(.black.opacity(0.2))
+                            .foregroundColor(.black.opacity(0.1))
                         
                         Spacer()
                     }
+                    .padding(.bottom, 20)
                     
+                    // 국가 이름
                     Text(countryName)
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(.white)
                         .padding(.leading, 2)
                         .padding(.top, 10)
                     
+                    Text(continent)
+                        .font(.system(size: 17, weight: .light))
+                        .foregroundColor(.white)
+                        .padding(.leading, 2)
+                    
+                    // 날짜 및 시간
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading) {
                             Text(Date.currentTime(timeZoneOffset: pickerResult()))
@@ -81,7 +90,6 @@ struct LocalityDetailView: View {
                 }
                 .padding(.horizontal, 40)
             }
-            .edgesIgnoringSafeArea(.top)
 
             Text("\(countryName)에서 이 시간대에 해당하는 주요 지역")
                 .font(.system(size: 13, weight: .medium))
@@ -107,6 +115,7 @@ struct LocalityDetailView: View {
                     })
                     .padding(.top, 20)
                 }
+                .padding(.bottom, 50)
             }
             .scrollIndicators(.hidden)
         } // VStack닫기
@@ -116,7 +125,11 @@ struct LocalityDetailView: View {
             }?.countryLocality ?? []
         }
         .sheet(isPresented: $isShowingMap) {
-            MapView(countryName: $tappedLocality)
+            MapView(
+                countryName: $countryName,
+                continent: $continent,
+                locality: $tappedLocality
+            )
         }
     } // body닫기
     
