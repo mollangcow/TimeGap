@@ -40,7 +40,7 @@ struct PickerView: View {
                             pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
-                            _ = gmtTargetResult()
+                            _ = gmtTargetResult(selected: selected)
                         }
                         .onChange(of: selected[1]) { newValue in
                             HapticManager.instance.impact(style: .medium)
@@ -48,7 +48,7 @@ struct PickerView: View {
                             pickerHour = newValue
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
-                            _ = gmtTargetResult()
+                            _ = gmtTargetResult(selected: selected)
                         }
                         .onChange(of: dataSource) { newValue in
                             HapticManager.instance.impact(style: .medium)
@@ -58,13 +58,13 @@ struct PickerView: View {
                         }
                         .onAppear(perform: {
                             print(">>>>> PICKER OnAppear")
-                            _ = gmtTargetResult()
+                            _ = gmtTargetResult(selected: selected)
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
                         })
                         .onDisappear {
                             print(">>>>> PICKER OnDisappear")
-                            _ = gmtTargetResult()
+                            _ = gmtTargetResult(selected: selected)
                             _ = hourRange
                             dataSource[1] = Array(hourRange).map { String($0) }
                         }
@@ -154,15 +154,15 @@ struct PickerView: View {
                     
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .bottom) {
-                            Text(Date.currentTime(timeZoneOffset: pickerResult()))
+                            Text(Date.currentTime(timeZoneOffset: pickerResult(selected: selected)))
                                 .font(.system(size: 64, weight: .heavy))
                                 .foregroundColor(.white)
-                            Text("GMT\(gmtVisual())")
+                            Text("GMT\(gmtVisual(selected: selected))")
                                 .font(.system(size: 12, weight: .semibold))
                                 .foregroundColor(.white.opacity(0.7))
                                 .padding(.bottom, 16)
                         }
-                        Text(Date.currentDate(timeZoneOffset: pickerResult()))
+                        Text(Date.currentDate(timeZoneOffset: pickerResult(selected: selected)))
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.white)
                             .padding(.leading, 4)
@@ -185,7 +185,7 @@ struct PickerView: View {
     } // body닫기
     
     private func pickerVisualMovingSpacer() -> CGFloat {
-        let hour = gmtTargetResult()
+        let hour = gmtTargetResult(selected: selected)
         
         if hour == -12 {
             return 0
@@ -222,49 +222,6 @@ struct PickerView: View {
         let calculatedHeight = minHeight + (maxHeight - minHeight) * normalizedHour
         
         return calculatedHeight
-    }
-    
-    func pickerResult() -> Int {
-        let value = selected[1]
-        return selected[0] == 1 ? -value : value
-    }
-    
-    func gmtHereResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset
-        }
-        
-        return 0
-    }
-    
-    func gmtTargetResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        let pickerValue = pickerResult()
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset + pickerValue
-        }
-        
-        return 0
-    }
-    
-    func gmtVisual() -> String {
-        let gmt = gmtTargetResult()
-        
-        if gmt > 0 {
-            let posGMT = "+\(gmt)"
-            return posGMT
-        } else if gmt < 0 {
-            let negGMT = "\(gmt)"
-            return negGMT
-        }
-        
-        return "+0"
     }
     
     private var hourRange: ClosedRange<Int> {

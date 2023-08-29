@@ -28,7 +28,7 @@ struct LocalityDetailView: View {
                     .foregroundColor(.clear)
                     .frame(height: 240)
                     .background(
-                        getBackgroundColor(targetHourResult: targetHourResult())
+                        getBackgroundColor(targetHourResult: targetHourResult(selected: selected))
                     )
                 
                 VStack(alignment: .leading) {
@@ -58,10 +58,10 @@ struct LocalityDetailView: View {
                     // 날짜 및 시간
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading) {
-                            Text(Date.currentTime(timeZoneOffset: pickerResult()))
+                            Text(Date.currentTime(timeZoneOffset: pickerResult(selected: selected)))
                                 .font(.system(size: 52, weight: .heavy))
                                 .foregroundColor(.white)
-                            Text(Date.currentDate(timeZoneOffset: pickerResult()))
+                            Text(Date.currentDate(timeZoneOffset: pickerResult(selected: selected)))
                                 .font(.system(size: 15, weight: .medium))
                                 .foregroundColor(.white)
                                 .padding(.leading, 2)
@@ -120,7 +120,7 @@ struct LocalityDetailView: View {
             .scrollIndicators(.hidden)
         } // VStack닫기
         .onAppear {
-            currentCountryList = CountryList.list.GMT[gmtTargetResult()]?.first { country in
+            currentCountryList = CountryList.list.GMT[gmtTargetResult(selected: selected)]?.first { country in
                 country.countryName == self.countryName
             }?.countryLocality ?? []
         }
@@ -132,46 +132,6 @@ struct LocalityDetailView: View {
             )
         }
     } // body닫기
-    
-    func pickerResult() -> Int {
-        let value = selected[1]
-        return selected[0] == 1 ? -value : value
-    }
-    
-    func gmtHereResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset
-        }
-        
-        return 0
-    }
-    
-    func gmtTargetResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        let pickerValue = pickerResult()
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset + pickerValue
-        }
-        
-        return 0
-    }
-    
-    func targetHourResult() -> Int {
-        let formattedString = Date.currentTime(timeZoneOffset: pickerResult())
-        
-        if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
-           let timeOffset = Int(formattedString[range].dropLast()) {
-            return timeOffset
-        }
-        
-        return 0
-    }
     
     private func showLocalityMap(isShowingMap: Bool, countryLocality: String) {
         if isShowingMap {

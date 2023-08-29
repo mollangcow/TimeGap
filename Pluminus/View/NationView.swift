@@ -22,8 +22,8 @@ struct NationView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            if CountryList.list.GMT[gmtTargetResult()] != nil {
-                WrappingHStack(CountryList.list.GMT[gmtTargetResult()]!, id: \.self) { tag in
+            if CountryList.list.GMT[gmtTargetResult(selected: selected)] != nil {
+                WrappingHStack(CountryList.list.GMT[gmtTargetResult(selected: selected)]!, id: \.self) { tag in
                     Button {
                         HapticManager.instance.impact(style: .light)
                         if tag.isHaveLocality {
@@ -90,38 +90,8 @@ struct NationView: View {
                 continent: $tappedContinent,
                 locality: $tappedLocality
             )
-//            .presentationBackground(.regularMaterial)
         } //sheet닫기
     } // body닫기
-    
-    func pickerResult() -> Int {
-        let value = selected[1]
-        return selected[0] == 1 ? -value : value
-    }
-    
-    func gmtHereResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset
-        }
-        
-        return 0
-    }
-    
-    func gmtTargetResult() -> Int {
-        let formattedString = Date.now.formatted(.dateTime.timeZone())
-        
-        let pickerValue = pickerResult()
-        
-        if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
-           let dateOffset = Int(formattedString[range].dropFirst()) {
-            return dateOffset + pickerValue
-        }
-        
-        return 0
-    }
     
     private func showLocality(isShowingModal: Bool, countryName: String, continent: String) {
         if isShowingModal {

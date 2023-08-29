@@ -47,26 +47,10 @@ struct BackColorView: View {
     @Binding var isPickerView: Bool
     @Binding var selected: [Int]
     
-    func pickerResult() -> Int {
-        let value = selected[1]
-        return selected[0] == 1 ? -value : value
-    }
-    
-    func targetHourResult() -> Int {
-        let formattedString = Date.currentTime(timeZoneOffset: pickerResult())
-        
-        if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
-           let timeOffset = Int(formattedString[range].dropLast()) {
-            return timeOffset
-        }
-        
-        return 0
-    }
-    
     var body: some View {
         ZStack {
             if !isPickerView {
-                getBackgroundColor(targetHourResult: targetHourResult())
+                getBackgroundColor(targetHourResult: targetHourResult(selected: selected))
                     .edgesIgnoringSafeArea(.all)
             }
         }
