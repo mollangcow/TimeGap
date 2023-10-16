@@ -30,6 +30,7 @@ struct PickerView: View {
             if isPickerView {
                 // 메인 피커 뷰
                 Spacer()
+                
                 HStack {
                     // 타임 피커 로직
                     CustomPicker(dataSource: $dataSource, selected: $selected)
@@ -78,40 +79,40 @@ struct PickerView: View {
                 ZStack {
                     HStack {
                         Text("GMT-12")
-                            .font(.system(size: 11, weight: .light))
+                            .font(.system(size: 8, weight: .regular))
                         
                         Rectangle()
                             .frame(width: 260, height: 1)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.gray.opacity(0.3))
                         
                         Text("GMT+14")
-                            .font(.system(size: 11, weight: .light))
-                    }
+                            .font(.system(size: 8, weight: .regular))
+                    } //HStack
                     
                     HStack {
                         Spacer()
                             .frame(width: pickerVisualStaticSpacer())
                         
-                        Rectangle()
+                        RoundedRectangle(cornerRadius: 1)
                             .frame(width: 2, height: 10)
                             .foregroundColor(.primary.opacity(0.3))
                         
                         Spacer()
-                    }
+                    } //HStack
                     .frame(width: 260)
                     
                     HStack {
                         Spacer()
                             .frame(width: pickerVisualMovingSpacer())
                         
-                        Rectangle()
+                        RoundedRectangle(cornerRadius: 1)
                             .frame(width: 2, height: 10)
                             .foregroundColor(.primary)
                         
                         Spacer()
-                    }
+                    } //HStack
                     .frame(width: 260)
-                }
+                } //ZStack
                 
                 Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 주요 지역")
                     .font(.system(size: 14, weight: .regular))
@@ -136,7 +137,7 @@ struct PickerView: View {
                                 .frame(width: 2, height: rectangleHeight)
                                 .padding(.leading, 20)
                                 .onAppear {
-                                    withAnimation(.easeInOut(duration: 1.0)) {
+                                    withAnimation(.spring(duration: 1.0)) {
                                         rectangleHeight = calcTimeGapStrokeHeight(pickerHour: pickerHour)
                                     }
                                 }

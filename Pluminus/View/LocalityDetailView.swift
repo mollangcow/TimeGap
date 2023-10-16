@@ -11,6 +11,7 @@ struct LocalityDetailView: View {
     
     @State private var isShowingMap: Bool = false
     @State private var tappedLocality: String = ""
+    @State private var rectangleHeight: CGFloat = 0
     @State var currentCountryList: [String] = []
     
     @Binding var countryName: String
@@ -90,7 +91,15 @@ struct LocalityDetailView: View {
                                 endPoint: .bottom
                             )
                         )
-                        .frame(width: 2, height : 160)
+                        .frame(width: 2, height : rectangleHeight)
+                        .onAppear {
+                            withAnimation(.spring(duration: 2.0)) {
+                                rectangleHeight = 160
+                            }
+                        }
+                        .onDisappear {
+                            rectangleHeight = 1
+                        }
                 } //HStack
                 .frame(width: screenWidth * 0.8, height: 160)
             } //ZStack
@@ -102,8 +111,9 @@ struct LocalityDetailView: View {
                 .padding(.top, 30)
 
             Divider()
+                .foregroundColor(.clear)
                 .frame(width: screenWidth * 0.9)
-                .background(Color.gray)
+                .background(Color.gray.opacity(0.3))
                 .padding(.top, 10)
 
             ScrollView(.vertical) {

@@ -85,18 +85,24 @@ struct MainView: View {
                 Button(action: {
                     HapticManager.instance.notification(type: .warning)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        withAnimation(.easeInOut(duration: 0.5)) {
+                        withAnimation(.spring) {
                             isPickerView.toggle()
                         }
                     }
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 35)
-                            .frame(width: isPickerView ? 300 : 350, height: 70)
+                            .frame(width: isPickerView ? 260 : 350, height: 70)
                             .foregroundColor(isPickerView ? .orange : .black.opacity(0.3))
-                        Text(isPickerView ? "확인해보기" : "돌아가기")
-                            .foregroundColor(.white)
-                            .font(.system(size: 17, weight: .black))
+                        if isPickerView {
+                            Text("확인해보기")
+                                .foregroundColor(.white)
+                                .font(.system(size: 17, weight: .black))
+                        } else {
+                            Text("돌아가기")
+                                .foregroundColor(.white)
+                                .font(.system(size: 17, weight: .black))
+                        }
                     }
                     .padding(.bottom, 30)
                 }) // Button닫기

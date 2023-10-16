@@ -53,6 +53,7 @@ struct MapView: View {
                     .font(.system(size: locality == "" ? 28 : 20, weight: locality == "" ? .black : .light))
                     .foregroundColor(.primary)
                     .padding(.top, 20)
+                    .padding(.leading, 2)
                 
                 Text("\(locality)")
                     .font(.system(size: 28, weight: .black))
