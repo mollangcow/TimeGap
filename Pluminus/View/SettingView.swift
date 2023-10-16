@@ -76,7 +76,7 @@ struct SettingView: View {
             
             Spacer()
             
-            Text("App Version 1.2")
+            Text("App Version 1.2.0")
                 .font(.system(size: 12, weight: .regular))
                 .foregroundStyle(.secondary)
         }
