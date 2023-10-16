@@ -11,6 +11,7 @@
 		234E4ED22A2B899B00CA787D /* NationDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4ED12A2B899B00CA787D /* NationDB.swift */; };
 		234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4EDB2A2BB13E00CA787D /* PickerView.swift */; };
 		234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */; };
+		237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CF0AF2ADD9CD10074E6DC /* SettingView.swift */; };
 		23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAEE372A30A2F6007191B8 /* BackColorView.swift */; };
 		23B25C0A2A2860860022273F /* NC1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C092A2860860022273F /* NC1App.swift */; };
 		23B25C0C2A2860860022273F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C0B2A2860860022273F /* MainView.swift */; };
@@ -33,6 +34,7 @@
 		2307EF1B2A9DCA4C00293807 /* TimeFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFunctions.swift; sourceTree = "<group>"; };
 		234E4ED12A2B899B00CA787D /* NationDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationDB.swift; sourceTree = "<group>"; };
 		234E4EDB2A2BB13E00CA787D /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		237CF0AF2ADD9CD10074E6DC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		23AAEE372A30A2F6007191B8 /* BackColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorView.swift; sourceTree = "<group>"; };
 		23B25C062A2860860022273F /* Pluminus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pluminus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B25C092A2860860022273F /* NC1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1App.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
+				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				234E4EDB2A2BB13E00CA787D /* PickerView.swift */,
 				23B67FB12A8DEE5F00229B81 /* NationView.swift */,
 				23B3A82E2A860CD900E86DE0 /* LocalityDetailView.swift */,
@@ -209,6 +212,7 @@
 				23B67FAE2A8DE0D700229B81 /* ScreenSize.swift in Sources */,
 				23B3A82F2A860CD900E86DE0 /* LocalityDetailView.swift in Sources */,
 				23B25C342A2864740022273F /* CustomPicker.swift in Sources */,
+				237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */,
 				23B25C382A28B75B0022273F /* Location.swift in Sources */,
 				23B67FDB2A954CE200229B81 /* Haptics.swift in Sources */,
 				23B25C362A28B1120022273F /* ColorHex.swift in Sources */,

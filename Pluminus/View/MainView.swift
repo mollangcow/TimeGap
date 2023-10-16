@@ -9,9 +9,10 @@ import SwiftUI
 
 struct MainView: View {
 
-    @State private var currentLocationName: String = ""
+    @State private var currentLocationName : String = ""
     @State private var isPickerView : Bool = true
-    @State private var selected: [Int] = [0, 0]
+    @State private var selected : [Int] = [0, 0]
+    @State private var isShowingSetting : Bool = false
     
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct MainView: View {
             )
             
             VStack {
-                HStack {
+                HStack(alignment: .top) {
                     // 현재 위치 시간
                     VStack(alignment: .leading) {
                         Text(Date.currentTime(timeZoneOffset: 0))
@@ -37,6 +38,26 @@ struct MainView: View {
                     .frame(height: 120)
                     
                     Spacer()
+                    
+                    if isPickerView {
+                        Button(action: {
+                            HapticManager.instance.impact(style: .light)
+                            isShowingSetting = true
+                        }, label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 44, height: 44)
+                                    .foregroundStyle(.clear)
+                                
+                                Image(systemName: "gearshape.fill")
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundStyle(.gray.opacity(0.4))
+                            }
+                            .padding(.top, 20)
+                            .padding(.trailing, 10)
+                        })
+                    }
                 } //VStack닫기
                 
                 // 현재 위치 표기
@@ -62,7 +83,7 @@ struct MainView: View {
                 
                 // 하단 버튼
                 Button(action: {
-                    HapticManager.instance.notification(type: .success)
+                    HapticManager.instance.notification(type: .warning)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             isPickerView.toggle()
@@ -80,6 +101,9 @@ struct MainView: View {
                     .padding(.bottom, 30)
                 }) // Button닫기
             } // VStack닫기
+            .sheet(isPresented: $isShowingSetting) {
+                SettingView()
+            }
             .onReceive(locationManager.$currentLocationName) { newLocation in
                 self.currentLocationName = newLocation
             }

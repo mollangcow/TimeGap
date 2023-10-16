@@ -25,7 +25,7 @@ struct NationView: View {
             if CountryList.list.GMT[gmtTargetResult(selected: selected)] != nil {
                 WrappingHStack(CountryList.list.GMT[gmtTargetResult(selected: selected)]!, id: \.self) { tag in
                     Button {
-                        HapticManager.instance.impact(style: .light)
+                        HapticManager.instance.impact(style: .rigid)
                         if tag.isHaveLocality {
                             showLocality(isShowingModal: tag.isHaveLocality, countryName: tag.countryName, continent: tag.continent)
                         } else {
@@ -39,16 +39,7 @@ struct NationView: View {
                                     .font(.system(size: 17, weight: .bold))
                                     .foregroundColor(.black)
                                     .padding(.trailing, 4)
-                                if tag.isHaveLocality && tag.countryName == "대한민국" {
-                                    Image(systemName: "circle")
-                                        .foregroundColor(.clear)
-                                        .overlay(
-                                            Image(systemName: "ellipsis.circle.fill")
-                                                .resizable()
-                                                .frame(width: 24, height: 24)
-                                                .foregroundColor(.blue)
-                                        )
-                                } else if tag.isHaveLocality {
+                                if tag.isHaveLocality {
                                     Image(systemName: "circle")
                                         .foregroundColor(.clear)
                                         .overlay(
@@ -82,7 +73,6 @@ struct NationView: View {
                 pickerHour: $pickerHour,
                 selected: $selected
             )
-            .presentationBackground(.regularMaterial)
         } //sheet닫기
         .sheet(isPresented: $isShowingMap) {
             MapView(
