@@ -71,7 +71,7 @@ struct MapView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(.thickMaterial, lineWidth: 1)
+                        .stroke(.regularMaterial, lineWidth: 1)
                 )
                 .shadow(color: .black.opacity(0.2), radius: 20)
                 .padding(.bottom, 80)
