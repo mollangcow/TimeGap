@@ -15,11 +15,13 @@ struct MapView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
-            ZStack {
-                Text("지도")
-                    .font(.system(size: 17, weight: .bold))
-                
+        ZStack(alignment: .top) {
+            MapFocusView(
+                countryName: $countryName,
+                locality: $locality
+            )
+            
+            VStack {
                 HStack {
                     Spacer()
                     
@@ -30,44 +32,49 @@ struct MapView: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: 60, height: 60)
-                                .foregroundColor(.clear)
-                            
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 28, height: 28)
-                                .foregroundColor(.primary.opacity(0.2))
+                                .foregroundStyle(.clear)
+                                .background(.thickMaterial)
+                                .mask(
+                                    Image(systemName: "xmark.circle.fill")
+                                        .resizable()
+                                        .frame(width: 28, height: 28)
+                                )
+                                .overlay(
+                                    Circle()
+                                        .stroke(.ultraThickMaterial, lineWidth: 1)
+                                        .frame(width: 28, height: 28)
+                                )
                         }
                     })
                 }
-            }
-            
-            MapFocusView(
-                countryName: $countryName,
-                locality: $locality
-            )
-            .frame(width: screenWidth * 0.92, height: 400)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            
-            VStack(alignment: .leading) {
-                Text("\(countryName)")
-                    .font(.system(size: locality == "" ? 28 : 20, weight: locality == "" ? .black : .light))
-                    .foregroundColor(.primary)
-                    .padding(.top, 20)
-                    .padding(.leading, 2)
                 
-                Text("\(locality)")
-                    .font(.system(size: 28, weight: .black))
-                    .foregroundColor(.primary)
+                Spacer()
                 
-                Text("\(continent)")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.secondary)
-                    .padding(.top, 4)
-            }
-            .frame(width: screenWidth * 0.92, alignment: .leading)
-            .padding(.leading, 20)
-            
-            Spacer()
-        } // VStack닫기
-    } // body닫기
-} // struct닫기
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("\(countryName)")
+                        .font(.system(size: locality == "" ? 28 : 20, weight: locality == "" ? .black : .light))
+                        .foregroundColor(.primary)
+                    
+                    Text("\(locality)")
+                        .font(.system(size: 28, weight: .black))
+                        .foregroundColor(.primary)
+                    
+                    Text("\(continent)")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.secondary)
+                }
+                .frame(width: screenWidth * 0.88, alignment: .leading)
+                .padding(.leading, 20)
+                .padding(.vertical, 20)
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(.thickMaterial, lineWidth: 1)
+                )
+                .padding(.bottom, 60)
+            } //VStack
+        } // VStack
+        .ignoresSafeArea()
+    } // body
+} // struct

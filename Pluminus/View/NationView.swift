@@ -33,30 +33,28 @@ struct NationView: View {
                             self.isShowingMap = true
                         }
                     } label: {
-                        ZStack {
-                            HStack {
-                                Text(tag.countryName)
-                                    .font(.system(size: 17, weight: .bold))
-                                    .foregroundColor(.black)
-                                    .padding(.trailing, 4)
-                                if tag.isHaveLocality {
-                                    Image(systemName: "circle")
-                                        .foregroundColor(.clear)
-                                        .overlay(
-                                            Image(systemName: "ellipsis.circle.fill")
-                                                .resizable()
-                                                .frame(width: 24, height: 24)
-                                                .foregroundColor(.orange)
-                                        )
-                                }
-                            } // HStack닫기
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 12)
-                            .background(.white)
-                            .cornerRadius(32)
-                        } // ZStack닫기
-                        .padding(.bottom, 16)
-                    } // Button닫기
+                        HStack {
+                            Text(tag.countryName)
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(.black)
+                            if tag.isHaveLocality {
+                                Circle()
+                                    .foregroundColor(.clear)
+                                    .overlay(
+                                        Image(systemName: "ellipsis.circle.fill")
+                                            .resizable()
+                                            .frame(width: 24, height: 24)
+                                            .foregroundColor(.orange)
+                                    )
+                                    .padding(.leading, 4)
+                            }
+                        } // HStack
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 12)
+                        .background(.white)
+                        .cornerRadius(32)
+                    } // Button
+                    .padding(.bottom, 16)
                 } // WrappingHStack
                 .frame(width: screenWidth * 0.88)
             } else {
@@ -65,7 +63,7 @@ struct NationView: View {
                     .foregroundColor(.white)
             }
         } // VStack닫기
-        .sheet(isPresented: $isShowingModal) {
+        .fullScreenCover(isPresented: $isShowingModal) {
             LocalityDetailView(
                 countryName: $tappedCountry,
                 continent: $tappedContinent,
@@ -73,7 +71,7 @@ struct NationView: View {
                 pickerHour: $pickerHour,
                 selected: $selected
             )
-        } //sheet닫기
+        }
         .sheet(isPresented: $isShowingMap) {
             MapView(
                 countryName: $tappedCountry,

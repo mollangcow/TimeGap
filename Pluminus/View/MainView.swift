@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-
     @State private var currentLocationName : String = ""
     @State private var isPickerView : Bool = true
+    @State private var isButtonLabelDefult : Bool = true
     @State private var selected : [Int] = [0, 0]
     @State private var isShowingSetting : Bool = false
     
@@ -25,17 +25,15 @@ struct MainView: View {
             VStack {
                 HStack(alignment: .top) {
                     // 현재 위치 시간
-                    VStack(alignment: .leading) {
-                        Text(Date.currentTime(timeZoneOffset: 0))
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(Date().currentTime(timeZoneOffset: 0))
                             .font(.system(size: 64, weight: isPickerView ? .heavy : .thin))
                             .foregroundColor(isPickerView ? .primary : .white)
-                            .padding(.leading, 20)
-                        Text(Date.currentDate(timeZoneOffset: 0))
+                        
+                        Text(Date().currentDate(timeZoneOffset: 0))
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(isPickerView ? .primary : .white)
-                            .padding(.leading, 24)
-                    } //HStack닫기
-                    .frame(height: 120)
+                    } //VStack
                     
                     Spacer()
                     
@@ -44,21 +42,19 @@ struct MainView: View {
                             HapticManager.instance.impact(style: .light)
                             isShowingSetting = true
                         }, label: {
-                            ZStack {
-                                Rectangle()
-                                    .frame(width: 44, height: 44)
-                                    .foregroundStyle(.clear)
-                                
-                                Image(systemName: "gearshape.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundStyle(.gray.opacity(0.4))
-                            }
-                            .padding(.top, 20)
-                            .padding(.trailing, 10)
+                            Rectangle()
+                                .frame(width: 24, height: 44)
+                                .foregroundStyle(.clear)
+                                .overlay() {
+                                    Image(systemName: "gearshape.fill")
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundStyle(.gray.opacity(0.4))
+                                }
                         })
                     }
-                } //VStack닫기
+                } //HStack
+                .padding(.top, 20)
                 
                 // 현재 위치 표기
                 HStack {
@@ -70,8 +66,7 @@ struct MainView: View {
                     Text(currentLocationName)
                         .font(.system(size: 20, weight: .heavy))
                         .foregroundColor(isPickerView ? .primary : .white)
-                        .padding(.trailing, 20)
-                } // HStack닫기
+                } // HStack
                 
                 Spacer()
                 
@@ -88,25 +83,19 @@ struct MainView: View {
                         withAnimation(.spring) {
                             isPickerView.toggle()
                         }
+                        isButtonLabelDefult.toggle()
                     }
                 }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 35)
-                            .frame(width: isPickerView ? 260 : 350, height: 70)
-                            .foregroundColor(isPickerView ? .orange : .black.opacity(0.3))
-                        if isPickerView {
-                            Text("확인해보기")
-                                .foregroundColor(.white)
-                                .font(.system(size: 17, weight: .black))
-                        } else {
-                            Text("돌아가기")
-                                .foregroundColor(.white)
-                                .font(.system(size: 17, weight: .black))
-                        }
-                    }
-                    .padding(.bottom, 30)
+                    Text(isButtonLabelDefult ? "확인하기" : "돌아가기")
+                        .foregroundStyle(.white)
+                        .font(.system(size: 17, weight: .black))
+                        .frame(width: isPickerView ? screenWidth * 0.6 : screenWidth * 0.88, height: 70)
+                        .background(isPickerView ? Color.orange : Color.black.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 100))
                 }) // Button닫기
+                .padding(.bottom, 30)
             } // VStack닫기
+            .padding(.horizontal, 20)
             .sheet(isPresented: $isShowingSetting) {
                 SettingView()
             }

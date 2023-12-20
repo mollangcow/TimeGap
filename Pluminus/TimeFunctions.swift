@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 func pickerResult(selected: [Int]) -> Int {
     let value = selected[1]
@@ -51,7 +52,7 @@ func gmtVisual(selected: [Int]) -> String {
 }
 
 func targetHourResult(selected: [Int]) -> Int {
-    let formattedString = Date.currentTime(timeZoneOffset: pickerResult(selected: selected))
+    let formattedString = Date().currentTime(timeZoneOffset: pickerResult(selected: selected))
     
     if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
        let timeOffset = Int(formattedString[range].dropLast()) {

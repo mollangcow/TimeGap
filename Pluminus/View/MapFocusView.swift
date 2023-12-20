@@ -8,33 +8,60 @@
 import SwiftUI
 import MapKit
 
+class MapViewDelegate: NSObject, MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil } // Check if it's an MKPointAnnotation
+
+        let identifier = "CustomAnnotationView"
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+
+            if let markerAnnotationView = annotationView as? MKMarkerAnnotationView {
+                markerAnnotationView.markerTintColor = .red
+                markerAnnotationView.glyphText = "●"
+                markerAnnotationView.glyphTintColor = .white
+            }
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        return annotationView
+    }
+}
+
 struct MapFocusView: UIViewRepresentable {
     @Binding var countryName: String
     @Binding var locality: String
-    
+
+    func makeCoordinator() -> MapViewDelegate {
+        return MapViewDelegate()
+    }
+
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        return mapView
+    }
+
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        
         let geocoder = CLGeocoder()
-        let countryName = locality == "" ? countryName : locality
-        
-        geocoder.geocodeAddressString(countryName) { placemarks, error in
+        let country = locality.isEmpty ? countryName : locality
+
+        geocoder.geocodeAddressString(country) { placemarks, error in
             if let placemark = placemarks?.first,
-                let location = placemark.location {
+               let location = placemark.location {
                 let coordinate = location.coordinate
                 let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10))
                 uiView.setRegion(region, animated: false)
-                print("Latitude: \(location.coordinate.latitude)")
-                print("Longitude: \(location.coordinate.longitude)")
-                
+
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
-                annotation.title = countryName
+                annotation.title = country
                 uiView.addAnnotation(annotation)
             }
         }
-    }
-    
-    func makeUIView(context: Context) -> MKMapView {
-        MKMapView()
     }
 }
