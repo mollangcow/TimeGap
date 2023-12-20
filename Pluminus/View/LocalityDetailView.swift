@@ -28,81 +28,72 @@ struct LocalityDetailView: View {
                 HapticManager.instance.impact(style: .light)
                 dismiss()
             }, label: {
-                ZStack {
-                    Rectangle()
-                        .frame(width: 60, height: 46)
-                        .foregroundStyle(.clear)
-                    
-                    RoundedRectangle(cornerRadius: 3)
-                        .frame(width: 40, height: 6)
-                        .foregroundStyle(.gray.opacity(0.5))
-                }
+                RoundedRectangle(cornerRadius: 3)
+                    .frame(width: 40, height: 6)
+                    .foregroundStyle(.gray.opacity(0.5))
+                    .padding(.all, 20)
+                    .background(.clear)
             })
             
-            ZStack {
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(.clear)
-                    .frame(width: screenWidth * 0.92, height: 200)
-                    .background(
-                        getBackgroundColor(targetHourResult: targetHourResult(selected: selected))
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text(countryName)
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.leading, 2)
-                        
-                        Text(continent)
-                            .font(.system(size: 17, weight: .light))
-                            .foregroundColor(.white)
-                            .padding(.leading, 2)
-                        
-                        Spacer()
-                        
-                        Text(Date.currentTime(timeZoneOffset: pickerResult(selected: selected)))
-                            .font(.system(size: 52, weight: .heavy))
-                            .foregroundColor(.white)
-                        
-                        Text(Date.currentDate(timeZoneOffset: pickerResult(selected: selected)))
-                            .font(.system(size: 15, weight: .medium))
-                            .foregroundColor(.white)
-                            .padding(.leading, 2)
-                    } //VStack
+            HStack(alignment: .bottom) {
+                VStack(alignment: .leading) {
+                    Text(countryName)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.leading, 2)
+                    
+                    Text(continent)
+                        .font(.system(size: 12, weight: .light))
+                        .foregroundColor(.white)
+                        .padding(.leading, 2)
                     
                     Spacer()
                     
-                    Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
-                        .font(.system(size: 12))
+                    Text(Date().currentTime(timeZoneOffset: pickerResult(selected: selected)))
+                        .font(.system(size: 52, weight: .heavy))
                         .foregroundColor(.white)
                     
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(
-                                    colors: [
-                                        .white.opacity(0),
-                                        .white.opacity(1)
-                                    ]
-                                ),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
+                    Text(Date().currentDate(timeZoneOffset: pickerResult(selected: selected)))
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(.white)
+                        .padding(.leading, 2)
+                } //VStack
+                
+                Spacer()
+                
+                Text("\(pickerFastOrSlow[1]) \(pickerHour) 시간")
+                    .font(.system(size: 12))
+                    .foregroundColor(.white)
+                
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(
+                                colors: [
+                                    .white.opacity(0),
+                                    .white.opacity(1)
+                                ]
+                            ),
+                            startPoint: .top,
+                            endPoint: .bottom
                         )
-                        .frame(width: 2, height : rectangleHeight)
-                        .onAppear {
-                            withAnimation(.spring(duration: 2.0)) {
-                                rectangleHeight = 160
-                            }
+                    )
+                    .frame(width: 2, height: rectangleHeight)
+                    .onAppear {
+                        withAnimation(.spring(duration: 2.0)) {
+                            rectangleHeight = 120
                         }
-                        .onDisappear {
-                            rectangleHeight = 1
-                        }
-                } //HStack
-                .frame(width: screenWidth * 0.8, height: 160)
-            } //ZStack
+                    }
+                    .onDisappear {
+                        rectangleHeight = 1
+                    }
+            } //HStack
+            .padding(.all, 20)
+            .frame(width: screenWidth * 0.88, height: 160)
+            .background(
+                getBackgroundColor(targetHourResult: targetHourResult(selected: selected))
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 16))
 
             Text("\(countryName)에서 이 시간대에 해당하는 주요 지역")
                 .font(.system(size: 13, weight: .medium))
@@ -112,7 +103,7 @@ struct LocalityDetailView: View {
 
             Divider()
                 .foregroundColor(.clear)
-                .frame(width: screenWidth * 0.9)
+                .frame(width: screenWidth * 0.88)
                 .background(Color.gray.opacity(0.3))
                 .padding(.top, 10)
 
@@ -122,15 +113,13 @@ struct LocalityDetailView: View {
                         HapticManager.instance.impact(style: .rigid)
                         showLocalityMap(isShowingMap: true, countryLocality: locality)
                     }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(width: screenWidth * 0.9, height: 60)
-                                .foregroundStyle(.gray.opacity(0.1))
-                            Text(locality)
-                                .frame(width: screenWidth * 0.8, alignment: .leading)
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.primary)
-                        }
+                        Text(locality)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.primary)
+                            .padding(.leading, 20)
+                            .frame(width: screenWidth * 0.88, height: 60, alignment: .leading)
+                            .background(.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
                     })
                     .padding(.top, 4)
                 }

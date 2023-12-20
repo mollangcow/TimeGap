@@ -11,6 +11,7 @@
 		234E4ED22A2B899B00CA787D /* NationDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4ED12A2B899B00CA787D /* NationDB.swift */; };
 		234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4EDB2A2BB13E00CA787D /* PickerView.swift */; };
 		234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */; };
+		2364635A2B332DE000CC39F2 /* Variablur in Frameworks */ = {isa = PBXBuildFile; productRef = 236463592B332DE000CC39F2 /* Variablur */; };
 		237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CF0AF2ADD9CD10074E6DC /* SettingView.swift */; };
 		2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395A05A2ADDAECB00773AF7 /* EmailView.swift */; };
 		23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAEE372A30A2F6007191B8 /* BackColorView.swift */; };
@@ -62,6 +63,7 @@
 			files = (
 				23B67FB72A8F319800229B81 /* WrappingHStack in Frameworks */,
 				234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */,
+				2364635A2B332DE000CC39F2 /* Variablur in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +156,7 @@
 			packageProductDependencies = (
 				234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */,
 				23B67FB62A8F319800229B81 /* WrappingHStack */,
+				236463592B332DE000CC39F2 /* Variablur */,
 			);
 			productName = NC1;
 			productReference = 23B25C062A2860860022273F /* Pluminus.app */;
@@ -187,6 +190,7 @@
 			packageReferences = (
 				234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
 				23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				236463582B332DE000CC39F2 /* XCRemoteSwiftPackageReference "Variablur" */,
 			);
 			productRefGroup = 23B25C072A2860860022273F /* Products */;
 			projectDirPath = "";
@@ -290,7 +294,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -346,7 +350,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -378,7 +382,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,7 +421,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -466,6 +470,14 @@
 				kind = branch;
 			};
 		};
+		236463582B332DE000CC39F2 /* XCRemoteSwiftPackageReference "Variablur" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daprice/Variablur";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
@@ -481,6 +493,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */;
 			productName = SwiftUIVisualEffects;
+		};
+		236463592B332DE000CC39F2 /* Variablur */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 236463582B332DE000CC39F2 /* XCRemoteSwiftPackageReference "Variablur" */;
+			productName = Variablur;
 		};
 		23B67FB62A8F319800229B81 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -9,10 +9,12 @@ import SwiftUI
 import MessageUI
 
 struct SettingView: View {
-    @State private var isShowingEmailView = false
-    @State private var emailResult: Result<MFMailComposeResult, Error>?
+    @AppStorage("isDarkMode") private var isDarkMode = false
     
     @Environment(\.dismiss) var dismiss
+    
+    @State private var isShowingEmailView = false
+    @State private var emailResult: Result<MFMailComposeResult, Error>?
     
     var body: some View {
         VStack {
@@ -52,26 +54,50 @@ struct SettingView: View {
                     HapticManager.instance.impact(style: .light)
                     isShowingEmailView.toggle()
                 }) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(width: screenWidth * 0.9 , height: 60)
-                            .foregroundStyle(.gray.opacity(0.1))
                         HStack {
                             Image(systemName: "questionmark.circle.fill")
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.orange)
+                                .padding(.leading, 20)
                             
-                            Text("오류신고/문의하기")
+                            Text("오류 문의하기")
                                 .font(.system(size: 17, weight: .bold))
                                 .foregroundColor(.primary)
                                 .padding(.leading, 8)
                             
                             Spacer()
                         }
-                        .frame(width: screenWidth * 0.8 , height: 52)
-                    }
+                        .frame(width: screenWidth * 0.88 , height: 60)
+                        .background(.gray.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
+                
+                Text("일반")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.primary)
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
+
+                HStack {
+                    Image(systemName: "moon.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.orange)
+                        .padding(.leading, 20)
+                    
+                    Toggle(isOn: $isDarkMode, label: {
+                        Text("어두운 화면")
+                            .font(.system(size: 17, weight: .bold))
+                            .foregroundColor(.primary)
+                            .padding(.leading, 8)
+                    })
+                    .toggleStyle(SwitchToggleStyle(tint: .orange))
+                    .padding(.trailing, 20)
+                }
+                .frame(width: screenWidth * 0.88 , height: 60)
+                .background(.gray.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
             }
             
             Spacer()
@@ -83,9 +109,10 @@ struct SettingView: View {
         .sheet(isPresented: $isShowingEmailView) {
             EmailView(isShowing: $isShowingEmailView, result: $emailResult)
                 .ignoresSafeArea()
-        }
-    }
-}
+        } //sheet
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+    } //body
+} //struct
 
 #Preview {
     SettingView()

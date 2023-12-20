@@ -26,164 +26,177 @@ struct PickerView: View {
     }
     
     var body: some View {
+        switch isPickerView {
+        case true:
+            return AnyView(pickerViewContent)
+        case false:
+            return AnyView(nonPickerViewContent)
+        }
+    } // body닫기
+    
+    var pickerViewContent: some View {
         VStack {
-            if isPickerView {
-                // 메인 피커 뷰
-                Spacer()
+            Spacer()
+            
+            HStack {
+                CustomPicker(dataSource: $dataSource, selected: $selected)
+                    .frame(width:160)
+                    .id(dataSource)
+                    .onChange(of: selected[0]) { newValue in
+                        print(">>>>> PICKER OnChange(selected[0])")
+                        pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
+                        _ = hourRange
+                        dataSource[1] = Array(hourRange).map { String($0) }
+                        _ = gmtTargetResult(selected: selected)
+                    }
+                    .onChange(of: selected[1]) { newValue in
+                        HapticManager.instance.impact(style: .medium)
+                        print(">>>>> PICKER OnChange(selected[1])")
+                        pickerHour = newValue
+                        _ = hourRange
+                        dataSource[1] = Array(hourRange).map { String($0) }
+                        _ = gmtTargetResult(selected: selected)
+                    }
+                    .onChange(of: dataSource) { newValue in
+                        HapticManager.instance.impact(style: .medium)
+                        print(">>>>> PICKER OnChange(dataSource)")
+                        _ = hourRange
+                        dataSource[1] = Array(hourRange).map { String($0) }
+                    }
+                    .onAppear(perform: {
+                        print(">>>>> PICKER OnAppear")
+                        _ = gmtTargetResult(selected: selected)
+                        _ = hourRange
+                        dataSource[1] = Array(hourRange).map { String($0) }
+                    })
+                    .onDisappear {
+                        print(">>>>> PICKER OnDisappear")
+                        _ = gmtTargetResult(selected: selected)
+                        _ = hourRange
+                        dataSource[1] = Array(hourRange).map { String($0) }
+                    }
+                    
+                Text("시간")
+                    .font(.system(size: 17, weight: .bold))
+            } // HStack
+            
+            Spacer()
+            
+            ZStack {
+                HStack {
+                    Text("GMT-12")
+                        .font(.system(size: 8, weight: .regular))
+                    
+                    Rectangle()
+                        .frame(width: 260, height: 1)
+                        .foregroundColor(.gray.opacity(0.3))
+                    
+                    Text("GMT+14")
+                        .font(.system(size: 8, weight: .regular))
+                } //HStack
                 
                 HStack {
-                    // 타임 피커 로직
-                    CustomPicker(dataSource: $dataSource, selected: $selected)
-                        .frame(width:160)
-                        .id(dataSource)
-                        .onChange(of: selected[0]) { newValue in
-                            print(">>>>> PICKER OnChange(selected[0])")
-                            pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
-                            _ = hourRange
-                            dataSource[1] = Array(hourRange).map { String($0) }
-                            _ = gmtTargetResult(selected: selected)
-                        }
-                        .onChange(of: selected[1]) { newValue in
-                            HapticManager.instance.impact(style: .medium)
-                            print(">>>>> PICKER OnChange(selected[1])")
-                            pickerHour = newValue
-                            _ = hourRange
-                            dataSource[1] = Array(hourRange).map { String($0) }
-                            _ = gmtTargetResult(selected: selected)
-                        }
-                        .onChange(of: dataSource) { newValue in
-                            HapticManager.instance.impact(style: .medium)
-                            print(">>>>> PICKER OnChange(dataSource)")
-                            _ = hourRange
-                            dataSource[1] = Array(hourRange).map { String($0) }
-                        }
-                        .onAppear(perform: {
-                            print(">>>>> PICKER OnAppear")
-                            _ = gmtTargetResult(selected: selected)
-                            _ = hourRange
-                            dataSource[1] = Array(hourRange).map { String($0) }
-                        })
-                        .onDisappear {
-                            print(">>>>> PICKER OnDisappear")
-                            _ = gmtTargetResult(selected: selected)
-                            _ = hourRange
-                            dataSource[1] = Array(hourRange).map { String($0) }
-                        }
-                        
-                    Text("시간")
-                        .font(.system(size: 17, weight: .bold))
-                } // HStack닫기
-                
-                Spacer()
-                
-                ZStack {
-                    HStack {
-                        Text("GMT-12")
-                            .font(.system(size: 8, weight: .regular))
-                        
-                        Rectangle()
-                            .frame(width: 260, height: 1)
-                            .foregroundColor(.gray.opacity(0.3))
-                        
-                        Text("GMT+14")
-                            .font(.system(size: 8, weight: .regular))
-                    } //HStack
+                    Spacer()
+                        .frame(width: pickerVisualStaticSpacer())
                     
-                    HStack {
-                        Spacer()
-                            .frame(width: pickerVisualStaticSpacer())
-                        
-                        RoundedRectangle(cornerRadius: 1)
-                            .frame(width: 2, height: 10)
-                            .foregroundColor(.primary.opacity(0.3))
-                        
-                        Spacer()
-                    } //HStack
-                    .frame(width: 260)
+                    RoundedRectangle(cornerRadius: 1)
+                        .frame(width: 2, height: 10)
+                        .foregroundColor(.primary.opacity(0.3))
                     
-                    HStack {
-                        Spacer()
-                            .frame(width: pickerVisualMovingSpacer())
-                        
-                        RoundedRectangle(cornerRadius: 1)
-                            .frame(width: 2, height: 10)
-                            .foregroundColor(.primary)
-                        
-                        Spacer()
-                    } //HStack
-                    .frame(width: 260)
-                } //ZStack
+                    Spacer()
+                } //HStack
+                .frame(width: 260)
                 
-                Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 주요 지역")
+                HStack {
+                    Spacer()
+                        .frame(width: pickerVisualMovingSpacer())
+                    
+                    RoundedRectangle(cornerRadius: 1)
+                        .frame(width: 2, height: 10)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                } //HStack
+                .frame(width: 260)
+            } //ZStack
+            
+            if pickerHour == 0  {
+                Text("현재 위치와 동일한 시간대의 주요 지역")
                     .font(.system(size: 14, weight: .regular))
                     .padding(.top, 10)
                     .padding(.bottom, 40)
             } else {
-                VStack(alignment: .leading) {
-                    VStack {
-                        HStack(alignment: .bottom) {
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(
-                                            colors: [
-                                                .white.opacity(0),
-                                                .white.opacity(1)
-                                            ]
-                                        ),
-                                        startPoint: .top,
-                                        endPoint: .bottom)
-                                )
-                                .frame(width: 2, height: rectangleHeight)
-                                .padding(.leading, 20)
-                                .onAppear {
-                                    withAnimation(.spring(duration: 1.0)) {
-                                        rectangleHeight = calcTimeGapStrokeHeight(pickerHour: pickerHour)
-                                    }
-                                }
-                                .onDisappear {
-                                    rectangleHeight = 1
-                                }
-                            Text("\(pickerFastOrSlow[1]) \(pickerHour)시간")
-                                .font(.system(size: 12, weight: .semibold))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Spacer()
-                    }
-                    .frame(height: screenHeight * 0.18)
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack(alignment: .bottom) {
-                            Text(Date.currentTime(timeZoneOffset: pickerResult(selected: selected)))
-                                .font(.system(size: 64, weight: .heavy))
-                                .foregroundColor(.white)
-                            Text("GMT\(gmtVisual(selected: selected))")
-                                .font(.system(size: 12, weight: .semibold))
-                                .foregroundColor(.white.opacity(0.7))
-                                .padding(.bottom, 16)
-                        }
-                        Text(Date.currentDate(timeZoneOffset: pickerResult(selected: selected)))
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(.white)
-                            .padding(.leading, 4)
-                    }
-                    .frame(height: 120)
-                    .padding(.bottom, 10)
-                    
-                    ScrollView {
-                        NationView(
-                            pickerHour: $pickerHour,
-                            pickerFastOrSlow: $pickerFastOrSlow,
-                            selected: $selected
+                Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 시간대의 주요 지역")
+                    .font(.system(size: 14, weight: .regular))
+                    .padding(.top, 10)
+                    .padding(.bottom, 40)
+            }
+        }
+    }
+    
+    var nonPickerViewContent: some View {
+        VStack(alignment: .leading) {
+            VStack {
+                HStack(alignment: .bottom) {
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(
+                                    colors: [
+                                        .white.opacity(0),
+                                        .white.opacity(1)
+                                    ]
+                                ),
+                                startPoint: .top,
+                                endPoint: .bottom)
                         )
-                    }
-                    .scrollIndicators(.hidden)
-                } // VStack닫기
-                .padding(.horizontal, 20)
-            } // if닫기
-        } //VStack닫기
-    } // body닫기
+                        .frame(width: 2, height: rectangleHeight)
+                        .padding(.leading, 20)
+                        .onAppear {
+                            withAnimation(.spring(duration: 1.0)) {
+                                rectangleHeight = calcTimeGapStrokeHeight(pickerHour: pickerHour)
+                            }
+                        }
+                        .onDisappear {
+                            rectangleHeight = 1
+                        }
+                    Text("\(pickerFastOrSlow[1]) \(pickerHour)시간")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+                
+                Spacer()
+            }
+            .frame(height: screenHeight * 0.18)
+            
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .bottom) {
+                    Text(Date().currentTime(timeZoneOffset: pickerResult(selected: selected)))
+                        .font(.system(size: 64, weight: .heavy))
+                        .foregroundColor(.white)
+                    Text("GMT\(gmtVisual(selected: selected))")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.7))
+                        .padding(.bottom, 16)
+                }
+                Text(Date().currentDate(timeZoneOffset: pickerResult(selected: selected)))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.leading, 4)
+            }
+            .frame(height: 120)
+            .padding(.bottom, 10)
+            
+            ScrollView {
+                NationView(
+                    pickerHour: $pickerHour,
+                    pickerFastOrSlow: $pickerFastOrSlow,
+                    selected: $selected
+                )
+            }
+            .scrollIndicators(.hidden)
+        }
+    }
     
     private func pickerVisualMovingSpacer() -> CGFloat {
         let hour = gmtTargetResult(selected: selected)

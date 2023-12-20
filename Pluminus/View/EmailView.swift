@@ -17,9 +17,9 @@ struct EmailView: UIViewControllerRepresentable {
         
         viewController.setToRecipients(["mollangcow@gmail.com"])
         
-        viewController.setSubject("[TimeGap]오류신고/문의하기")
+        viewController.setSubject("[TimeGap] 문의")
         
-        let emailBody = "[필수1] iPhone 기종 \n - \n [필수2] iOS 버전 \n - \n [필수3] 문의 내용 \n - "
+        let emailBody = "1. 사용 중인 iPhone 기종을 입력해 주세요. \n - \n 2. 오류 문의 내용을 작성해 주세요. \n - \n 3. 오류 발생 화면을 캡쳐해서 넣어주세요. \n -"
         viewController.setMessageBody(emailBody, isHTML: false)
         
         viewController.mailComposeDelegate = context.coordinator
