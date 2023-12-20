@@ -29,22 +29,21 @@ struct MapView: View {
                         HapticManager.instance.impact(style: .light)
                         dismiss()
                     }, label: {
-                        ZStack {
-                            Rectangle()
-                                .frame(width: 60, height: 60)
-                                .foregroundStyle(.clear)
-                                .background(.thickMaterial)
-                                .mask(
-                                    Image(systemName: "xmark.circle.fill")
-                                        .resizable()
-                                        .frame(width: 28, height: 28)
-                                )
-                                .overlay(
-                                    Circle()
-                                        .stroke(.ultraThickMaterial, lineWidth: 1)
-                                        .frame(width: 28, height: 28)
-                                )
-                        }
+                        Rectangle()
+                            .frame(width: 60, height: 60)
+                            .foregroundStyle(.clear)
+                            .background(.thickMaterial)
+                            .mask(
+                                Image(systemName: "xmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 28, height: 28)
+                            )
+                            .overlay(
+                                Circle()
+                                    .stroke(.ultraThickMaterial, lineWidth: 1)
+                                    .frame(width: 28, height: 28)
+                            )
+                            .shadow(color: .black.opacity(0.3), radius: 10)
                     })
                 }
                 
@@ -52,15 +51,17 @@ struct MapView: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("\(countryName)")
-                        .font(.system(size: locality == "" ? 28 : 20, weight: locality == "" ? .black : .light))
+                        .font(.system(size: 24, weight: .bold))
                         .foregroundColor(.primary)
+                        .padding(.bottom, 8)
                     
                     Text("\(locality)")
-                        .font(.system(size: 28, weight: .black))
-                        .foregroundColor(.primary)
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundColor(.secondary)
+                        .padding(.bottom, 8)
                     
                     Text("\(continent)")
-                        .font(.system(size: 20, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.secondary)
                 }
                 .frame(width: screenWidth * 0.88, alignment: .leading)
@@ -72,7 +73,8 @@ struct MapView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(.thickMaterial, lineWidth: 1)
                 )
-                .padding(.bottom, 60)
+                .shadow(color: .black.opacity(0.2), radius: 20)
+                .padding(.bottom, 80)
             } //VStack
         } // VStack
         .ignoresSafeArea()
