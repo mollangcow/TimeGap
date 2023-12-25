@@ -13,6 +13,7 @@ struct MainView: View {
     @State private var isButtonLabelDefult : Bool = true
     @State private var selected : [Int] = [0, 0]
     @State private var isShowingSetting : Bool = false
+    @State private var isShowingLocal : Bool = false
     
     var body: some View {
         ZStack {
@@ -63,9 +64,15 @@ struct MainView: View {
                     Image(isPickerView ? "locationPin.orange" : "locationPin.white")
                         .resizable()
                         .frame(width: 15, height: 19)
-                    Text(currentLocationName)
-                        .font(.system(size: 20, weight: .heavy))
-                        .foregroundColor(isPickerView ? .primary : .white)
+                    
+                    Button(action: {
+                        isShowingLocal = true
+                    }, label: {
+                        Text(currentLocationName)
+                            .font(.system(size: 20, weight: .heavy))
+                            .foregroundColor(isPickerView ? .primary : .white)
+                    })
+                    .disabled(isPickerView == false)
                 } // HStack
                 
                 Spacer()
@@ -98,6 +105,9 @@ struct MainView: View {
             .padding(.horizontal, 20)
             .sheet(isPresented: $isShowingSetting) {
                 SettingView()
+            }
+            .sheet(isPresented: $isShowingLocal) {
+                LocalSelectView()
             }
             .onReceive(locationManager.$currentLocationName) { newLocation in
                 self.currentLocationName = newLocation

@@ -102,7 +102,7 @@ struct SettingView: View {
             
             Spacer()
             
-            Text("App Version 1.2.0")
+            Text("App Version 1.2.1")
                 .font(.system(size: 12, weight: .regular))
                 .foregroundStyle(.secondary)
         }
@@ -113,7 +113,3 @@ struct SettingView: View {
         .preferredColorScheme(isDarkMode ? .dark : .light)
     } //body
 } //struct
-
-#Preview {
-    SettingView()
-}

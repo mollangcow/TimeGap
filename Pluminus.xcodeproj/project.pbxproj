@@ -12,6 +12,7 @@
 		234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4EDB2A2BB13E00CA787D /* PickerView.swift */; };
 		234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */; };
 		2364635A2B332DE000CC39F2 /* Variablur in Frameworks */ = {isa = PBXBuildFile; productRef = 236463592B332DE000CC39F2 /* Variablur */; };
+		2364635F2B35418000CC39F2 /* LocalSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2364635E2B35418000CC39F2 /* LocalSelectView.swift */; };
 		237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CF0AF2ADD9CD10074E6DC /* SettingView.swift */; };
 		2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395A05A2ADDAECB00773AF7 /* EmailView.swift */; };
 		23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAEE372A30A2F6007191B8 /* BackColorView.swift */; };
@@ -36,6 +37,8 @@
 		2307EF1B2A9DCA4C00293807 /* TimeFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFunctions.swift; sourceTree = "<group>"; };
 		234E4ED12A2B899B00CA787D /* NationDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationDB.swift; sourceTree = "<group>"; };
 		234E4EDB2A2BB13E00CA787D /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		2364635D2B3353E100CC39F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2364635E2B35418000CC39F2 /* LocalSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSelectView.swift; sourceTree = "<group>"; };
 		237CF0AF2ADD9CD10074E6DC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2395A05A2ADDAECB00773AF7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		23AAEE372A30A2F6007191B8 /* BackColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorView.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
+				2364635E2B35418000CC39F2 /* LocalSelectView.swift */,
 				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				2395A05A2ADDAECB00773AF7 /* EmailView.swift */,
 				234E4EDB2A2BB13E00CA787D /* PickerView.swift */,
@@ -128,6 +132,7 @@
 		23B25C082A2860860022273F /* Pluminus */ = {
 			isa = PBXGroup;
 			children = (
+				2364635D2B3353E100CC39F2 /* Info.plist */,
 				23B25C092A2860860022273F /* NC1App.swift */,
 				234E4ED32A2BA83B00CA787D /* Extension */,
 				234E4ED42A2BA85400CA787D /* Model */,
@@ -227,6 +232,7 @@
 				23B25C0C2A2860860022273F /* MainView.swift in Sources */,
 				234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */,
 				23B67FD72A93C0FC00229B81 /* MapView.swift in Sources */,
+				2364635F2B35418000CC39F2 /* LocalSelectView.swift in Sources */,
 				234E4ED22A2B899B00CA787D /* NationDB.swift in Sources */,
 				23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */,
 				2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */,
@@ -367,11 +373,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 2312210107;
 				DEVELOPMENT_ASSET_PATHS = "\"Pluminus/Preview Content\"";
 				DEVELOPMENT_TEAM = CV4G9J35Y5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pluminus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeGap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 세계시간 정보를 제공하기 위해 권한이 필요합니다.";
@@ -387,7 +394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = appledeveloperacademy2023nc1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -406,11 +413,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 2312210107;
 				DEVELOPMENT_ASSET_PATHS = "\"Pluminus/Preview Content\"";
 				DEVELOPMENT_TEAM = CV4G9J35Y5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pluminus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeGap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 세계시간 정보를 제공하기 위해 권한이 필요합니다.";
@@ -426,7 +434,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = appledeveloperacademy2023nc1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
