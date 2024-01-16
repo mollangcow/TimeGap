@@ -63,7 +63,7 @@ struct NationView: View {
                     .foregroundColor(.white)
             }
         } // VStack닫기
-        .fullScreenCover(isPresented: $isShowingModal) {
+        .sheet(isPresented: $isShowingModal) {
             LocalityDetailView(
                 countryName: $tappedCountry,
                 continent: $tappedContinent,

@@ -113,13 +113,21 @@ struct LocalityDetailView: View {
                         HapticManager.instance.impact(style: .rigid)
                         showLocalityMap(isShowingMap: true, countryLocality: locality)
                     }, label: {
-                        Text(locality)
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.primary)
-                            .padding(.leading, 20)
-                            .frame(width: screenWidth * 0.88, height: 60, alignment: .leading)
-                            .background(.gray.opacity(0.1))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                        HStack {
+                            Text(locality)
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(Color.primary)
+                                .padding(.leading, 20)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color.secondary)
+                                .padding(.trailing, 20)
+                        }
+                        .frame(width: screenWidth * 0.88, height: 60, alignment: .leading)
+                        .background(.gray.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                     })
                     .padding(.top, 4)
                 }

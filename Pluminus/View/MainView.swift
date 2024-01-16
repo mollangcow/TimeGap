@@ -66,6 +66,7 @@ struct MainView: View {
                         .frame(width: 15, height: 19)
                     
                     Button(action: {
+                        HapticManager.instance.impact(style: .rigid)
                         isShowingLocal = true
                     }, label: {
                         Text(currentLocationName)

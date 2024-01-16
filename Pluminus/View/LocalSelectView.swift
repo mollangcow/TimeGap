@@ -12,22 +12,34 @@ struct CityListView: View {
     @State private var searchText = ""
     
     var body: some View {
-        VStack {
-            List(cityData, id: \.0) { city, flagImageURL, countryName in
-                HStack {
-                    AsyncImageView(urlString: flagImageURL)
-                        .frame(width: 30, height: 30)
-                        .aspectRatio(contentMode: .fit)
-                    VStack(alignment: .leading) {
-                        Text(countryName)
-                        Text("수도 : \(city)")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
+        ScrollView {
+            LazyVStack {
+                ForEach(cityData, id: \.0) { city, flagImageURL, countryName in
+                    Button(action: {
+                        HapticManager.instance.impact(style: .rigid)
+
+                    }, label: {
+                        HStack {
+                            AsyncImageView(urlString: flagImageURL)
+                                .frame(width: 30, height: 30)
+                                .aspectRatio(contentMode: .fit)
+                                .padding(.leading, 20)
+                            
+                            VStack(alignment: .leading) {
+                                Text(countryName)
+                                    .foregroundStyle(Color.primary)
+                                Text("수도 : \(city)")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.secondary)
+                            }
+                            .padding(.leading, 12)
+                        }
+                        .frame(width: screenWidth * 0.88, height: 60, alignment: .leading)
+                        .background(.gray.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    })
                 }
             }
-            .searchable(text: $searchText)
-            .listStyle(.plain)
         }
         .onAppear(perform: {
             fetchCityData()
@@ -103,10 +115,39 @@ struct AsyncImageView: View {
 }
 
 struct LocalSelectView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationView {
-            CityListView()
-                .navigationTitle("국가 목록")
+            VStack(spacing: 0) {
+                ZStack {
+                    Text("국가 목록")
+                        .font(.system(size: 17, weight: .bold))
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            HapticManager.instance.impact(style: .light)
+                            dismiss()
+                        }, label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(.clear)
+                                
+                                Image(systemName: "xmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 28, height: 28)
+                                    .foregroundColor(.primary.opacity(0.2))
+                            }
+                        })
+                    }
+                }
+                .padding(.top, 4)
+                
+                CityListView()
+            }
         }
     }
 }
