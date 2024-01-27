@@ -38,6 +38,7 @@ struct MainView: View {
                     
                     Spacer()
                     
+                    // 설정 버튼
                     if isPickerView {
                         Button(action: {
                             HapticManager.instance.impact(style: .light)
@@ -108,7 +109,8 @@ struct MainView: View {
                 SettingView()
             }
             .sheet(isPresented: $isShowingLocal) {
-                LocalSelectView()
+//                LocalSelectView()
+                CitySearchView()
             }
             .onReceive(locationManager.$currentLocationName) { newLocation in
                 self.currentLocationName = newLocation

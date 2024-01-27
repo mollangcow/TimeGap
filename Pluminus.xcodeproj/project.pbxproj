@@ -31,6 +31,7 @@
 		23B67FD72A93C0FC00229B81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD62A93C0FC00229B81 /* MapView.swift */; };
 		23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD82A94819400229B81 /* MapFocusView.swift */; };
 		23B67FDB2A954CE200229B81 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FDA2A954CE200229B81 /* Haptics.swift */; };
+		23DDEA182B5E63E500BE7C11 /* CitySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DDEA172B5E63E500BE7C11 /* CitySearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		23B67FD62A93C0FC00229B81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		23B67FD82A94819400229B81 /* MapFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFocusView.swift; sourceTree = "<group>"; };
 		23B67FDA2A954CE200229B81 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		23DDEA172B5E63E500BE7C11 /* CitySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				23B25C372A28B75B0022273F /* Location.swift */,
 				234E4ED12A2B899B00CA787D /* NationDB.swift */,
 				23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */,
+				2307EF1B2A9DCA4C00293807 /* TimeFunctions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -100,6 +103,7 @@
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
 				2364635E2B35418000CC39F2 /* LocalSelectView.swift */,
+				23DDEA172B5E63E500BE7C11 /* CitySearchView.swift */,
 				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				2395A05A2ADDAECB00773AF7 /* EmailView.swift */,
 				234E4EDB2A2BB13E00CA787D /* PickerView.swift */,
@@ -137,7 +141,6 @@
 				234E4ED32A2BA83B00CA787D /* Extension */,
 				234E4ED42A2BA85400CA787D /* Model */,
 				234E4ED62A2BA87400CA787D /* View */,
-				2307EF1B2A9DCA4C00293807 /* TimeFunctions.swift */,
 			);
 			path = Pluminus;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */,
 				2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */,
 				23B67FB02A8DE10800229B81 /* Date.swift in Sources */,
+				23DDEA182B5E63E500BE7C11 /* CitySearchView.swift in Sources */,
 				23B25C0A2A2860860022273F /* NC1App.swift in Sources */,
 				23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */,
 				23B67FB22A8DEE5F00229B81 /* NationView.swift in Sources */,
