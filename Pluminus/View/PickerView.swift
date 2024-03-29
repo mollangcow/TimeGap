@@ -190,7 +190,7 @@ struct PickerView: View {
             .padding(.bottom, 10)
             
             ScrollView {
-                NationView(
+                WrappingNationStackView(
                     pickerHour: $pickerHour,
                     pickerFastOrSlow: $pickerFastOrSlow,
                     selected: $selected

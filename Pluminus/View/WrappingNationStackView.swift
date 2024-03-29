@@ -8,7 +8,7 @@
 import SwiftUI
 import WrappingHStack
 
-struct NationView: View {
+struct WrappingNationStackView: View {
     
     @State private var isShowingModal: Bool = false
     @State private var isShowingMap: Bool = false
