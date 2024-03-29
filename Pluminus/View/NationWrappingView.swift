@@ -8,7 +8,7 @@
 import SwiftUI
 import WrappingHStack
 
-struct WrappingNationStackView: View {
+struct NationWrappingView: View {
     
     @State private var isShowingModal: Bool = false
     @State private var isShowingMap: Bool = false
@@ -73,7 +73,7 @@ struct WrappingNationStackView: View {
             )
         }
         .sheet(isPresented: $isShowingMap) {
-            MapView(
+            NationInfoMapView(
                 countryName: $tappedCountry,
                 continent: $tappedContinent,
                 locality: $tappedLocality

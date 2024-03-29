@@ -142,7 +142,7 @@ struct NationDetailView: View {
             }?.countryLocality ?? []
         }
         .sheet(isPresented: $isShowingMap) {
-            MapView(
+            NationInfoMapView(
                 countryName: $countryName,
                 continent: $continent,
                 locality: $tappedLocality

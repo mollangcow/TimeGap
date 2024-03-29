@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PickerView: View {
+struct NationAndPickerView: View {
 
     @StateObject var locationManager = MyLocationManager()
 
@@ -28,13 +28,13 @@ struct PickerView: View {
     var body: some View {
         switch isPickerView {
         case true:
-            return AnyView(pickerViewContent)
+            return AnyView(PickerContentView)
         case false:
-            return AnyView(nonPickerViewContent)
+            return AnyView(NationContentView)
         }
     } // body
     
-    var pickerViewContent: some View {
+    var PickerContentView: some View {
         VStack {
             Spacer()
             
@@ -136,7 +136,7 @@ struct PickerView: View {
         }
     }
     
-    var nonPickerViewContent: some View {
+    var NationContentView: some View {
         VStack(alignment: .leading) {
             VStack {
                 HStack(alignment: .bottom) {
@@ -190,7 +190,7 @@ struct PickerView: View {
             .padding(.bottom, 10)
             
             ScrollView {
-                WrappingNationStackView(
+                NationWrappingView(
                     pickerHour: $pickerHour,
                     pickerFastOrSlow: $pickerFastOrSlow,
                     selected: $selected

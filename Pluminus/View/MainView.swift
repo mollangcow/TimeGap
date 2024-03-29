@@ -73,7 +73,7 @@ struct MainView: View {
             Spacer()
             
             // 시차 선택 커스텀 피커뷰
-            PickerView(
+            NationAndPickerView(
                 isPickerView: $isPickerView,
                 selected: $selected
             )
@@ -102,7 +102,7 @@ struct MainView: View {
             SettingView()
         }
         .sheet(isPresented: $isShowingLocal) {
-            LocalSelectView(isShowingLocal: $isShowingLocal)
+            LocaleSelectView(isShowingLocal: $isShowingLocal)
         }
         .onReceive(locationManager.$currentLocationName) { newLocation in
             self.currentLocationName = newLocation

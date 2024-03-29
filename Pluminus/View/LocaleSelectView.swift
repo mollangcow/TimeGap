@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LocalSelectView: View {
+struct LocaleSelectView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel = CountriesViewModel()
     @State private var searchText = ""
