@@ -1,23 +1,6 @@
 {
+  "originHash" : "50578bb08258a739890c5d3d0a495ba4213b27b4dbbbc844c23e93aa2d80550b",
   "pins" : [
-    {
-      "identity" : "swiftui-visual-effects",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/lucasbrown/swiftui-visual-effects.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "b26f8cebd55ff60ed8953768aa818dfb005b5838"
-      }
-    },
-    {
-      "identity" : "variablur",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/daprice/Variablur",
-      "state" : {
-        "branch" : "main",
-        "revision" : "29fdd8c5e2721c1706b0ed8008d516f8d8d75879"
-      }
-    },
     {
       "identity" : "wrappinghstack",
       "kind" : "remoteSourceControl",
@@ -28,5 +11,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

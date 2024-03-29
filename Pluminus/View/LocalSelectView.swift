@@ -9,208 +9,185 @@ import SwiftUI
 
 struct LocalSelectView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @ObservedObject var viewModel = CountriesViewModel()
+    @State private var searchText = ""
+    @Binding var isShowingLocal : Bool
+
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                ZStack {
-                    Text("국가 목록")
-                        .font(.system(size: 17, weight: .bold))
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Button(action: {
-                            HapticManager.instance.impact(style: .light)
-                            dismiss()
-                        }, label: {
-                            ZStack {
-                                Rectangle()
-                                    .frame(width: 60, height: 60)
-                                    .foregroundColor(.clear)
+        NavigationStack {
+            ScrollView {
+                LazyVStack {
+                    ForEach(filteredCountries, id: \.self) { country in
+                        NavigationLink(destination: CityListView(isShowingLocal: $isShowingLocal, cities: country.cities, countryName: country.country)) {
+                            HStack {
+                                Text(country.country)
+                                    .lineLimit(1)
+                                    .font(.system(size: 17, weight: .bold))
+                                    .foregroundColor(Color.primary)
+                                    .padding(.leading, 20)
                                 
-                                Image(systemName: "xmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 28, height: 28)
-                                    .foregroundColor(.primary.opacity(0.2))
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.orange)
+                                    .bold()
+                                    .padding(.trailing, 20)
                             }
-                        })
+                            .frame(height: 60, alignment: .leading)
+                            .background(.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .padding(.horizontal, 16)
+                        }
                     }
                 }
-                .padding(.top, 4)
-                
-                CityListView()
+            }
+            .navigationTitle("국가")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        HapticManager.instance.impact(style: .light)
+                        dismiss()
+                    } label: {
+                        ZStack(alignment: .trailing) {
+                            Rectangle()
+                                .frame(width: 44, height: 44)
+                                .foregroundColor(.clear)
+                            
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .bold()
+                                .foregroundColor(.orange)
+                        }
+                    }
+
+                }
+            }
+            .onAppear {
+                viewModel.fetchCountries()
+            }
+        }
+        .accentColor(.orange)
+    }
+
+    var filteredCountries: [CountryModel] {
+        if searchText.isEmpty {
+            return viewModel.countries
+        } else {
+            return viewModel.countries.filter { country in
+                country.country.localizedCaseInsensitiveContains(searchText) ||
+                country.cities.contains(where: { $0.localizedCaseInsensitiveContains(searchText) })
             }
         }
     }
 }
 
+
 struct CityListView: View {
-    @State private var eachCountryData: [(String, String, String, String)] = []
+    @Environment(\.dismiss) var dismiss
     @State private var searchText = ""
+    @Binding var isShowingLocal : Bool
+    var cities: [String]
+    var countryName: String // 도시 목록이 비어있을 때 국가 이름을 표시하기 위한 프로퍼티
     
     var body: some View {
         ScrollView {
-            LazyVStack {
-                ForEach(eachCountryData, id: \.0) { countryCapital, countryFlag, countryName, countryCapitalUTC in
+            if cities.isEmpty {
+                // 도시 목록이 비어있을 때 처리할 내용
+                VStack {
                     Button(action: {
                         HapticManager.instance.impact(style: .rigid)
-                        getCurrentCapitalTime(utc: countryCapitalUTC)
-                        print(getCurrentCapitalTime(utc: countryCapitalUTC))
-                    }, label: {
+                        isShowingLocal = false
+                        print("City Select : \(countryName)")
+                    }) {
                         HStack {
-                            CountryFlagImageView(urlString: countryFlag)
-                                .frame(width: 30, height: 30)
-                                .aspectRatio(contentMode: .fit)
+                            Text(countryName)
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(Color.primary)
                                 .padding(.leading, 20)
                             
-                            VStack(alignment: .leading) {
-                                Text(countryName)
-                                    .foregroundStyle(Color.primary)
-                                Text("수도 : \(countryCapital)")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.secondary)
-                            }
-                            .padding(.leading, 12)
+                            Spacer()
                         }
-                        .frame(width: screenWidth * 0.88, height: 60, alignment: .leading)
+                        .frame(height: 60, alignment: .leading)
                         .background(.gray.opacity(0.1))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                    })
+                        .padding(.horizontal, 16)
+                    }
+                    
+                    Text("\(countryName)에는 선택 가능한 도시 목록이 없습니다.")
+                        .padding(.top, 12)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
                 }
-            }
-        }
-        .onAppear(perform: {
-            countryDataAPI()
-        })
-    }
-    
-    func countryDataAPI() {
-        let apiUrl = "https://restcountries.com/v3.1/all"
-        
-        guard let url = URL(string: apiUrl) else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    let allCountryData = try decoder.decode([CountryInfo].self, from: data)
-                    
-                    var eachCountryData: [(String, String, String, String)] = []
-                    
-                    for country in allCountryData {
-                        if let firstCapital = country.capital?.first,
-                           let countryFlag = country.flags?.png,
-                           let countryName = country.translations?.kor?.common,
-                           let countryCapitalUTC = country.timezones?.first {
-                            let countryCapital = String(firstCapital)
-                            
-                            eachCountryData.append(
-                                (
-                                    countryCapital,
-                                    countryFlag,
-                                    countryName,
-                                    countryCapitalUTC
-                                )
-                            )
+            } else {
+                // 도시 목록이 비어있지 않을 때 도시를 출력
+                LazyVStack {
+                    ForEach(filteredCities, id: \.self) { city in
+                        Button(action: {
+                            HapticManager.instance.impact(style: .rigid)
+                            isShowingLocal = false
+                            print("City Select : \(city)")
+                        }) {
+                            HStack {
+                                Text(city)
+                                    .font(.system(size: 17, weight: .bold))
+                                    .foregroundColor(Color.primary)
+                                    .padding(.leading, 20)
+                                
+                                Spacer()
+                            }
+                            .frame(height: 60, alignment: .leading)
+                            .background(.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .padding(.horizontal, 16)
                         }
                     }
-                    
-                    DispatchQueue.main.async {
-                        self.eachCountryData = eachCountryData
-                    }
-                    
-                    print("Country Data API Result: \(eachCountryData)")
-                } catch {
-                    print("Error decoding JSON: \(error)")
                 }
             }
         }
-        task.resume()
+        .navigationTitle("\(countryName)의 도시")
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $searchText)
     }
-    
-    func getCurrentCapitalTime(utc: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        // UTC Offset에서 hour과 minute 추출
-        let offsetComponents = utc.replacingOccurrences(of: "UTC", with: "").components(separatedBy: ":")
-        guard offsetComponents.count == 2,
-              let hours = Int(offsetComponents[0]),
-              let minutes = Int(offsetComponents[1]) else {
-            print("Invalid UTC offset format.")
-            return nil
-        }
-        
-        // 현재 날짜 및 시간을 UTC로 생성
-        let currentUTCDate = Date()
-        
-        // 입력된 UTC Offset을 초로 변환
-        let totalSeconds = (hours * 60 + minutes) * 60
-        // 입력된 UTC Offset을 사용하여 타임 존 생성
-        let utcTimeZone = TimeZone(secondsFromGMT: totalSeconds)
-        
-        // 날짜 포맷터에 UTC 타임 존 설정
-        dateFormatter.timeZone = utcTimeZone
-        
-        // UTC에서 현재 타임 존으로 변환된 날짜를 문자열로 반환
-        let localTime = dateFormatter.string(from: currentUTCDate)
-        
-        return localTime
-    }
-}
 
-struct CountryFlagImageView: View {
-    @State private var imageData: Data?
-    let urlString: String
-    
-    var body: some View {
-        if let data = imageData,
-           let uiImage = UIImage(data: data) {
-            Image(uiImage: uiImage)
-                .resizable()
-                .scaledToFit()
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .overlay() {
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(lineWidth: 0.5)
-                        .foregroundStyle(.gray)
-                }
+    var filteredCities: [String] {
+        if searchText.isEmpty {
+            return cities
         } else {
-            ProgressView()
-                .onAppear {
-                    countryFlagImageAPI()
-                }
+            return cities.filter { $0.localizedCaseInsensitiveContains(searchText) }
         }
     }
-    
-    private func countryFlagImageAPI() {
-        guard let url = URL(string: urlString) else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+}
+
+
+class CountriesViewModel: ObservableObject {
+    @Published var countries = [CountryModel]()
+
+    func fetchCountries() {
+        guard let url = URL(string: "https://countriesnow.space/api/v0.1/countries") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
-                DispatchQueue.main.async {
-                    self.imageData = data
+                if let decodedResponse = try? JSONDecoder().decode(CountriesData.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.countries = decodedResponse.data
+                    }
+                    return
                 }
             }
-        }
-        task.resume()
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+        }.resume()
     }
 }
 
-struct CountryInfo: Decodable {
-    struct TransInfo: Decodable {
-        struct CommonInfo: Decodable {
-            let common: String?
-        }
-        let kor: CommonInfo?
-    }
-    let capital: [String]?
-    let flags: Flags?
-    let translations: TransInfo?
-    let timezones: [String]?
+struct CountryModel: Codable, Identifiable, Hashable {
+    let id = UUID()
+    var country: String
+    var cities: [String]
 }
 
-struct Flags: Decodable {
-    let png: String?
+struct CountriesData: Codable {
+    var data: [CountryModel]
 }

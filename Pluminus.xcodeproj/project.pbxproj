@@ -10,8 +10,6 @@
 		2307EF1C2A9DCA4C00293807 /* TimeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307EF1B2A9DCA4C00293807 /* TimeFunctions.swift */; };
 		234E4ED22A2B899B00CA787D /* NationDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4ED12A2B899B00CA787D /* NationDB.swift */; };
 		234E4EDC2A2BB13E00CA787D /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4EDB2A2BB13E00CA787D /* PickerView.swift */; };
-		234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */; };
-		2364635A2B332DE000CC39F2 /* Variablur in Frameworks */ = {isa = PBXBuildFile; productRef = 236463592B332DE000CC39F2 /* Variablur */; };
 		2364635F2B35418000CC39F2 /* LocalSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2364635E2B35418000CC39F2 /* LocalSelectView.swift */; };
 		237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CF0AF2ADD9CD10074E6DC /* SettingView.swift */; };
 		2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395A05A2ADDAECB00773AF7 /* EmailView.swift */; };
@@ -31,7 +29,6 @@
 		23B67FD72A93C0FC00229B81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD62A93C0FC00229B81 /* MapView.swift */; };
 		23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD82A94819400229B81 /* MapFocusView.swift */; };
 		23B67FDB2A954CE200229B81 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FDA2A954CE200229B81 /* Haptics.swift */; };
-		23DDEA182B5E63E500BE7C11 /* CitySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DDEA172B5E63E500BE7C11 /* CitySearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +55,6 @@
 		23B67FD62A93C0FC00229B81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		23B67FD82A94819400229B81 /* MapFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFocusView.swift; sourceTree = "<group>"; };
 		23B67FDA2A954CE200229B81 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
-		23DDEA172B5E63E500BE7C11 /* CitySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +63,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				23B67FB72A8F319800229B81 /* WrappingHStack in Frameworks */,
-				234E4EDF2A2BBC4C00CA787D /* SwiftUIVisualEffects in Frameworks */,
-				2364635A2B332DE000CC39F2 /* Variablur in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,9 +73,9 @@
 			isa = PBXGroup;
 			children = (
 				23B25C352A28B1120022273F /* ColorHex.swift */,
-				23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */,
 				23B67FAF2A8DE10800229B81 /* Date.swift */,
 				23B67FDA2A954CE200229B81 /* Haptics.swift */,
+				23B67FAD2A8DE0D700229B81 /* ScreenSize.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -89,10 +83,10 @@
 		234E4ED42A2BA85400CA787D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */,
 				23B25C332A2864740022273F /* CustomPicker.swift */,
 				23B25C372A28B75B0022273F /* Location.swift */,
 				234E4ED12A2B899B00CA787D /* NationDB.swift */,
-				23B67FB82A8F7EEF00229B81 /* BackgroundColorDB.swift */,
 				2307EF1B2A9DCA4C00293807 /* TimeFunctions.swift */,
 			);
 			path = Model;
@@ -103,7 +97,6 @@
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
 				2364635E2B35418000CC39F2 /* LocalSelectView.swift */,
-				23DDEA172B5E63E500BE7C11 /* CitySearchView.swift */,
 				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				2395A05A2ADDAECB00773AF7 /* EmailView.swift */,
 				234E4EDB2A2BB13E00CA787D /* PickerView.swift */,
@@ -162,9 +155,7 @@
 			);
 			name = Pluminus;
 			packageProductDependencies = (
-				234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */,
 				23B67FB62A8F319800229B81 /* WrappingHStack */,
-				236463592B332DE000CC39F2 /* Variablur */,
 			);
 			productName = NC1;
 			productReference = 23B25C062A2860860022273F /* Pluminus.app */;
@@ -196,9 +187,7 @@
 			);
 			mainGroup = 23B25BFD2A2860860022273F;
 			packageReferences = (
-				234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
 				23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
-				236463582B332DE000CC39F2 /* XCRemoteSwiftPackageReference "Variablur" */,
 			);
 			productRefGroup = 23B25C072A2860860022273F /* Products */;
 			projectDirPath = "";
@@ -240,7 +229,6 @@
 				23B67FD92A94819400229B81 /* MapFocusView.swift in Sources */,
 				2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */,
 				23B67FB02A8DE10800229B81 /* Date.swift in Sources */,
-				23DDEA182B5E63E500BE7C11 /* CitySearchView.swift in Sources */,
 				23B25C0A2A2860860022273F /* NC1App.swift in Sources */,
 				23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */,
 				23B67FB22A8DEE5F00229B81 /* NationView.swift in Sources */,
@@ -474,22 +462,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lucasbrown/swiftui-visual-effects.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		236463582B332DE000CC39F2 /* XCRemoteSwiftPackageReference "Variablur" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daprice/Variablur";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
@@ -501,16 +473,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		234E4EDE2A2BBC4C00CA787D /* SwiftUIVisualEffects */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 234E4EDD2A2BBC4C00CA787D /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */;
-			productName = SwiftUIVisualEffects;
-		};
-		236463592B332DE000CC39F2 /* Variablur */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 236463582B332DE000CC39F2 /* XCRemoteSwiftPackageReference "Variablur" */;
-			productName = Variablur;
-		};
 		23B67FB62A8F319800229B81 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 23B67FB52A8F319800229B81 /* XCRemoteSwiftPackageReference "WrappingHStack" */;

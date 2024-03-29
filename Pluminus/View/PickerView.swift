@@ -32,24 +32,25 @@ struct PickerView: View {
         case false:
             return AnyView(nonPickerViewContent)
         }
-    } // body닫기
+    } // body
     
     var pickerViewContent: some View {
         VStack {
             Spacer()
             
+            // 커스텀 피커 뷰
             HStack {
                 CustomPicker(dataSource: $dataSource, selected: $selected)
                     .frame(width:160)
                     .id(dataSource)
-                    .onChange(of: selected[0]) { newValue in
+                    .onChange(of: selected[0]) { oldValue, newValue in
                         print(">>>>> PICKER OnChange(selected[0])")
                         pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
                         _ = hourRange
                         dataSource[1] = Array(hourRange).map { String($0) }
                         _ = gmtTargetResult(selected: selected)
                     }
-                    .onChange(of: selected[1]) { newValue in
+                    .onChange(of: selected[1]) { oldValue, newValue in
                         HapticManager.instance.impact(style: .medium)
                         print(">>>>> PICKER OnChange(selected[1])")
                         pickerHour = newValue
@@ -57,7 +58,7 @@ struct PickerView: View {
                         dataSource[1] = Array(hourRange).map { String($0) }
                         _ = gmtTargetResult(selected: selected)
                     }
-                    .onChange(of: dataSource) { newValue in
+                    .onChange(of: dataSource) { oldValue, newValue in
                         HapticManager.instance.impact(style: .medium)
                         print(">>>>> PICKER OnChange(dataSource)")
                         _ = hourRange
@@ -82,6 +83,7 @@ struct PickerView: View {
             
             Spacer()
             
+            // GMT 시간대 시각화 그래프
             ZStack {
                 HStack {
                     Text("GMT-12")
@@ -254,5 +256,5 @@ struct PickerView: View {
             
             return min...max
         }
-    }
-} // struct닫기
+    } // hourRange
+} // struct

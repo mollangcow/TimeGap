@@ -15,6 +15,7 @@ struct NC1App: App {
         WindowGroup {
             MainView()
                 .preferredColorScheme(isDarkMode ? .dark : .light)
+                .accentColor(.orange)
         }
     }
 }

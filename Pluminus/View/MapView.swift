@@ -29,44 +29,50 @@ struct MapView: View {
                         HapticManager.instance.impact(style: .light)
                         dismiss()
                     }, label: {
-                        Rectangle()
-                            .frame(width: 60, height: 60)
-                            .foregroundStyle(.clear)
-                            .background(.thickMaterial)
-                            .mask(
-                                Image(systemName: "xmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 28, height: 28)
+                        ZStack {
+                            Rectangle()
+                                .frame(width: 60, height: 60)
+                                .foregroundStyle(.clear)
+                            Circle()
+                                .frame(width: 28, height: 28)
+                                .foregroundStyle(.clear)
+                                .background(.regularMaterial)
+                                .clipShape(Circle())
+                                .overlay(
+                                    Circle()
+                                        .stroke(.regularMaterial, lineWidth: 1)
                             )
-                            .overlay(
-                                Circle()
-                                    .stroke(.ultraThickMaterial, lineWidth: 1)
-                                    .frame(width: 28, height: 28)
-                            )
-                            .shadow(color: .black.opacity(0.3), radius: 10)
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .bold()
+                                .foregroundStyle(.orange)
+                                .frame(width: 12, height: 12)
+                        }
                     })
                 }
                 
                 Spacer()
                 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("\(countryName)")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.primary)
-                        .padding(.bottom, 8)
-                    
-                    Text("\(locality)")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.secondary)
-                        .padding(.bottom, 8)
-                    
-                    Text("\(continent)")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.secondary)
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("\(countryName)")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(.primary)
+                        
+                        Text("\(locality)")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(.secondary)
+                            .padding(.bottom, 8)
+                        
+                        Text("\(continent)")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.top, 20)
+                    .padding(.horizontal, 24)
                 }
-                .frame(width: screenWidth * 0.88, alignment: .leading)
-                .padding(.leading, 20)
-                .padding(.vertical, 20)
+                .frame(width: screenWidth, alignment: .leading)
+                .padding(.bottom, 60)
                 .background(.regularMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .overlay(
@@ -74,9 +80,8 @@ struct MapView: View {
                         .stroke(.regularMaterial, lineWidth: 1)
                 )
                 .shadow(color: .black.opacity(0.2), radius: 20)
-                .padding(.bottom, 80)
             } //VStack
-        } // VStack
+        } // ZStack
         .ignoresSafeArea()
     } // body
 } // struct
