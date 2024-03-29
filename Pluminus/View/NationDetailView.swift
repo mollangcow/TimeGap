@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LocalityDetailView: View {
+struct NationDetailView: View {
     
     @State private var isShowingMap: Bool = false
     @State private var tappedLocality: String = ""

@@ -64,7 +64,7 @@ struct WrappingNationStackView: View {
             }
         } // VStack닫기
         .sheet(isPresented: $isShowingModal) {
-            LocalityDetailView(
+            NationDetailView(
                 countryName: $tappedCountry,
                 continent: $tappedContinent,
                 pickerFastOrSlow: $pickerFastOrSlow,
