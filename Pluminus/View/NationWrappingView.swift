@@ -9,7 +9,6 @@ import SwiftUI
 import WrappingHStack
 
 struct NationWrappingView: View {
-    
     @State private var isShowingModal: Bool = false
     @State private var isShowingMap: Bool = false
     @State private var tappedCountry: String = ""
@@ -18,12 +17,12 @@ struct NationWrappingView: View {
     
     @Binding var pickerHour: Int
     @Binding var pickerFastOrSlow: [String]
-    @Binding var selected: [Int]
+    @Binding var selectedPicker: [Int]
     
     var body: some View {
         VStack(alignment: .leading) {
-            if CountryList.list.GMT[gmtTargetResult(selected: selected)] != nil {
-                WrappingHStack(CountryList.list.GMT[gmtTargetResult(selected: selected)]!, id: \.self) { tag in
+            if CountryList.list.GMT[gmtTargetResult(selectedPicker: selectedPicker)] != nil {
+                WrappingHStack(CountryList.list.GMT[gmtTargetResult(selectedPicker: selectedPicker)]!, id: \.self) { tag in
                     Button {
                         HapticManager.instance.impact(style: .rigid)
                         if tag.isHaveLocality {
@@ -62,14 +61,14 @@ struct NationWrappingView: View {
                     .font(.system(size: 17, weight: .black))
                     .foregroundColor(.white)
             }
-        } // VStack닫기
+        } // VStack
         .sheet(isPresented: $isShowingModal) {
             NationDetailView(
                 countryName: $tappedCountry,
                 continent: $tappedContinent,
                 pickerFastOrSlow: $pickerFastOrSlow,
                 pickerHour: $pickerHour,
-                selected: $selected
+                selectedPicker: $selectedPicker
             )
         }
         .sheet(isPresented: $isShowingMap) {
@@ -78,8 +77,8 @@ struct NationWrappingView: View {
                 continent: $tappedContinent,
                 locality: $tappedLocality
             )
-        } //sheet닫기
-    } // body닫기
+        } //sheet
+    } // body
     
     private func showLocality(isShowingModal: Bool, countryName: String, continent: String) {
         if isShowingModal {
@@ -91,4 +90,4 @@ struct NationWrappingView: View {
             self.tappedContinent = continent
         }
     }
-} // struct닫기
+} // struct

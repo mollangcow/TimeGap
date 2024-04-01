@@ -43,14 +43,13 @@ enum TimeGradient {
 }
 
 struct BackColorView: View {
-    
-    @Binding var isPickerView: Bool
-    @Binding var selected: [Int]
+    @Binding var isShowingResualt: Bool
+    @Binding var selectedPicker: [Int]
     
     var body: some View {
         ZStack {
-            if !isPickerView {
-                getBackgroundColor(targetHourResult: targetHourResult(selected: selected))
+            if !isShowingResualt {
+                getBackgroundColor(targetHourResult: targetHourResult(selectedPicker: selectedPicker))
                     .edgesIgnoringSafeArea(.all)
             }
         }

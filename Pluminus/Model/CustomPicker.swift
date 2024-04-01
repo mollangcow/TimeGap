@@ -13,7 +13,7 @@ struct CustomPicker: UIViewRepresentable {
     typealias UIViewType = UIPickerView
     
     @Binding var dataSource: [[String]]
-    @Binding var selected: [Int]
+    @Binding var selectedPicker: [Int]
     
     
     func makeUIView(context: Context) -> UIPickerView {
@@ -26,25 +26,25 @@ struct CustomPicker: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIPickerView, context: Context) {
-        for i in 0..<selected.count {
-            uiView.selectRow(selected[i], inComponent: i, animated: true)
+        for i in 0..<selectedPicker.count {
+            uiView.selectRow(selectedPicker[i], inComponent: i, animated: true)
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self, dataSource: $dataSource, selected: $selected)
+        Coordinator(parent: self, dataSource: $dataSource, selectedPicker: $selectedPicker)
     }
     
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         
         var parent: CustomPicker
         @Binding var dataSource: [[String]]
-        @Binding var selected: [Int]
+        @Binding var selectedPicker: [Int]
         
-        init(parent: CustomPicker, dataSource: Binding<[[String]]>, selected: Binding<[Int]>) {
+        init(parent: CustomPicker, dataSource: Binding<[[String]]>, selectedPicker: Binding<[Int]>) {
             self.parent = parent
             self._dataSource = dataSource
-            self._selected = selected
+            self._selectedPicker = selectedPicker
         }
         
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -60,8 +60,8 @@ struct CustomPicker: UIViewRepresentable {
         }
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            $selected.wrappedValue[component] = row
-            switch $selected.wrappedValue[0] {
+            $selectedPicker.wrappedValue[component] = row
+            switch $selectedPicker.wrappedValue[0] {
             case 0:
                 print(row)
             case 1:

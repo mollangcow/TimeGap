@@ -11,8 +11,9 @@ extension Date {
     public func currentDate(timeZoneOffset: Int) -> String {
         let formatter = DateFormatter()
         let currentTimeZone = TimeZone.current.secondsFromGMT()
-        formatter.timeZone = TimeZone(secondsFromGMT: currentTimeZone + timeZoneOffset * 3600)
         
+        formatter.timeZone = TimeZone(secondsFromGMT: currentTimeZone + timeZoneOffset * 3600)
+                
         formatter.dateFormat = "MMM d일 EEEE"
         formatter.locale = Locale(identifier: "ko_KR")
         

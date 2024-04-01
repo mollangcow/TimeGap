@@ -9,9 +9,9 @@ import SwiftUI
 
 struct MainView: View {
     @State private var currentLocationName : String = ""
-    @State private var isPickerView : Bool = true
+    @State private var selectedPicker : [Int] = [0, 0]
+    @State private var isShowingResualt : Bool = true
     @State private var isButtonLabelDefult : Bool = true
-    @State private var selected : [Int] = [0, 0]
     @State private var isShowingSetting : Bool = false
     @State private var isShowingLocal : Bool = false
     
@@ -21,18 +21,18 @@ struct MainView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     // 기준 시간
                     Text(Date().currentTime(timeZoneOffset: 0))
-                        .font(.system(size: 64, weight: isPickerView ? .heavy : .thin))
-                        .foregroundColor(isPickerView ? .primary : .white)
+                        .font(.system(size: 64, weight: isShowingResualt ? .heavy : .thin))
+                        .foregroundColor(isShowingResualt ? .primary : .white)
                     // 기준 날짜
                     Text(Date().currentDate(timeZoneOffset: 0))
                         .font(.system(size: 17, weight: .regular))
-                        .foregroundColor(isPickerView ? .primary : .white)
+                        .foregroundColor(isShowingResualt ? .primary : .white)
                 } //VStack
                 
                 Spacer()
                 
                 // 설정 버튼
-                if isPickerView {
+                if isShowingResualt {
                     Button(action: {
                         HapticManager.instance.impact(style: .light)
                         isShowingSetting = true
@@ -55,7 +55,7 @@ struct MainView: View {
             HStack {
                 Spacer()
                 
-                Image(isPickerView ? "locationPin.orange" : "locationPin.white")
+                Image(isShowingResualt ? "locationPin.orange" : "locationPin.white")
                     .resizable()
                     .frame(width: 15, height: 19)
                 
@@ -65,17 +65,16 @@ struct MainView: View {
                 }, label: {
                     Text(currentLocationName)
                         .font(.system(size: 20, weight: .heavy))
-                        .foregroundColor(isPickerView ? .primary : .white)
+                        .foregroundColor(isShowingResualt ? .primary : .white)
                 })
-                .disabled(isPickerView == false)
+                .disabled(isShowingResualt == false)
             } // HStack
             
             Spacer()
             
             // 시차 선택 커스텀 피커뷰
             NationAndPickerView(
-                isPickerView: $isPickerView,
-                selected: $selected
+                selectedPicker: $selectedPicker, isShowingResualt: $isShowingResualt
             )
             
             // 확인/돌아오기 버튼
@@ -83,7 +82,7 @@ struct MainView: View {
                 HapticManager.instance.notification(type: .warning)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.spring) {
-                        isPickerView.toggle()
+                        isShowingResualt.toggle()
                     }
                     isButtonLabelDefult.toggle()
                 }
@@ -91,8 +90,8 @@ struct MainView: View {
                 Text(isButtonLabelDefult ? "확인하기" : "돌아가기")
                     .foregroundStyle(.white)
                     .font(.system(size: 17, weight: .black))
-                    .frame(width: isPickerView ? screenWidth * 0.6 : screenWidth * 0.88, height: 70)
-                    .background(isPickerView ? Color.orange : Color.black.opacity(0.2))
+                    .frame(width: isShowingResualt ? screenWidth * 0.6 : screenWidth * 0.88, height: 70)
+                    .background(isShowingResualt ? Color.orange : Color.black.opacity(0.2))
                     .clipShape(RoundedRectangle(cornerRadius: 100))
             }) // Button
             .padding(.bottom, 30)
@@ -102,12 +101,12 @@ struct MainView: View {
             SettingView()
         }
         .sheet(isPresented: $isShowingLocal) {
-            LocaleSelectView(isShowingLocal: $isShowingLocal)
+            LocaleSelectView(isShowingLocal: $isShowingLocal, selectedLocationName: $currentLocationName)
         }
         .onReceive(locationManager.$currentLocationName) { newLocation in
             self.currentLocationName = newLocation
         }
-        .background(BackColorView(isPickerView: $isPickerView, selected: $selected))
+        .background(BackColorView(isShowingResualt: $isShowingResualt, selectedPicker: $selectedPicker))
         .statusBarHidden()
     } // body
 } // struct

@@ -6,11 +6,10 @@
 //
 
 import Foundation
-import SwiftUI
 
-func pickerResult(selected: [Int]) -> Int {
-    let value = selected[1]
-    return selected[0] == 1 ? -value : value
+func pickerResult(selectedPicker: [Int]) -> Int {
+    let value = selectedPicker[1]
+    return selectedPicker[0] == 1 ? -value : value
 }
 
 func gmtHereResult() -> Int {
@@ -24,10 +23,10 @@ func gmtHereResult() -> Int {
     return 0
 }
 
-func gmtTargetResult(selected: [Int]) -> Int {
+func gmtTargetResult(selectedPicker: [Int]) -> Int {
     let formattedString = Date.now.formatted(.dateTime.timeZone())
     
-    let pickerValue = pickerResult(selected: selected)
+    let pickerValue = pickerResult(selectedPicker: selectedPicker)
     
     if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
        let dateOffset = Int(formattedString[range].dropFirst()) {
@@ -37,8 +36,8 @@ func gmtTargetResult(selected: [Int]) -> Int {
     return 0
 }
 
-func gmtVisual(selected: [Int]) -> String {
-    let gmt = gmtTargetResult(selected: selected)
+func gmtVisual(selectedPicker: [Int]) -> String {
+    let gmt = gmtTargetResult(selectedPicker: selectedPicker)
     
     if gmt > 0 {
         let posGMT = "+\(gmt)"
@@ -51,8 +50,8 @@ func gmtVisual(selected: [Int]) -> String {
     return "+0"
 }
 
-func targetHourResult(selected: [Int]) -> Int {
-    let formattedString = Date().currentTime(timeZoneOffset: pickerResult(selected: selected))
+func targetHourResult(selectedPicker: [Int]) -> Int {
+    let formattedString = Date().currentTime(timeZoneOffset: pickerResult(selectedPicker: selectedPicker))
     
     if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
        let timeOffset = Int(formattedString[range].dropLast()) {

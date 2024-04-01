@@ -12,6 +12,8 @@
 		234E4EDC2A2BB13E00CA787D /* NationAndPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4EDB2A2BB13E00CA787D /* NationAndPickerView.swift */; };
 		2364635F2B35418000CC39F2 /* LocaleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2364635E2B35418000CC39F2 /* LocaleSelectView.swift */; };
 		237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CF0AF2ADD9CD10074E6DC /* SettingView.swift */; };
+		23898A512BB712AF002DB2B8 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23898A502BB712AF002DB2B8 /* testView.swift */; };
+		23898A532BBB0C52002DB2B8 /* LocaleSelectCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */; };
 		2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395A05A2ADDAECB00773AF7 /* EmailView.swift */; };
 		23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAEE372A30A2F6007191B8 /* BackColorView.swift */; };
 		23B25C0A2A2860860022273F /* NC1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C092A2860860022273F /* NC1App.swift */; };
@@ -38,6 +40,8 @@
 		2364635D2B3353E100CC39F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2364635E2B35418000CC39F2 /* LocaleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleSelectView.swift; sourceTree = "<group>"; };
 		237CF0AF2ADD9CD10074E6DC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		23898A502BB712AF002DB2B8 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
+		23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleSelectCityView.swift; sourceTree = "<group>"; };
 		2395A05A2ADDAECB00773AF7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		23AAEE372A30A2F6007191B8 /* BackColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorView.swift; sourceTree = "<group>"; };
 		23B25C062A2860860022273F /* Pluminus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pluminus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +101,7 @@
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
 				2364635E2B35418000CC39F2 /* LocaleSelectView.swift */,
+				23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */,
 				234E4EDB2A2BB13E00CA787D /* NationAndPickerView.swift */,
 				23B67FB12A8DEE5F00229B81 /* NationWrappingView.swift */,
 				23B3A82E2A860CD900E86DE0 /* NationDetailView.swift */,
@@ -105,6 +110,7 @@
 				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				2395A05A2ADDAECB00773AF7 /* EmailView.swift */,
 				23AAEE372A30A2F6007191B8 /* BackColorView.swift */,
+				23898A502BB712AF002DB2B8 /* testView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 				23B67FDB2A954CE200229B81 /* Haptics.swift in Sources */,
 				23B25C362A28B1120022273F /* ColorHex.swift in Sources */,
 				23B25C0C2A2860860022273F /* MainView.swift in Sources */,
+				23898A512BB712AF002DB2B8 /* testView.swift in Sources */,
 				234E4EDC2A2BB13E00CA787D /* NationAndPickerView.swift in Sources */,
 				23B67FD72A93C0FC00229B81 /* NationInfoMapView.swift in Sources */,
 				2364635F2B35418000CC39F2 /* LocaleSelectView.swift in Sources */,
@@ -232,6 +239,7 @@
 				23B25C0A2A2860860022273F /* NC1App.swift in Sources */,
 				23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */,
 				23B67FB22A8DEE5F00229B81 /* NationWrappingView.swift in Sources */,
+				23898A532BBB0C52002DB2B8 /* LocaleSelectCityView.swift in Sources */,
 				23B67FB92A8F7EEF00229B81 /* BackgroundColorDB.swift in Sources */,
 				2307EF1C2A9DCA4C00293807 /* TimeFunctions.swift in Sources */,
 			);
@@ -364,6 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2312210107;
 				DEVELOPMENT_ASSET_PATHS = "\"Pluminus/Preview Content\"";
@@ -389,6 +398,7 @@
 				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = appledeveloperacademy2023nc1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -404,6 +414,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2312210107;
 				DEVELOPMENT_ASSET_PATHS = "\"Pluminus/Preview Content\"";
@@ -429,6 +440,7 @@
 				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = appledeveloperacademy2023nc1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -5,7 +5,6 @@
 //  Created by kimsangwoo on 2023/06/01.
 //
 
-import SwiftUI
 import CoreLocation
 
 class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
@@ -66,3 +65,54 @@ class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
 }
 
 let locationManager = MyLocationManager()
+
+func getLocalTime(cityName: String, completion: @escaping (String) -> Void) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(cityName) { (placemarks, error) in
+        guard error == nil else {
+            completion("위치를 찾을 수 없습니다.")
+            return
+        }
+        
+        if let placemark = placemarks?.first, let timezone = placemark.timeZone {
+            let formatter = DateFormatter()
+            formatter.timeZone = timezone
+            formatter.dateStyle = .long
+            formatter.timeStyle = .long
+            
+            completion(formatter.string(from: Date()))
+        } else {
+            completion("시간을 불러올 수 없습니다.")
+        }
+    }
+}
+
+class CountriesViewModel: ObservableObject {
+    @Published var countries = [CountryModel]()
+
+    func fetchCountries() {
+        guard let url = URL(string: "https://countriesnow.space/api/v0.1/countries") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode(CountriesData.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.countries = decodedResponse.data
+                    }
+                    return
+                }
+            }
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+        }.resume()
+    }
+}
+
+struct CountryModel: Codable, Identifiable, Hashable {
+    let id = UUID()
+    var country: String
+    var cities: [String]
+}
+
+struct CountriesData: Codable {
+    var data: [CountryModel]
+}

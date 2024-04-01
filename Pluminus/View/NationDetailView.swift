@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NationDetailView: View {
-    
     @State private var isShowingMap: Bool = false
     @State private var tappedLocality: String = ""
     @State private var rectangleHeight: CGFloat = 0
@@ -18,7 +17,7 @@ struct NationDetailView: View {
     @Binding var continent: String
     @Binding var pickerFastOrSlow: [String]
     @Binding var pickerHour: Int
-    @Binding var selected: [Int]
+    @Binding var selectedPicker: [Int]
     
     @Environment(\.dismiss) var dismiss
     
@@ -49,11 +48,11 @@ struct NationDetailView: View {
                     
                     Spacer()
                     
-                    Text(Date().currentTime(timeZoneOffset: pickerResult(selected: selected)))
+                    Text(Date().currentTime(timeZoneOffset: pickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 52, weight: .heavy))
                         .foregroundColor(.white)
                     
-                    Text(Date().currentDate(timeZoneOffset: pickerResult(selected: selected)))
+                    Text(Date().currentDate(timeZoneOffset: pickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(.white)
                         .padding(.leading, 2)
@@ -91,7 +90,7 @@ struct NationDetailView: View {
             .padding(.all, 20)
             .frame(width: screenWidth * 0.88, height: 160)
             .background(
-                getBackgroundColor(targetHourResult: targetHourResult(selected: selected))
+                getBackgroundColor(targetHourResult: targetHourResult(selectedPicker: selectedPicker))
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
 
@@ -137,7 +136,7 @@ struct NationDetailView: View {
             .scrollIndicators(.hidden)
         } // VStack닫기
         .onAppear {
-            currentCountryList = CountryList.list.GMT[gmtTargetResult(selected: selected)]?.first { country in
+            currentCountryList = CountryList.list.GMT[gmtTargetResult(selectedPicker: selectedPicker)]?.first { country in
                 country.countryName == self.countryName
             }?.countryLocality ?? []
         }

@@ -11,10 +11,10 @@ import MessageUI
 struct SettingView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     
-    @Environment(\.dismiss) var dismiss
-    
     @State private var isShowingEmailView = false
     @State private var emailResult: Result<MFMailComposeResult, Error>?
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
