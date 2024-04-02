@@ -21,8 +21,8 @@ struct NationWrappingView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            if CountryList.list.GMT[gmtTargetResult(selectedPicker: selectedPicker)] != nil {
-                WrappingHStack(CountryList.list.GMT[gmtTargetResult(selectedPicker: selectedPicker)]!, id: \.self) { tag in
+            if CountryList.list.GMT[calcTargetLocalGMT(selectedPicker: selectedPicker)] != nil {
+                WrappingHStack(CountryList.list.GMT[calcTargetLocalGMT(selectedPicker: selectedPicker)]!, id: \.self) { tag in
                     Button {
                         HapticManager.instance.impact(style: .rigid)
                         if tag.isHaveLocality {

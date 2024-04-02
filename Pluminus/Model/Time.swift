@@ -7,12 +7,12 @@
 
 import Foundation
 
-func pickerResult(selectedPicker: [Int]) -> Int {
+func selectPickerResult(selectedPicker: [Int]) -> Int {
     let value = selectedPicker[1]
     return selectedPicker[0] == 1 ? -value : value
 }
 
-func gmtHereResult() -> Int {
+func calcCurrentLocalGMT() -> Int {
     let formattedString = Date.now.formatted(.dateTime.timeZone())
     
     if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
@@ -23,10 +23,10 @@ func gmtHereResult() -> Int {
     return 0
 }
 
-func gmtTargetResult(selectedPicker: [Int]) -> Int {
+func calcTargetLocalGMT(selectedPicker: [Int]) -> Int {
     let formattedString = Date.now.formatted(.dateTime.timeZone())
     
-    let pickerValue = pickerResult(selectedPicker: selectedPicker)
+    let pickerValue = selectPickerResult(selectedPicker: selectedPicker)
     
     if let range = formattedString.range(of: "\\+\\d+", options: .regularExpression),
        let dateOffset = Int(formattedString[range].dropFirst()) {
@@ -36,8 +36,8 @@ func gmtTargetResult(selectedPicker: [Int]) -> Int {
     return 0
 }
 
-func gmtVisual(selectedPicker: [Int]) -> String {
-    let gmt = gmtTargetResult(selectedPicker: selectedPicker)
+func showingTargetLocalGMT(selectedPicker: [Int]) -> String {
+    let gmt = calcTargetLocalGMT(selectedPicker: selectedPicker)
     
     if gmt > 0 {
         let posGMT = "+\(gmt)"
@@ -50,8 +50,8 @@ func gmtVisual(selectedPicker: [Int]) -> String {
     return "+0"
 }
 
-func targetHourResult(selectedPicker: [Int]) -> Int {
-    let formattedString = Date().currentTime(timeZoneOffset: pickerResult(selectedPicker: selectedPicker))
+func calcTargetLocalTimeHH(selectedPicker: [Int]) -> Int {
+    let formattedString = Date().currentLocalTime(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker))
     
     if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
        let timeOffset = Int(formattedString[range].dropLast()) {

@@ -12,7 +12,7 @@ struct LocaleSelectCityView: View {
     @State private var cityName: String = ""
     @State private var selectedLocalTime: String = ""
     
-    @Binding var isShowingLocal : Bool
+    @Binding var isShowingLocalSelectView : Bool
     @Binding var selectedLocationName : String
     
     var cities: [String]
@@ -27,7 +27,7 @@ struct LocaleSelectCityView: View {
                 VStack {
                     Button(action: {
                         HapticManager.instance.impact(style: .rigid)
-                        isShowingLocal = false
+                        isShowingLocalSelectView = false
                         
                         selectedLocationName = countryName
                         
@@ -58,17 +58,17 @@ struct LocaleSelectCityView: View {
                     ForEach(filteredCities, id: \.self) { city in
                         Button(action: {
                             HapticManager.instance.impact(style: .rigid)
-                            isShowingLocal = false
+                            isShowingLocalSelectView = false
                             
                             selectedLocationName = city
                             cityName = city
                             
                             getLocalTime(cityName: cityName) { time in
                                 self.selectedLocalTime = time
-                                print("ssssss : \(selectedLocalTime)")
+                                print("##### selectLocalTime : \(selectedLocalTime)")
                             }
                             
-                            print("City Select : \(city)")
+                            print("##### selectCityName : \(city)")
                         }) {
                             HStack {
                                 Text(city)

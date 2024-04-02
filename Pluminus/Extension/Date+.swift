@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    public func currentDate(timeZoneOffset: Int) -> String {
+    public func currentLocalDate(timeZoneOffset: Int) -> String {
         let formatter = DateFormatter()
         let currentTimeZone = TimeZone.current.secondsFromGMT()
         
@@ -20,7 +20,7 @@ extension Date {
         return formatter.string(from: Date.now)
     }
     
-    public func currentTime(timeZoneOffset: Int) -> String {
+    public func currentLocalTime(timeZoneOffset: Int) -> String {
         let formatter = DateFormatter()
         let currentTimeZone = TimeZone.current.secondsFromGMT()
         formatter.timeZone = TimeZone(secondsFromGMT: currentTimeZone + timeZoneOffset * 3600)
@@ -30,7 +30,7 @@ extension Date {
         return formatter.string(from: Date.now)
     }
     
-    public func currentZone(timeZoneOffset: Int) -> String {
+    public func currentLocalZone(timeZoneOffset: Int) -> String {
         let formatter = DateFormatter()
         let currentTimeZone = TimeZone.current.secondsFromGMT()
         formatter.timeZone = TimeZone(secondsFromGMT: currentTimeZone + timeZoneOffset * 3600)

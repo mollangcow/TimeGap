@@ -43,21 +43,21 @@ enum TimeGradient {
 }
 
 struct BackColorView: View {
-    @Binding var isShowingResualt: Bool
+    @Binding var isShowingResult: Bool
     @Binding var selectedPicker: [Int]
     
     var body: some View {
         ZStack {
-            if !isShowingResualt {
-                getBackgroundColor(targetHourResult: targetHourResult(selectedPicker: selectedPicker))
+            if !isShowingResult {
+                getBackgroundColor(targetLocalTimeHH: calcTargetLocalTimeHH(selectedPicker: selectedPicker))
                     .edgesIgnoringSafeArea(.all)
             }
         }
     } // body닫기
 } // struct닫기
 
-func getBackgroundColor(targetHourResult: Int) -> some View {
-    switch targetHourResult {
+func getBackgroundColor(targetLocalTimeHH: Int) -> some View {
+    switch targetLocalTimeHH {
     case 0...1:
         return TimeGradient.G0001.gradient
     case 2...3:

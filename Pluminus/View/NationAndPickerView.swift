@@ -16,10 +16,10 @@ struct NationAndPickerView: View {
     @State private var pickerHour: Int = 0
     
     @Binding var selectedPicker: [Int]
-    @Binding var isShowingResualt: Bool
+    @Binding var isShowingResult: Bool
     
     var body: some View {
-        switch isShowingResualt {
+        switch isShowingResult {
         case true:
             return AnyView(PickerContentView)
         case false:
@@ -37,35 +37,35 @@ struct NationAndPickerView: View {
                     .frame(width:160)
                     .id(dataSource)
                     .onChange(of: selectedPicker[0]) { oldValue, newValue in
-                        print(">>>>> PICKER OnChange(selected[0])")
+                        print(">>>>> Picker OnChange [0] : \(selectedPicker[0])")
                         pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
                         _ = hourRange
                         dataSource[1] = Array(hourRange).map { String($0) }
-                        _ = gmtTargetResult(selectedPicker: selectedPicker)
+                        _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
                     }
                     .onChange(of: selectedPicker[1]) { oldValue, newValue in
                         HapticManager.instance.impact(style: .medium)
-                        print(">>>>> PICKER OnChange(selected[1])")
+                        print(">>>>> Picker OnChange [1] : \(selectedPicker[1])")
                         pickerHour = newValue
                         _ = hourRange
                         dataSource[1] = Array(hourRange).map { String($0) }
-                        _ = gmtTargetResult(selectedPicker: selectedPicker)
+                        _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
                     }
                     .onChange(of: dataSource) { oldValue, newValue in
                         HapticManager.instance.impact(style: .medium)
-                        print(">>>>> PICKER OnChange(dataSource)")
+                        print("<<<<< Picker OnChange(dataSource)")
                         _ = hourRange
                         dataSource[1] = Array(hourRange).map { String($0) }
                     }
                     .onAppear(perform: {
-                        print(">>>>> PICKER OnAppear")
-                        _ = gmtTargetResult(selectedPicker: selectedPicker)
+                        print("^^^^^ Picker OnAppear")
+                        _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
                         _ = hourRange
                         dataSource[1] = Array(hourRange).map { String($0) }
                     })
                     .onDisappear {
-                        print(">>>>> PICKER OnDisappear")
-                        _ = gmtTargetResult(selectedPicker: selectedPicker)
+                        print("^^^^^ Picker OnDisappear")
+                        _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
                         _ = hourRange
                         dataSource[1] = Array(hourRange).map { String($0) }
                     }
@@ -166,15 +166,15 @@ struct NationAndPickerView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .bottom) {
-                    Text(Date().currentTime(timeZoneOffset: pickerResult(selectedPicker: selectedPicker)))
+                    Text(Date().currentLocalTime(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 64, weight: .heavy))
                         .foregroundColor(.white)
-                    Text("GMT\(gmtVisual(selectedPicker: selectedPicker))")
+                    Text("GMT\(showingTargetLocalGMT(selectedPicker: selectedPicker))")
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.bottom, 16)
                 }
-                Text(Date().currentDate(timeZoneOffset: pickerResult(selectedPicker: selectedPicker)))
+                Text(Date().currentLocalDate(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.leading, 4)
@@ -194,7 +194,7 @@ struct NationAndPickerView: View {
     }
     
     private func pickerVisualMovingSpacer() -> CGFloat {
-        let hour = gmtTargetResult(selectedPicker: selectedPicker)
+        let hour = calcTargetLocalGMT(selectedPicker: selectedPicker)
         
         if hour == -12 {
             return 0
@@ -208,7 +208,7 @@ struct NationAndPickerView: View {
     }
     
     private func pickerVisualStaticSpacer() -> CGFloat {
-        let hour = gmtHereResult()
+        let hour = calcCurrentLocalGMT()
         
         if hour == -12 {
             return 0
@@ -234,8 +234,8 @@ struct NationAndPickerView: View {
     }
     
     private var hourRange: ClosedRange<Int> {
-        var wrappedGMT = gmtHereResult() <= -11 ? -10 : gmtHereResult()
-        wrappedGMT = gmtHereResult() >= 14 ? 13 : gmtHereResult()
+        var wrappedGMT = calcCurrentLocalGMT() <= -11 ? -10 : calcCurrentLocalGMT()
+        wrappedGMT = calcCurrentLocalGMT() >= 14 ? 13 : calcCurrentLocalGMT()
         
         if selectedPicker[0] == 0 {
             let min = 0

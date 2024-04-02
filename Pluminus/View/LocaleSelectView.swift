@@ -13,7 +13,7 @@ struct LocaleSelectView: View {
     
     @State private var searchText = ""
     
-    @Binding var isShowingLocal : Bool
+    @Binding var isShowingLocalSelectView : Bool
     @Binding var selectedLocationName : String
     
     @Environment(\.dismiss) var dismiss
@@ -23,7 +23,7 @@ struct LocaleSelectView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(filteredCountries, id: \.self) { country in
-                        NavigationLink(destination: LocaleSelectCityView(isShowingLocal: $isShowingLocal, selectedLocationName: $selectedLocationName, cities: country.cities, countryName: country.country)) {
+                        NavigationLink(destination: LocaleSelectCityView(isShowingLocalSelectView: $isShowingLocalSelectView, selectedLocationName: $selectedLocationName, cities: country.cities, countryName: country.country)) {
                             HStack {
                                 Text(country.country)
                                     .lineLimit(1)

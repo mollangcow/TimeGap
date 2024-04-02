@@ -48,11 +48,11 @@ struct NationDetailView: View {
                     
                     Spacer()
                     
-                    Text(Date().currentTime(timeZoneOffset: pickerResult(selectedPicker: selectedPicker)))
+                    Text(Date().currentLocalTime(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 52, weight: .heavy))
                         .foregroundColor(.white)
                     
-                    Text(Date().currentDate(timeZoneOffset: pickerResult(selectedPicker: selectedPicker)))
+                    Text(Date().currentLocalDate(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(.white)
                         .padding(.leading, 2)
@@ -90,7 +90,7 @@ struct NationDetailView: View {
             .padding(.all, 20)
             .frame(width: screenWidth * 0.88, height: 160)
             .background(
-                getBackgroundColor(targetHourResult: targetHourResult(selectedPicker: selectedPicker))
+                getBackgroundColor(targetLocalTimeHH: calcTargetLocalTimeHH(selectedPicker: selectedPicker))
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
 
@@ -136,7 +136,7 @@ struct NationDetailView: View {
             .scrollIndicators(.hidden)
         } // VStack닫기
         .onAppear {
-            currentCountryList = CountryList.list.GMT[gmtTargetResult(selectedPicker: selectedPicker)]?.first { country in
+            currentCountryList = CountryList.list.GMT[calcTargetLocalGMT(selectedPicker: selectedPicker)]?.first { country in
                 country.countryName == self.countryName
             }?.countryLocality ?? []
         }

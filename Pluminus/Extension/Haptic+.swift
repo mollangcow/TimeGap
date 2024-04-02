@@ -4,7 +4,6 @@
 //
 //  Created by kimsangwoo on 2023/08/23.
 //
-
 //  "SUCCESS" { hapticManager.notification(type: .success) }
 //  "WARNING" { hapticManager.notification(type: .warning) }
 //  "ERROR" { hapticManager.notification(type: .error) }

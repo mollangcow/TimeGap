@@ -63,9 +63,9 @@ struct CustomPicker: UIViewRepresentable {
             $selectedPicker.wrappedValue[component] = row
             switch $selectedPicker.wrappedValue[0] {
             case 0:
-                print(row)
+                print("----- Main Picker case0 : \(row)")
             case 1:
-                print(-row)
+                print("----- Main Picker case1 : \(-row)")
             default:
                 fatalError("You Die")
             }

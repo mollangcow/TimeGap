@@ -7,37 +7,32 @@
 
 import CoreLocation
 
+let locationManager = MyLocationManager()
+
 class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     let locationManager = CLLocationManager()
-    @Published var currentLocationName: String = "현재 위치 알 수 없음"
+    @Published var currentLocalName: String = "현재 위치 알 수 없음"
     
     override init() {
         super.init()
 
         locationManager.delegate = self
-
-        // 위치 정확도
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-
-        // 위치 권한
-        locationManager.requestWhenInUseAuthorization()
-
-        // 위치 업데이트 수신
-        locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters // 위치 정확도
+        locationManager.requestWhenInUseAuthorization() // 위치 권한
+        locationManager.startUpdatingLocation() // 위치 업데이트 수신
         
         // 위치 기반 지역명 출력
-        currentLocationName { placemark in
+        currentLocalName { placemark in
             if let placemark = placemark, let _ = placemark.country, let _ = placemark.locality {
             } else { }
         }
         
-        // 위치 업데이트 종료
-        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation() // 위치 업데이트 종료
     }
     
     // 현재 위치의 지역명을 알려주는 메서드
-    func currentLocationName(completionHandler: @escaping (CLPlacemark?) -> Void ) {
+    func currentLocalName(completionHandler: @escaping (CLPlacemark?) -> Void ) {
         
         if let lastLocation = self.locationManager.location {
             let geocoder = CLGeocoder()
@@ -50,7 +45,7 @@ class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
                 }
                 
                 if let placemark = placemarks?.first {
-                    self.currentLocationName = "\(placemark.country ?? "") \(placemark.locality ?? "")"
+                    self.currentLocalName = "\(placemark.country ?? "") \(placemark.locality ?? "")"
                     completionHandler(placemark)
                 } else {
                     print("주소 정보를 찾을 수 없음")
@@ -63,8 +58,6 @@ class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
         }
     }
 }
-
-let locationManager = MyLocationManager()
 
 func getLocalTime(cityName: String, completion: @escaping (String) -> Void) {
     let geocoder = CLGeocoder()

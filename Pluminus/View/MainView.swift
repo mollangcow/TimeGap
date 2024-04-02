@@ -8,34 +8,34 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var currentLocationName : String = ""
+    @State private var currentLocalName : String = ""
     @State private var selectedPicker : [Int] = [0, 0]
-    @State private var isShowingResualt : Bool = true
-    @State private var isButtonLabelDefult : Bool = true
-    @State private var isShowingSetting : Bool = false
-    @State private var isShowingLocal : Bool = false
+    @State private var isShowingResult : Bool = true
+    @State private var isShowingSearchingLabel : Bool = true
+    @State private var isShowingSettingView : Bool = false
+    @State private var isShowingLocalSelectView : Bool = false
     
     var body: some View {
         VStack {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 0) {
                     // 기준 시간
-                    Text(Date().currentTime(timeZoneOffset: 0))
-                        .font(.system(size: 64, weight: isShowingResualt ? .heavy : .thin))
-                        .foregroundColor(isShowingResualt ? .primary : .white)
+                    Text(Date().currentLocalTime(timeZoneOffset: 0))
+                        .font(.system(size: 64, weight: isShowingResult ? .heavy : .thin))
+                        .foregroundColor(isShowingResult ? .primary : .white)
                     // 기준 날짜
-                    Text(Date().currentDate(timeZoneOffset: 0))
+                    Text(Date().currentLocalDate(timeZoneOffset: 0))
                         .font(.system(size: 17, weight: .regular))
-                        .foregroundColor(isShowingResualt ? .primary : .white)
+                        .foregroundColor(isShowingResult ? .primary : .white)
                 } //VStack
                 
                 Spacer()
                 
                 // 설정 버튼
-                if isShowingResualt {
+                if isShowingResult {
                     Button(action: {
                         HapticManager.instance.impact(style: .light)
-                        isShowingSetting = true
+                        isShowingSettingView = true
                     }, label: {
                         Rectangle()
                             .frame(width: 24, height: 44)
@@ -55,26 +55,26 @@ struct MainView: View {
             HStack {
                 Spacer()
                 
-                Image(isShowingResualt ? "locationPin.orange" : "locationPin.white")
+                Image(isShowingResult ? "locationPin.orange" : "locationPin.white")
                     .resizable()
                     .frame(width: 15, height: 19)
                 
                 Button(action: {
                     HapticManager.instance.impact(style: .rigid)
-                    isShowingLocal = true
+                    isShowingLocalSelectView = true
                 }, label: {
-                    Text(currentLocationName)
+                    Text(currentLocalName)
                         .font(.system(size: 20, weight: .heavy))
-                        .foregroundColor(isShowingResualt ? .primary : .white)
+                        .foregroundColor(isShowingResult ? .primary : .white)
                 })
-                .disabled(isShowingResualt == false)
+                .disabled(isShowingResult == false)
             } // HStack
             
             Spacer()
             
             // 시차 선택 커스텀 피커뷰
             NationAndPickerView(
-                selectedPicker: $selectedPicker, isShowingResualt: $isShowingResualt
+                selectedPicker: $selectedPicker, isShowingResult: $isShowingResult
             )
             
             // 확인/돌아오기 버튼
@@ -82,31 +82,31 @@ struct MainView: View {
                 HapticManager.instance.notification(type: .warning)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.spring) {
-                        isShowingResualt.toggle()
+                        isShowingResult.toggle()
                     }
-                    isButtonLabelDefult.toggle()
+                    isShowingSearchingLabel.toggle()
                 }
             }, label: {
-                Text(isButtonLabelDefult ? "확인하기" : "돌아가기")
+                Text(isShowingSearchingLabel ? "확인하기" : "돌아가기")
                     .foregroundStyle(.white)
                     .font(.system(size: 17, weight: .black))
-                    .frame(width: isShowingResualt ? screenWidth * 0.6 : screenWidth * 0.88, height: 70)
-                    .background(isShowingResualt ? Color.orange : Color.black.opacity(0.2))
+                    .frame(width: isShowingResult ? screenWidth * 0.6 : screenWidth * 0.88, height: 70)
+                    .background(isShowingResult ? Color.orange : Color.black.opacity(0.2))
                     .clipShape(RoundedRectangle(cornerRadius: 100))
             }) // Button
             .padding(.bottom, 30)
         } // VStack
         .padding(.horizontal, 20)
-        .sheet(isPresented: $isShowingSetting) {
+        .sheet(isPresented: $isShowingSettingView) {
             SettingView()
         }
-        .sheet(isPresented: $isShowingLocal) {
-            LocaleSelectView(isShowingLocal: $isShowingLocal, selectedLocationName: $currentLocationName)
+        .sheet(isPresented: $isShowingLocalSelectView) {
+            LocaleSelectView(isShowingLocalSelectView: $isShowingLocalSelectView, selectedLocationName: $currentLocalName)
         }
-        .onReceive(locationManager.$currentLocationName) { newLocation in
-            self.currentLocationName = newLocation
+        .onReceive(locationManager.$currentLocalName) { newLocation in
+            self.currentLocalName = newLocation
         }
-        .background(BackColorView(isShowingResualt: $isShowingResualt, selectedPicker: $selectedPicker))
+        .background(BackColorView(isShowingResult: $isShowingResult, selectedPicker: $selectedPicker))
         .statusBarHidden()
     } // body
 } // struct
