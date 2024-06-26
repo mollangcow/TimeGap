@@ -48,11 +48,11 @@ struct NationDetailView: View {
                     
                     Spacer()
                     
-                    Text(Date().currentLocalTime(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
+                    Text(Date().currentLocalTime(tzOffset: selectPickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 52, weight: .heavy))
                         .foregroundColor(.white)
                     
-                    Text(Date().currentLocalDate(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
+                    Text(Date().currentLocalDate(tzOffset: selectPickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(.white)
                         .padding(.leading, 2)

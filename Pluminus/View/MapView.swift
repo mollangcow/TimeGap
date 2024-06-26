@@ -55,7 +55,6 @@ class MapViewDelegate: NSObject, MKMapViewDelegate {
 
             if let markerAnnotationView = annotationView as? MKMarkerAnnotationView {
                 markerAnnotationView.markerTintColor = .red
-                markerAnnotationView.glyphText = "●"
                 markerAnnotationView.glyphTintColor = .white
             }
         } else {

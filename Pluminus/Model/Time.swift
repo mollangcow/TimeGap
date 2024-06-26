@@ -51,7 +51,7 @@ func showingTargetLocalGMT(selectedPicker: [Int]) -> String {
 }
 
 func calcTargetLocalTimeHH(selectedPicker: [Int]) -> Int {
-    let formattedString = Date().currentLocalTime(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker))
+    let formattedString = Date().currentLocalTime(tzOffset: selectPickerResult(selectedPicker: selectedPicker))
     
     if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
        let timeOffset = Int(formattedString[range].dropLast()) {

@@ -16,6 +16,7 @@
 		23898A532BBB0C52002DB2B8 /* LocaleSelectCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */; };
 		2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395A05A2ADDAECB00773AF7 /* EmailView.swift */; };
 		23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAEE372A30A2F6007191B8 /* BackColorView.swift */; };
+		23AB103B2C2B25270066DBD6 /* CLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB103A2C2B25030066DBD6 /* CLMapView.swift */; };
 		23B25C0A2A2860860022273F /* NC1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C092A2860860022273F /* NC1App.swift */; };
 		23B25C0C2A2860860022273F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B25C0B2A2860860022273F /* MainView.swift */; };
 		23B25C0E2A2860870022273F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B25C0D2A2860870022273F /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleSelectCityView.swift; sourceTree = "<group>"; };
 		2395A05A2ADDAECB00773AF7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		23AAEE372A30A2F6007191B8 /* BackColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorView.swift; sourceTree = "<group>"; };
+		23AB103A2C2B25030066DBD6 /* CLMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLMapView.swift; sourceTree = "<group>"; };
 		23B25C062A2860860022273F /* Pluminus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pluminus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B25C092A2860860022273F /* NC1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1App.swift; sourceTree = "<group>"; };
 		23B25C0B2A2860860022273F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
+				23AB103A2C2B25030066DBD6 /* CLMapView.swift */,
 				2364635E2B35418000CC39F2 /* LocaleSelectView.swift */,
 				23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */,
 				234E4EDB2A2BB13E00CA787D /* NationAndPickerView.swift */,
@@ -233,6 +236,7 @@
 				23B67FD72A93C0FC00229B81 /* NationInfoMapView.swift in Sources */,
 				2364635F2B35418000CC39F2 /* LocaleSelectView.swift in Sources */,
 				234E4ED22A2B899B00CA787D /* Nation.swift in Sources */,
+				23AB103B2C2B25270066DBD6 /* CLMapView.swift in Sources */,
 				23B67FD92A94819400229B81 /* MapView.swift in Sources */,
 				2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */,
 				23B67FB02A8DE10800229B81 /* Date+.swift in Sources */,
@@ -402,9 +406,10 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -444,9 +449,10 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

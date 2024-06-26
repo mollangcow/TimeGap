@@ -166,7 +166,7 @@ struct NationAndPickerView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .bottom) {
-                    Text(Date().currentLocalTime(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
+                    Text(Date().currentLocalTime(tzOffset: selectPickerResult(selectedPicker: selectedPicker)))
                         .font(.system(size: 64, weight: .heavy))
                         .foregroundColor(.white)
                     Text("GMT\(showingTargetLocalGMT(selectedPicker: selectedPicker))")
@@ -174,7 +174,7 @@ struct NationAndPickerView: View {
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.bottom, 16)
                 }
-                Text(Date().currentLocalDate(timeZoneOffset: selectPickerResult(selectedPicker: selectedPicker)))
+                Text(Date().currentLocalDate(tzOffset: selectPickerResult(selectedPicker: selectedPicker)))
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.leading, 4)

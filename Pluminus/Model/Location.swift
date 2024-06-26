@@ -45,7 +45,7 @@ class MyLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
                 }
                 
                 if let placemark = placemarks?.first {
-                    self.currentLocalName = "\(placemark.country ?? "") \(placemark.locality ?? "")"
+                    self.currentLocalName = "\(placemark.locality ?? ""), \(placemark.country ?? "")"
                     completionHandler(placemark)
                 } else {
                     print("주소 정보를 찾을 수 없음")
