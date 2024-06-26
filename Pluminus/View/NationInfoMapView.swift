@@ -25,62 +25,53 @@ struct NationInfoMapView: View {
                 HStack {
                     Spacer()
                     
-                    Button(action: {
+                    // dismiss button
+                    Button {
                         HapticManager.instance.impact(style: .light)
                         dismiss()
-                    }, label: {
-                        ZStack {
-                            Rectangle()
-                                .frame(width: 60, height: 60)
-                                .foregroundStyle(.clear)
-                            Circle()
-                                .frame(width: 28, height: 28)
-                                .foregroundStyle(.clear)
-                                .background(.regularMaterial)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(.regularMaterial, lineWidth: 1)
-                            )
-                            Image(systemName: "xmark")
-                                .resizable()
-                                .bold()
-                                .foregroundStyle(.orange)
-                                .frame(width: 12, height: 12)
-                        }
-                    })
+                    } label: {
+                        Rectangle()
+                            .foregroundStyle(.clear)
+                            .background(.ultraThickMaterial)
+                            .clipShape(Circle())
+                            .overlay {
+                                Image(systemName: "xmark")
+                                    .resizable()
+                                    .bold()
+                                    .foregroundStyle(.orange)
+                                    .frame(width: 12, height: 12)
+                            }
+                            .frame(width: 28, height: 28)
+                            .padding(.all, 24)
+                    } // button
                 }
                 
                 Spacer()
                 
-                VStack(alignment: .leading) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("\(countryName)")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(.primary)
+                // information card
+                VStack {
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("\(countryName)")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.orange)
+                            
+                            Text("\(locality)")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.primary)
+                        }
                         
-                        Text("\(locality)")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(.secondary)
-                            .padding(.bottom, 8)
+                        Spacer()
                         
                         Text("\(continent)")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.secondary)
                     }
-                    .padding(.top, 20)
-                    .padding(.horizontal, 24)
-                }
-                .frame(width: screenWidth, alignment: .leading)
-                .padding(.bottom, 60)
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(.regularMaterial, lineWidth: 1)
-                )
-                .shadow(color: .black.opacity(0.2), radius: 20)
-            } //VStack
+                    .padding(.all, 24)
+                } // VStack
+                .padding(.bottom, 40)
+                .background(.thickMaterial)
+            } // VStack
         } // ZStack
         .ignoresSafeArea()
     } // body

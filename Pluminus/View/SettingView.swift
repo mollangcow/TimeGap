@@ -18,16 +18,17 @@ struct SettingView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                Text("지원")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(.primary)
-                    .padding(.leading, 20)
-                
-                Button(action: {
-                    HapticManager.instance.impact(style: .light)
-                    isShowingEmailView.toggle()
-                }) {
+            VStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Help")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.primary)
+                        .padding(.vertical, 20)
+                    
+                    Button {
+                        HapticManager.instance.impact(style: .light)
+                        isShowingEmailView.toggle()
+                    } label: {
                         HStack {
                             Image(systemName: "questionmark.circle.fill")
                                 .resizable()
@@ -35,47 +36,48 @@ struct SettingView: View {
                                 .foregroundColor(.orange)
                                 .padding(.leading, 20)
                             
-                            Text("오류 문의하기")
+                            Text("Send Email to Developer")
                                 .font(.system(size: 17, weight: .bold))
                                 .foregroundColor(.primary)
                                 .padding(.leading, 8)
                             
                             Spacer()
                         }
-                        .frame(width: screenWidth * 0.88 , height: 60)
+                        .frame(height: 60)
                         .background(.gray.opacity(0.1))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                }
-                
-                Text("일반")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(.primary)
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
-
-                HStack {
-                    Image(systemName: "moon.circle.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.orange)
-                        .padding(.leading, 20)
+                    }
                     
-                    Toggle(isOn: $isDarkMode, label: {
-                        Text("어두운 화면")
-                            .font(.system(size: 17, weight: .bold))
-                            .foregroundColor(.primary)
-                            .padding(.leading, 8)
-                    })
-                    .toggleStyle(SwitchToggleStyle(tint: .orange))
-                    .padding(.trailing, 20)
+                    Text("General")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.primary)
+                        .padding(.vertical, 20)
+                    
+                    HStack {
+                        Image(systemName: "moon.circle.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.orange)
+                            .padding(.leading, 20)
+                        
+                        Toggle(isOn: $isDarkMode, label: {
+                            Text("Dark Mode")
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(.primary)
+                                .padding(.leading, 8)
+                        })
+                        .toggleStyle(SwitchToggleStyle(tint: .orange))
+                        .padding(.trailing, 20)
+                    }
+                    .frame(height: 60)
+                    .background(.gray.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
-                .frame(width: screenWidth * 0.88 , height: 60)
-                .background(.gray.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding(.horizontal, 20)
                 
                 Spacer()
             }
-            .navigationTitle("설정")
+            .navigationTitle("Setting")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -95,10 +97,9 @@ struct SettingView: View {
                                 .foregroundColor(.orange)
                         }
                     }
-
                 }
-            }
-        }
+            } // toolbar
+        } // NavigationStack
         .sheet(isPresented: $isShowingEmailView) {
             EmailView(isShowing: $isShowingEmailView, result: $emailResult)
                 .ignoresSafeArea()

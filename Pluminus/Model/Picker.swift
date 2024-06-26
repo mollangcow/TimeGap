@@ -52,14 +52,26 @@ struct CustomPicker: UIViewRepresentable {
         }
         
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            guard component < dataSource.count, row < dataSource[component].count else {
+                print("Error: Trying to access invalid index component: \(component), row: \(row)")
+                return nil
+            }
             return dataSource[component][row]
         }
         
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            guard component < dataSource.count else {
+                print("Error: Trying to access invalid component index: \(component)")
+                return 0
+            }
             return dataSource[component].count
         }
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            guard component < selectedPicker.count else {
+                print("Error: Trying to access invalid selectedPicker index: \(component)")
+                return
+            }
             $selectedPicker.wrappedValue[component] = row
             switch $selectedPicker.wrappedValue[0] {
             case 0:

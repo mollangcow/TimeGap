@@ -11,18 +11,20 @@ struct NationAndPickerView: View {
     @StateObject var locationManager = MyLocationManager()
 
     @State private var dataSource: [[String]] = [["+","-"], []]
-    @State private var pickerFastOrSlow: [String] = ["빠른", "+"]
+    @State private var pickerFastOrSlow: [String] = ["ahead", "+"]
     @State private var rectangleHeight: CGFloat = 1
     @State private var pickerHour: Int = 0
+    
+    @State private var spacerWidth: CGFloat = 0
     
     @Binding var selectedPicker: [Int]
     @Binding var isShowingResult: Bool
     
     var body: some View {
         switch isShowingResult {
-        case true:
-            return AnyView(PickerContentView)
         case false:
+            return AnyView(PickerContentView)
+        case true:
             return AnyView(NationContentView)
         }
     } // body
@@ -38,24 +40,31 @@ struct NationAndPickerView: View {
                     .id(dataSource)
                     .onChange(of: selectedPicker[0]) { oldValue, newValue in
                         print(">>>>> Picker OnChange [0] : \(selectedPicker[0])")
-                        pickerFastOrSlow = newValue == 0 ? ["빠른", "+"] : ["느린", "-"]
-                        _ = hourRange
-                        dataSource[1] = Array(hourRange).map { String($0) }
-                        _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
+                        withAnimation {
+                            pickerFastOrSlow = newValue == 0 ? ["ahead", "+"] : ["behind", "-"]
+                            _ = hourRange
+                            dataSource[1] = Array(hourRange).map { String($0) }
+                            selectedPicker[1] = 0
+                            _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
+                        }
                     }
                     .onChange(of: selectedPicker[1]) { oldValue, newValue in
                         HapticManager.instance.impact(style: .medium)
                         print(">>>>> Picker OnChange [1] : \(selectedPicker[1])")
-                        pickerHour = newValue
-                        _ = hourRange
-                        dataSource[1] = Array(hourRange).map { String($0) }
-                        _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
+                        withAnimation {
+                            pickerHour = newValue
+                            _ = hourRange
+                            dataSource[1] = Array(hourRange).map { String($0) }
+                            _ = calcTargetLocalGMT(selectedPicker: selectedPicker)
+                        }
                     }
                     .onChange(of: dataSource) { oldValue, newValue in
                         HapticManager.instance.impact(style: .medium)
                         print("<<<<< Picker OnChange(dataSource)")
-                        _ = hourRange
-                        dataSource[1] = Array(hourRange).map { String($0) }
+                        withAnimation {
+                            _ = hourRange
+                            dataSource[1] = Array(hourRange).map { String($0) }
+                        }
                     }
                     .onAppear(perform: {
                         print("^^^^^ Picker OnAppear")
@@ -70,9 +79,9 @@ struct NationAndPickerView: View {
                         dataSource[1] = Array(hourRange).map { String($0) }
                     }
                     
-                Text("시간")
+                Text("Hour")
                     .font(.system(size: 17, weight: .bold))
-            } // HStack
+            }
             
             Spacer()
             
@@ -90,6 +99,8 @@ struct NationAndPickerView: View {
                         .font(.system(size: 8, weight: .regular))
                 } //HStack
                 
+                
+                // base location pin
                 HStack {
                     Spacer()
                         .frame(width: pickerVisualStaticSpacer())
@@ -102,9 +113,22 @@ struct NationAndPickerView: View {
                 } //HStack
                 .frame(width: 260)
                 
+                // target location pin
                 HStack {
                     Spacer()
-                        .frame(width: pickerVisualMovingSpacer())
+                        .frame(width: spacerWidth)
+                        .onAppear {
+                            withAnimation {
+                                self.spacerWidth = pickerVisualMovingSpacer()
+                            }
+                        }
+                        .onChange(of: selectedPicker) { oldValue, newValue in
+                            if oldValue != newValue {
+                                withAnimation {
+                                    self.spacerWidth = pickerVisualMovingSpacer()
+                                }
+                            }
+                        }
                     
                     RoundedRectangle(cornerRadius: 1)
                         .frame(width: 2, height: 10)
@@ -116,15 +140,17 @@ struct NationAndPickerView: View {
             } //ZStack
             
             if pickerHour == 0  {
-                Text("현재 위치와 동일한 시간대의 주요 지역")
+                Text("Same time zone as base")
                     .font(.system(size: 14, weight: .regular))
                     .padding(.top, 10)
                     .padding(.bottom, 40)
+                    .contentTransition(.numericText())
             } else {
-                Text("현재 위치보다 \(pickerHour)시간 \(pickerFastOrSlow[0]) 시간대의 주요 지역")
+                Text("\(pickerHour)hours \(pickerFastOrSlow[0]) of base")
                     .font(.system(size: 14, weight: .regular))
                     .padding(.top, 10)
                     .padding(.bottom, 40)
+                    .contentTransition(.numericText())
             }
         }
     }
@@ -155,7 +181,7 @@ struct NationAndPickerView: View {
                         .onDisappear {
                             rectangleHeight = 1
                         }
-                    Text("\(pickerFastOrSlow[1]) \(pickerHour)시간")
+                    Text("\(pickerFastOrSlow[1]) \(pickerHour)Hour")
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.white)
                 }
@@ -196,13 +222,13 @@ struct NationAndPickerView: View {
     private func pickerVisualMovingSpacer() -> CGFloat {
         let hour = calcTargetLocalGMT(selectedPicker: selectedPicker)
         
-        if hour == -12 {
-            return 0
-        } else if hour == 0 {
-            return 130
-        } else if hour >= -11 && hour <= 14 {
-            return CGFloat(hour + 12) * 10
-        }
+            if hour == -12 {
+                return 0
+            } else if hour == 0 {
+                return 130
+            } else if hour >= -11 && hour <= 14 {
+                return CGFloat(hour + 12) * 10
+            }
         
         return 0
     }

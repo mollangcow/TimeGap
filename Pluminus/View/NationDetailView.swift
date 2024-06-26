@@ -19,21 +19,9 @@ struct NationDetailView: View {
     @Binding var pickerHour: Int
     @Binding var selectedPicker: [Int]
     
-    @Environment(\.dismiss) var dismiss
-    
     var body: some View {
-        VStack(spacing: 0) {
-            Button(action: {
-                HapticManager.instance.impact(style: .light)
-                dismiss()
-            }, label: {
-                RoundedRectangle(cornerRadius: 3)
-                    .frame(width: 40, height: 6)
-                    .foregroundStyle(.gray.opacity(0.5))
-                    .padding(.all, 20)
-                    .background(.clear)
-            })
-            
+        VStack(alignment: .leading, spacing: 0) {
+            // banner
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading) {
                     Text(countryName)
@@ -56,7 +44,7 @@ struct NationDetailView: View {
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(.white)
                         .padding(.leading, 2)
-                } //VStack
+                } // VStack
                 
                 Spacer()
                 
@@ -86,32 +74,30 @@ struct NationDetailView: View {
                     .onDisappear {
                         rectangleHeight = 1
                     }
-            } //HStack
+            } // HStack
             .padding(.all, 20)
-            .frame(width: screenWidth * 0.88, height: 160)
+            .frame(height: 160)
             .background(
                 getBackgroundColor(targetLocalTimeHH: calcTargetLocalTimeHH(selectedPicker: selectedPicker))
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
-
+            .padding(.vertical, 20)
+            
             Text("\(countryName)에서 이 시간대에 해당하는 주요 지역")
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(.primary)
-                .frame(width: screenWidth * 0.8, alignment: .leading)
-                .padding(.top, 30)
+                .padding(.bottom, 12)
 
             Divider()
                 .foregroundColor(.clear)
-                .frame(width: screenWidth * 0.88)
                 .background(Color.gray.opacity(0.3))
-                .padding(.top, 10)
 
             ScrollView(.vertical) {
                 ForEach(currentCountryList, id: \.self) { locality in
-                    Button(action: {
+                    Button {
                         HapticManager.instance.impact(style: .rigid)
                         showLocalityMap(isShowingMap: true, countryLocality: locality)
-                    }, label: {
+                    } label: {
                         HStack {
                             Text(locality)
                                 .font(.system(size: 17, weight: .bold))
@@ -121,13 +107,13 @@ struct NationDetailView: View {
                             Spacer()
                             
                             Image(systemName: "chevron.right")
-                                .foregroundStyle(Color.secondary)
+                                .foregroundStyle(Color.orange)
                                 .padding(.trailing, 20)
                         }
-                        .frame(width: screenWidth * 0.88, height: 60, alignment: .leading)
+                        .frame(height: 60)
                         .background(.gray.opacity(0.1))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                    })
+                    }
                     .padding(.top, 4)
                 }
                 .padding(.top, 10)
@@ -135,6 +121,7 @@ struct NationDetailView: View {
             }
             .scrollIndicators(.hidden)
         } // VStack닫기
+        .padding(.horizontal, 20)
         .onAppear {
             currentCountryList = CountryList.list.GMT[calcTargetLocalGMT(selectedPicker: selectedPicker)]?.first { country in
                 country.countryName == self.countryName
@@ -146,6 +133,8 @@ struct NationDetailView: View {
                 continent: $continent,
                 locality: $tappedLocality
             )
+            .presentationDetents([.large])
+            .presentationCornerRadius(32)
         }
     } // body닫기
     

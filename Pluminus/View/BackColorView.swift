@@ -48,7 +48,7 @@ struct BackColorView: View {
     
     var body: some View {
         ZStack {
-            if !isShowingResult {
+            if isShowingResult == true {
                 getBackgroundColor(targetLocalTimeHH: calcTargetLocalTimeHH(selectedPicker: selectedPicker))
                     .edgesIgnoringSafeArea(.all)
             }

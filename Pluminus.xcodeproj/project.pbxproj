@@ -32,6 +32,7 @@
 		23B67FD72A93C0FC00229B81 /* NationInfoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD62A93C0FC00229B81 /* NationInfoMapView.swift */; };
 		23B67FD92A94819400229B81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD82A94819400229B81 /* MapView.swift */; };
 		23B67FDB2A954CE200229B81 /* Haptic+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FDA2A954CE200229B81 /* Haptic+.swift */; };
+		23C5E4462C2BF520004DD139 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5E4452C2BF51C004DD139 /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		23B67FD62A93C0FC00229B81 /* NationInfoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationInfoMapView.swift; sourceTree = "<group>"; };
 		23B67FD82A94819400229B81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		23B67FDA2A954CE200229B81 /* Haptic+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Haptic+.swift"; sourceTree = "<group>"; };
+		23C5E4452C2BF51C004DD139 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				23B25C0B2A2860860022273F /* MainView.swift */,
+				23C5E4452C2BF51C004DD139 /* SplashView.swift */,
 				23AB103A2C2B25030066DBD6 /* CLMapView.swift */,
 				2364635E2B35418000CC39F2 /* LocaleSelectView.swift */,
 				23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */,
@@ -240,6 +243,7 @@
 				23B67FD92A94819400229B81 /* MapView.swift in Sources */,
 				2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */,
 				23B67FB02A8DE10800229B81 /* Date+.swift in Sources */,
+				23C5E4462C2BF520004DD139 /* SplashView.swift in Sources */,
 				23B25C0A2A2860860022273F /* NC1App.swift in Sources */,
 				23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */,
 				23B67FB22A8DEE5F00229B81 /* NationWrappingView.swift in Sources */,
