@@ -14,7 +14,7 @@ struct SplashView: View {
                 .ignoresSafeArea()
             Image("SplashIcon")
                 .resizable()
-                .frame(width: 60, height: 60)
+                .frame(width: 120, height: 120)
         }
     }
 }
