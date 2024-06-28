@@ -39,10 +39,10 @@ struct NationInfoMapView: View {
                                     .resizable()
                                     .bold()
                                     .foregroundStyle(.orange)
-                                    .frame(width: 12, height: 12)
+                                    .frame(width: 14, height: 14)
                             }
-                            .frame(width: 28, height: 28)
-                            .padding(.all, 24)
+                            .frame(width: 32, height: 32)
+                            .padding(.all, 20)
                     } // button
                 }
                 
@@ -52,18 +52,18 @@ struct NationInfoMapView: View {
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 0) {
-                            Text("\(countryName)")
+                            Text(countryName)
                                 .font(.system(size: 24, weight: .bold))
                                 .foregroundColor(.orange)
                             
-                            Text("\(locality)")
+                            Text(locality)
                                 .font(.system(size: 24, weight: .bold))
                                 .foregroundColor(.primary)
                         }
                         
                         Spacer()
                         
-                        Text("\(continent)")
+                        Text(continent)
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.secondary)
                     }

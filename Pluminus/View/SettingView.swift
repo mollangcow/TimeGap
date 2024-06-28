@@ -8,102 +8,216 @@
 import SwiftUI
 import MessageUI
 
-struct SettingView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
+enum ColorScheme: Int {
+    case unspecified, light, dark
+}
+
+class ColorSchemeManager: ObservableObject {
+    @AppStorage("Color?Scheme") var colorScheme: ColorScheme = .unspecified {
+        didSet {
+            setttingDisplayColorMode()
+        }
+    }
     
+    func setttingDisplayColorMode() {
+        keyWindow?.overrideUserInterfaceStyle = UIUserInterfaceStyle(
+            rawValue: colorScheme.rawValue
+        )!
+    }
+    
+    var keyWindow: UIWindow? {
+        guard let scene = UIApplication.shared.connectedScenes.first,
+              let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+              let window = windowSceneDelegate.window else {
+                  return nil
+              }
+        
+        return window
+    }
+}
+
+private enum ColorSchemeType: String, CaseIterable {
+    case device
+    case light
+    case dark
+    
+    var title: String {
+        switch self {
+        case .device: return "Device"
+        case .light: return "Light"
+        case .dark: return "Dark"
+        }
+    }
+    
+    var theme: ColorScheme {
+        switch self {
+        case .device: return ColorScheme.unspecified
+        case .light: return ColorScheme.light
+        case .dark: return ColorScheme.dark
+        }
+    }
+    
+    var asset: String {
+        switch self {
+        case .device: return "display.device"
+        case .light: return "display.light"
+        case .dark: return "display.dark"
+        }
+    }
+}
+
+struct SettingView: View {
     @State private var isShowingEmailView = false
     @State private var emailResult: Result<MFMailComposeResult, Error>?
     
     @Environment(\.dismiss) var dismiss
     
+    @AppStorage("Color?Scheme") var colorScheme: ColorScheme = .unspecified
+    @EnvironmentObject var colorSchemeManager: ColorSchemeManager
+    @State private var selectedTheme: ColorScheme = .dark
+    
     var body: some View {
         NavigationStack {
+            // ToolBar
+            HStack {
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .frame(width: 22, height: 22)
+                    .foregroundStyle(Color.orange)
+                    .padding(.top, 2)
+                
+                Text("Setting")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundStyle(Color.primary)
+                    .padding(.leading, 4)
+                
+                Spacer()
+                
+                Button {
+                    HapticManager.instance.impact(style: .medium)
+                    dismiss()
+                } label: {
+                    Image(systemName: "circle.fill")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .foregroundStyle(Color.secondary.opacity(0.1))
+                        .background(
+                            Rectangle()
+                                .frame(width: 44, height: 44)
+                                .foregroundStyle(Color.clear)
+                        )
+                        .overlay {
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 14, height: 14)
+                                .bold()
+                                .foregroundStyle(Color.orange)
+                        }
+                }
+            } // HStack
+            
             VStack {
-                VStack(alignment: .leading, spacing: 0) {
+                HStack {
                     Text("Help")
                         .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.primary)
-                        .padding(.vertical, 20)
+                        .padding(.top, 12)
+                        .padding(.leading, 8)
                     
-                    Button {
-                        HapticManager.instance.impact(style: .light)
-                        isShowingEmailView.toggle()
-                    } label: {
-                        HStack {
-                            Image(systemName: "questionmark.circle.fill")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(.orange)
-                                .padding(.leading, 20)
-                            
-                            Text("Send Email to Developer")
-                                .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(.primary)
-                                .padding(.leading, 8)
-                            
-                            Spacer()
-                        }
-                        .frame(height: 60)
-                        .background(.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    Spacer()
+                } // HStack
+                
+                Button {
+                    HapticManager.instance.impact(style: .light)
+                    isShowingEmailView.toggle()
+                } label: {
+                    HStack(spacing: 0) {
+                        Image(systemName: "paperplane.fill")
+                            .resizable()
+                            .frame(width: 28, height: 28)
+                            .foregroundStyle(Color.orange)
+                        
+                        Text("Send Email to Developer")
+                            .font(.system(size: 17, weight: .bold))
+                            .foregroundColor(.primary)
+                            .padding(.leading, 16)
+                        
+                        Spacer()
                     }
-                    
-                    Text("General")
+                    .frame(maxWidth: .infinity)
+                    .padding(.all, 20)
+                    .background(.gray.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                } // Button
+                
+                HStack {
+                    Text("Theme")
                         .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.primary)
-                        .padding(.vertical, 20)
+                        .padding(.top, 32)
+                        .padding(.leading, 8)
                     
-                    HStack {
-                        Image(systemName: "moon.circle.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.orange)
-                            .padding(.leading, 20)
-                        
-                        Toggle(isOn: $isDarkMode, label: {
-                            Text("Dark Mode")
-                                .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(.primary)
-                                .padding(.leading, 8)
-                        })
-                        .toggleStyle(SwitchToggleStyle(tint: .orange))
-                        .padding(.trailing, 20)
-                    }
-                    .frame(height: 60)
-                    .background(.gray.opacity(0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                }
-                .padding(.horizontal, 20)
+                    Spacer()
+                } // HStack
                 
-                Spacer()
-            }
-            .navigationTitle("Setting")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        HapticManager.instance.impact(style: .light)
-                        dismiss()
-                    } label: {
-                        ZStack(alignment: .trailing) {
-                            Rectangle()
-                                .frame(width: 44, height: 44)
-                                .foregroundColor(.clear)
-                            
-                            Image(systemName: "xmark")
+                HStack {
+                    ForEach(ColorSchemeType.allCases, id: \.self) { type in
+                        VStack(spacing: 0) {
+                            Image(type.asset)
                                 .resizable()
-                                .frame(width: 16, height: 16)
-                                .bold()
-                                .foregroundColor(.orange)
+                                .scaledToFit()
+                                .padding(.all, 8)
+                            
+                            HStack {
+                                if selectedTheme == type.theme {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .font(.system(size: 17))
+                                        .foregroundStyle(Color.orange)
+                                } else {
+                                    Image(systemName: "circle")
+                                        .font(.system(size: 17))
+                                        .foregroundStyle(Color.secondary)
+                                }
+                                
+                                Text(type.title)
+                                    .font(.system(size: 17, weight: .bold))
+                            }
+                            .padding(.bottom, 12)
+                        } // VStack
+                        .frame(maxWidth: .infinity)
+                        .background(.gray.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .overlay {
+                            if selectedTheme == type.theme {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .strokeBorder(lineWidth: 2)
+                                    .foregroundStyle(Color.orange)
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                        .onTapGesture {
+                            HapticManager.instance.impact(style: .light)
+                            withAnimation {
+                                selectedTheme = type.theme
+                                colorSchemeManager.colorScheme = selectedTheme
+                            }
                         }
                     }
-                }
-            } // toolbar
-        } // NavigationStack
+                } // HStack
+            } // VStack
+            
+            Spacer()
+        }
+        .padding(.all, 20)
+        .onAppear {
+            selectedTheme = colorSchemeManager.colorScheme
+        }
         .sheet(isPresented: $isShowingEmailView) {
             EmailView(isShowing: $isShowingEmailView, result: $emailResult)
-                .ignoresSafeArea()
-        } //sheet
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+                .presentationDetents([.large])
+                .presentationCornerRadius(32)
+                .edgesIgnoringSafeArea(.bottom)
+        }
     } //body
 } //struct

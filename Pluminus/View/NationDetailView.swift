@@ -9,9 +9,10 @@ import SwiftUI
 
 struct NationDetailView: View {
     @State private var isShowingMap: Bool = false
-    @State private var tappedLocality: String = ""
     @State private var rectangleHeight: CGFloat = 0
     @State var currentCountryList: [String] = []
+    
+    @State private var tappedLocality: String = ""
     
     @Binding var countryName: String
     @Binding var continent: String
@@ -99,15 +100,23 @@ struct NationDetailView: View {
                         showLocalityMap(isShowingMap: true, countryLocality: locality)
                     } label: {
                         HStack {
-                            Text(locality)
-                                .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(Color.primary)
-                                .padding(.leading, 20)
+                            if !locality.isEmpty {
+                                Text(locality)
+                                    .font(.system(size: 17, weight: .bold))
+                                    .foregroundColor(Color.primary)
+                                    .padding(.leading, 20)
+                            } else {
+                                Text(countryName)
+                                    .font(.system(size: 17, weight: .bold))
+                                    .foregroundColor(Color.primary)
+                                    .padding(.leading, 20)
+                            }
                             
                             Spacer()
                             
                             Image(systemName: "chevron.right")
                                 .foregroundStyle(Color.orange)
+                                .bold()
                                 .padding(.trailing, 20)
                         }
                         .frame(height: 60)
@@ -126,6 +135,9 @@ struct NationDetailView: View {
             currentCountryList = CountryList.list.GMT[calcTargetLocalGMT(selectedPicker: selectedPicker)]?.first { country in
                 country.countryName == self.countryName
             }?.countryLocality ?? []
+            
+            print("aaaaaaaaaaaaaaaaaaaa : \(continent)")
+            print("aaaaaaaaaaaaaaaaaaaa : \(countryName)")
         }
         .sheet(isPresented: $isShowingMap) {
             NationInfoMapView(

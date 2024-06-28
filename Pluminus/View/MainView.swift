@@ -45,11 +45,9 @@ struct MainView: View {
     
     private let threshold: CGFloat = 100
     
-    @State private var isShowingModal: Bool = false
     @State private var isShowingMap: Bool = false
     @State private var tappedCountry: String = ""
     @State private var tappedContinent: String = ""
-    @State private var tappedLocality: String = ""
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -74,7 +72,6 @@ struct MainView: View {
                             .contentTransition(.numericText())
                     } // VStack
                     
-                    
                     Spacer()
                     
                     // 설정 버튼
@@ -83,19 +80,15 @@ struct MainView: View {
                             HapticManager.instance.impact(style: .light)
                             isShowingSettingView = true
                         } label: {
-                            Rectangle()
-                                .frame(width: 24, height: 44)
-                                .foregroundStyle(.clear)
-                                .overlay() {
-                                    Image(systemName: "gearshape.fill")
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundStyle(.gray.opacity(0.4))
-                                }
+                            Image(systemName: "gearshape.fill")
+                                .resizable()
+                                .frame(width: 28, height: 28)
+                                .foregroundStyle(.gray.opacity(0.4))
+                                .padding(.top, 12)
                         }
                     }
                 } //HStack
-                .padding(.top, 20)
+                .padding(.top, 12)
                 
                 // 기준 시간을 설정하는 위치
                 HStack {
@@ -115,6 +108,7 @@ struct MainView: View {
                     }
                     .disabled(isShowingResult == true)
                 } // HStack
+                .padding(.top, 8)
                 
                 if isShowingResult == false {
                     Spacer()
@@ -301,7 +295,7 @@ struct MainView: View {
                         
                         Spacer()
                     }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 4)
                     
                     ScrollView {
                         let countries = CountryList.list.GMT[calcTargetLocalGMT(selectedPicker: selectedPicker)]
@@ -312,20 +306,12 @@ struct MainView: View {
                                     HapticManager.instance.impact(style: .rigid)
                                     
                                     withAnimation(.spring(response: 0.4, dampingFraction: 0.95, blendDuration: 0.9)) {
-                                        if country.isHaveLocality {
-                                            showLocality(isShowingModal: country.isHaveLocality, countryName: country.countryName, continent: country.continent)
-                                        } else {
-                                            showLocality(isShowingModal: country.isHaveLocality, countryName: country.countryName, continent: country.continent)
-                                            self.isShowingMap = true
-                                        }
-                                        
                                         if expandedCountry?.countryName == country.countryName {
                                             expandedCountry = nil
-                                            hiddenCountryIndices.remove(country.hashValue)
                                         } else {
                                             expandedCountry = country
-                                            hiddenCountryIndices.insert(country.hashValue)
                                             tappedCountry = country.countryName
+                                            tappedContinent = country.continent
                                         }
                                     }
                                 } label: {
@@ -335,7 +321,7 @@ struct MainView: View {
                                             .padding(.horizontal, 6)
                                             .frame(height: 24)
                                             .minimumScaleFactor(0.7)
-                                            .foregroundColor(.black)
+                                            .foregroundStyle(Color.primary)
                                         if country.isHaveLocality {
                                             Image(systemName: "ellipsis.circle.fill")
                                                 .resizable()
@@ -345,22 +331,40 @@ struct MainView: View {
                                     } // HStack
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 12)
-                                    .background(.white)
-                                    .cornerRadius(32)
+                                    .background(.ultraThickMaterial)
+                                    .clipShape(
+                                        RoundedRectangle(cornerRadius: 32)
+                                    )
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 32)
+                                            .strokeBorder(lineWidth: 1)
+                                            .foregroundStyle(Color.secondary.opacity(0.1))
+                                    }
                                     .opacity(hiddenCountryIndices.contains(country.hashValue) ? 0 : 1)
                                     .matchedGeometryEffect(id: country.hashValue, in: animation)
                                 } // Button
-                                .padding(.bottom, 16)
+                                .padding(.vertical, 8)
                             } // WrappingHStack
+                            .padding(.vertical, 8)
                         } else {
-                            Text("다시 시도해주세요.")
+                            Text("Indexing Error!")
                                 .font(.system(size: 17, weight: .black))
                                 .foregroundColor(.white)
                         }
-                        
-                        
                     }
                     .scrollIndicators(.hidden)
+                    .mask(
+                        LinearGradient(
+                            gradient: Gradient(stops: [
+                                .init(color: .clear, location: 0.0),
+                                .init(color: .black, location: 0.08),
+                                .init(color: .black, location: 0.92),
+                                .init(color: .clear, location: 1.0)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                 }
                 
                 // 확인/돌아오기 버튼
@@ -373,15 +377,16 @@ struct MainView: View {
                         isShowingSearchingLabel.toggle()
                     }
                 } label: {
-                    Text(isShowingSearchingLabel ? "Check" : "Back")
+                    Image(systemName: isShowingSearchingLabel ? "arrow.forward" : "arrow.backward")
                         .foregroundStyle(.white)
-                        .font(.system(size: 17, weight: .black))
+                        .font(.system(size: 24, weight: .black))
                         .frame(maxWidth : 500, maxHeight: 70)
-                        .background(isShowingResult ? Color.black.opacity(0.2) : Color.orange)
+                        .background(isShowingResult ? Color.black.opacity(0.3) : Color.orange)
                         .clipShape(RoundedRectangle(cornerRadius: 100))
                 } // Button
                 .padding(.horizontal, isShowingResult ? 0 : 72)
-                .padding(.bottom, 30)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
             } // VStack
             .padding(.horizontal, 20)
             .sheet(isPresented: $isShowingSettingView) {
@@ -414,7 +419,7 @@ struct MainView: View {
                         
                         NationDetailView(
                             countryName: $tappedCountry,
-                            continent: $tappedCountry,
+                            continent: $tappedContinent,
                             pickerFastOrSlow: $pickerFastOrSlow,
                             pickerHour: $pickerHour,
                             selectedPicker: $selectedPicker
@@ -565,17 +570,6 @@ struct MainView: View {
             let max = abs(-12 - wrappedGMT)
             
             return min...max
-        }
-    }
-    
-    private func showLocality(isShowingModal: Bool, countryName: String, continent: String) {
-        if isShowingModal {
-            self.isShowingModal = true
-            self.tappedCountry = countryName
-            self.tappedContinent = continent
-        } else {
-            self.tappedCountry = countryName
-            self.tappedContinent = continent
         }
     }
 } // struct

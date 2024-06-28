@@ -9,13 +9,17 @@ import SwiftUI
 
 @main
 struct NC1App: App {
-    @AppStorage("isDarkMode") private var isDarkMode = false
-    
+    @StateObject private var colorSchemeManager = ColorSchemeManager()
+
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .preferredColorScheme(isDarkMode ? .dark : .light)
-                .accentColor(.orange)
+            Group {
+                MainView()
+            }
+            .environmentObject(colorSchemeManager)
+            .onAppear {
+                colorSchemeManager.setttingDisplayColorMode()
+            }
         }
     }
 }

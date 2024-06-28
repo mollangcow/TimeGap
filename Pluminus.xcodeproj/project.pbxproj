@@ -11,7 +11,6 @@
 		234E4ED22A2B899B00CA787D /* Nation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E4ED12A2B899B00CA787D /* Nation.swift */; };
 		2364635F2B35418000CC39F2 /* LocaleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2364635E2B35418000CC39F2 /* LocaleSelectView.swift */; };
 		237CF0B02ADD9CD10074E6DC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CF0AF2ADD9CD10074E6DC /* SettingView.swift */; };
-		23898A512BB712AF002DB2B8 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23898A502BB712AF002DB2B8 /* testView.swift */; };
 		23898A532BBB0C52002DB2B8 /* LocaleSelectCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */; };
 		2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395A05A2ADDAECB00773AF7 /* EmailView.swift */; };
 		23AAEE382A30A2F6007191B8 /* BackColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAEE372A30A2F6007191B8 /* BackColorView.swift */; };
@@ -39,7 +38,6 @@
 		2364635D2B3353E100CC39F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2364635E2B35418000CC39F2 /* LocaleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleSelectView.swift; sourceTree = "<group>"; };
 		237CF0AF2ADD9CD10074E6DC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		23898A502BB712AF002DB2B8 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleSelectCityView.swift; sourceTree = "<group>"; };
 		2395A05A2ADDAECB00773AF7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		23AAEE372A30A2F6007191B8 /* BackColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorView.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				2395A05A2ADDAECB00773AF7 /* EmailView.swift */,
 				23AAEE372A30A2F6007191B8 /* BackColorView.swift */,
-				23898A502BB712AF002DB2B8 /* testView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,12 +181,11 @@
 			};
 			buildConfigurationList = 23B25C012A2860860022273F /* Build configuration list for PBXProject "Pluminus" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = ko;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
-				ko,
 			);
 			mainGroup = 23B25BFD2A2860860022273F;
 			packageReferences = (
@@ -228,7 +224,6 @@
 				23B67FDB2A954CE200229B81 /* Haptic+.swift in Sources */,
 				23B25C362A28B1120022273F /* Color+.swift in Sources */,
 				23B25C0C2A2860860022273F /* MainView.swift in Sources */,
-				23898A512BB712AF002DB2B8 /* testView.swift in Sources */,
 				23B67FD72A93C0FC00229B81 /* NationInfoMapView.swift in Sources */,
 				2364635F2B35418000CC39F2 /* LocaleSelectView.swift in Sources */,
 				234E4ED22A2B899B00CA787D /* Nation.swift in Sources */,
@@ -252,6 +247,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_SHORTCUTS_ENABLE_FLEXIBLE_MATCHING = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -314,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_SHORTCUTS_ENABLE_FLEXIBLE_MATCHING = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
