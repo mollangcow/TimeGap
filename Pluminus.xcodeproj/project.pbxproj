@@ -27,7 +27,6 @@
 		23B67FB72A8F319800229B81 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 23B67FB62A8F319800229B81 /* WrappingHStack */; };
 		23B67FB92A8F7EEF00229B81 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FB82A8F7EEF00229B81 /* BackgroundColor.swift */; };
 		23B67FD72A93C0FC00229B81 /* NationInfoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD62A93C0FC00229B81 /* NationInfoMapView.swift */; };
-		23B67FD92A94819400229B81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FD82A94819400229B81 /* MapView.swift */; };
 		23B67FDB2A954CE200229B81 /* Haptic+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B67FDA2A954CE200229B81 /* Haptic+.swift */; };
 		23C5E4462C2BF520004DD139 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5E4452C2BF51C004DD139 /* SplashView.swift */; };
 /* End PBXBuildFile section */
@@ -54,7 +53,6 @@
 		23B67FAF2A8DE10800229B81 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		23B67FB82A8F7EEF00229B81 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		23B67FD62A93C0FC00229B81 /* NationInfoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationInfoMapView.swift; sourceTree = "<group>"; };
-		23B67FD82A94819400229B81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		23B67FDA2A954CE200229B81 /* Haptic+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Haptic+.swift"; sourceTree = "<group>"; };
 		23C5E4452C2BF51C004DD139 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,7 +102,6 @@
 				23898A522BBB0C52002DB2B8 /* LocaleSelectCityView.swift */,
 				23B3A82E2A860CD900E86DE0 /* NationDetailView.swift */,
 				23B67FD62A93C0FC00229B81 /* NationInfoMapView.swift */,
-				23B67FD82A94819400229B81 /* MapView.swift */,
 				237CF0AF2ADD9CD10074E6DC /* SettingView.swift */,
 				2395A05A2ADDAECB00773AF7 /* EmailView.swift */,
 				23AAEE372A30A2F6007191B8 /* BackColorView.swift */,
@@ -228,7 +225,6 @@
 				2364635F2B35418000CC39F2 /* LocaleSelectView.swift in Sources */,
 				234E4ED22A2B899B00CA787D /* Nation.swift in Sources */,
 				23AB103B2C2B25270066DBD6 /* CLMapView.swift in Sources */,
-				23B67FD92A94819400229B81 /* MapView.swift in Sources */,
 				2395A05B2ADDAECB00773AF7 /* EmailView.swift in Sources */,
 				23B67FB02A8DE10800229B81 /* Date+.swift in Sources */,
 				23C5E4462C2BF520004DD139 /* SplashView.swift in Sources */,

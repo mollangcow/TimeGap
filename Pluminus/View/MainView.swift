@@ -9,7 +9,7 @@ import CoreLocation
 import SwiftUI
 import WrappingHStack
 
-struct MainView: View {    
+struct MainView: View {
     @State var isLaunching: Bool = true
     
     @State private var currentLocalName: String = ""
@@ -29,7 +29,7 @@ struct MainView: View {
     @State private var currentDateStirng: String = ""
     
     @StateObject var locationManager = MyLocationManager()
-
+    
     @State private var dataSource: [[String]] = [["+","-"], []]
     @State private var pickerFastOrSlow: [String] = ["ahead", "+"]
     @State private var rectangleHeight: CGFloat = 1
@@ -58,17 +58,17 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text(currentTimeAString)
                             .font(.system(size: 64, weight: isShowingResult ? .thin : .heavy))
-                            .foregroundColor(isShowingResult ? .white : .primary)
+                            .foregroundStyle(isShowingResult ? .white : .primary)
                             .contentTransition(.numericText())
                         
                         Text(currentTimeHMMSSString)
                             .font(.system(size: 64, weight: isShowingResult ? .thin : .heavy))
-                            .foregroundColor(isShowingResult ? .white : .primary)
+                            .foregroundStyle(isShowingResult ? .white : .primary)
                             .contentTransition(.numericText())
                         
                         Text(currentDateStirng)
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(isShowingResult ? .white : .primary)
+                            .foregroundStyle(isShowingResult ? .white : .primary)
                             .contentTransition(.numericText())
                     } // VStack
                     
@@ -99,11 +99,11 @@ struct MainView: View {
                         isShowingCLMapView = true
                     } label: {
                         Image(isShowingResult ? "locationPin.white" : "locationPin.orange")
-                                .resizable()
-                                .frame(width: 15, height: 19)
-                            Text(currentLocalName)
-                                .font(.system(size: 20, weight: .heavy))
-                                .foregroundColor(isShowingResult ? .white : .primary)
+                            .resizable()
+                            .frame(width: 15, height: 19)
+                        Text(currentLocalName)
+                            .font(.system(size: 20, weight: .heavy))
+                            .foregroundColor(isShowingResult ? .white : .primary)
                         
                     }
                     .disabled(isShowingResult == true)
@@ -168,14 +168,14 @@ struct MainView: View {
                     ZStack {
                         HStack {
                             Text("GMT-12")
-                                .font(.system(size: 8, weight: .regular))
+                                .font(.system(size: 7, weight: .regular))
                             
                             Rectangle()
                                 .frame(width: 260, height: 1)
                                 .foregroundColor(.gray.opacity(0.3))
                             
                             Text("GMT+14")
-                                .font(.system(size: 8, weight: .regular))
+                                .font(.system(size: 7, weight: .regular))
                         } //HStack
                         
                         
@@ -321,7 +321,7 @@ struct MainView: View {
                                             .padding(.horizontal, 6)
                                             .frame(height: 24)
                                             .minimumScaleFactor(0.7)
-                                            .foregroundStyle(Color.primary)
+                                            .foregroundStyle(Color.black)
                                         if country.isHaveLocality {
                                             Image(systemName: "ellipsis.circle.fill")
                                                 .resizable()
@@ -330,8 +330,8 @@ struct MainView: View {
                                         }
                                     } // HStack
                                     .padding(.horizontal, 12)
-                                    .padding(.vertical, 12)
-                                    .background(.ultraThickMaterial)
+                                    .padding(.vertical, 10)
+                                    .background(.white)
                                     .clipShape(
                                         RoundedRectangle(cornerRadius: 32)
                                     )
@@ -343,9 +343,9 @@ struct MainView: View {
                                     .opacity(hiddenCountryIndices.contains(country.hashValue) ? 0 : 1)
                                     .matchedGeometryEffect(id: country.hashValue, in: animation)
                                 } // Button
-                                .padding(.vertical, 8)
+                                .padding(.vertical, 4)
                             } // WrappingHStack
-                            .padding(.vertical, 8)
+                            .padding(.vertical, 12)
                         } else {
                             Text("Indexing Error!")
                                 .font(.system(size: 17, weight: .black))
@@ -357,8 +357,8 @@ struct MainView: View {
                         LinearGradient(
                             gradient: Gradient(stops: [
                                 .init(color: .clear, location: 0.0),
-                                .init(color: .black, location: 0.08),
-                                .init(color: .black, location: 0.92),
+                                .init(color: .black, location: 0.05),
+                                .init(color: .black, location: 0.95),
                                 .init(color: .clear, location: 1.0)
                             ]),
                             startPoint: .top,
@@ -373,15 +373,16 @@ struct MainView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation(.spring) {
                             isShowingResult.toggle()
+                            isShowingSearchingLabel.toggle()
                         }
-                        isShowingSearchingLabel.toggle()
                     }
                 } label: {
-                    Image(systemName: isShowingSearchingLabel ? "arrow.forward" : "arrow.backward")
+                    Image(systemName: "arrow.forward")
+                        .rotationEffect(.degrees(isShowingSearchingLabel ? 0 : 180)) // 회전 효과 추가
                         .foregroundStyle(.white)
                         .font(.system(size: 24, weight: .black))
-                        .frame(maxWidth : 500, maxHeight: 70)
-                        .background(isShowingResult ? Color.black.opacity(0.3) : Color.orange)
+                        .frame(maxWidth: 500, maxHeight: 70)
+                        .background(isShowingResult ? Color.black : Color.orange)
                         .clipShape(RoundedRectangle(cornerRadius: 100))
                 } // Button
                 .padding(.horizontal, isShowingResult ? 0 : 72)
@@ -411,50 +412,49 @@ struct MainView: View {
             .statusBarHidden()
             
             if let expandedCountry = expandedCountry {
-                    Color.black.opacity(0.5)
+                Color.black.opacity(0.5)
                     .ignoresSafeArea()
-                    
-                    VStack {
-                        Spacer()
-                        
-                        NationDetailView(
-                            countryName: $tappedCountry,
-                            continent: $tappedContinent,
-                            pickerFastOrSlow: $pickerFastOrSlow,
-                            pickerHour: $pickerHour,
-                            selectedPicker: $selectedPicker
-                        )
-                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.92)
-                        .background(.thickMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 32))
-                        .matchedGeometryEffect(id: expandedCountry.hashValue, in: animation)
-                        .offset(y: offset)
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    let yOffset = value.translation.height
-                                    if yOffset > 0 {
-                                        offset = yOffset
+                
+                VStack {
+                    NationDetailView(
+                        countryName: $tappedCountry,
+                        continent: $tappedContinent,
+                        pickerFastOrSlow: $pickerFastOrSlow,
+                        pickerHour: $pickerHour,
+                        selectedPicker: $selectedPicker
+                    )
+                    .frame(maxWidth: .infinity)
+                    .background(.thickMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 32))
+                    .matchedGeometryEffect(id: expandedCountry.hashValue, in: animation)
+                    .padding(.top, 20)
+                    .offset(y: offset)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                let yOffset = value.translation.height
+                                if yOffset > 0 {
+                                    offset = yOffset
+                                }
+                            }
+                            .onEnded { value in
+                                if offset > threshold {
+                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.85, blendDuration: 0.1)) {
+                                        self.expandedCountry = nil
+                                        offset = .zero
+                                        hiddenCountryIndices.remove(expandedCountry.hashValue)
+                                    }
+                                } else {
+                                    withAnimation {
+                                        offset = .zero
                                     }
                                 }
-                                .onEnded { value in
-                                    if offset > threshold {
-                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.85, blendDuration: 0.1)) {
-                                            self.expandedCountry = nil
-                                            offset = .zero
-                                            hiddenCountryIndices.remove(expandedCountry.hashValue)
-                                        }
-                                    } else {
-                                        withAnimation {
-                                            offset = .zero
-                                        }
-                                    }
-                                }
-                        )
-                    }
-                    .zIndex(1)
-                    .edgesIgnoringSafeArea(.all)
+                            }
+                    )
                 }
+                .zIndex(1)
+                .edgesIgnoringSafeArea(.bottom)
+            }
             
             if isLaunching {
                 SplashView()
@@ -518,13 +518,13 @@ struct MainView: View {
     private func pickerVisualMovingSpacer() -> CGFloat {
         let hour = calcTargetLocalGMT(selectedPicker: selectedPicker)
         
-            if hour == -12 {
-                return 0
-            } else if hour == 0 {
-                return 130
-            } else if hour >= -11 && hour <= 14 {
-                return CGFloat(hour + 12) * 10
-            }
+        if hour == -12 {
+            return 0
+        } else if hour == 0 {
+            return 130
+        } else if hour >= -11 && hour <= 14 {
+            return CGFloat(hour + 12) * 10
+        }
         
         return 0
     }
