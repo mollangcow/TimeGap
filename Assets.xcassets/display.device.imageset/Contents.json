@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "locationPin.orange.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "display.device.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

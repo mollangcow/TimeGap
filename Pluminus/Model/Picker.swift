@@ -13,7 +13,7 @@ struct CustomPicker: UIViewRepresentable {
     typealias UIViewType = UIPickerView
     
     @Binding var dataSource: [[String]]
-    @Binding var selected: [Int]
+    @Binding var selectedPicker: [Int]
     
     
     func makeUIView(context: Context) -> UIPickerView {
@@ -26,25 +26,25 @@ struct CustomPicker: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIPickerView, context: Context) {
-        for i in 0..<selected.count {
-            uiView.selectRow(selected[i], inComponent: i, animated: true)
+        for i in 0..<selectedPicker.count {
+            uiView.selectRow(selectedPicker[i], inComponent: i, animated: true)
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self, dataSource: $dataSource, selected: $selected)
+        Coordinator(parent: self, dataSource: $dataSource, selectedPicker: $selectedPicker)
     }
     
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         
         var parent: CustomPicker
         @Binding var dataSource: [[String]]
-        @Binding var selected: [Int]
+        @Binding var selectedPicker: [Int]
         
-        init(parent: CustomPicker, dataSource: Binding<[[String]]>, selected: Binding<[Int]>) {
+        init(parent: CustomPicker, dataSource: Binding<[[String]]>, selectedPicker: Binding<[Int]>) {
             self.parent = parent
             self._dataSource = dataSource
-            self._selected = selected
+            self._selectedPicker = selectedPicker
         }
         
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -52,20 +52,32 @@ struct CustomPicker: UIViewRepresentable {
         }
         
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            guard component < dataSource.count, row < dataSource[component].count else {
+                print("Error: Trying to access invalid index component: \(component), row: \(row)")
+                return nil
+            }
             return dataSource[component][row]
         }
         
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            guard component < dataSource.count else {
+                print("Error: Trying to access invalid component index: \(component)")
+                return 0
+            }
             return dataSource[component].count
         }
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            $selected.wrappedValue[component] = row
-            switch $selected.wrappedValue[0] {
+            guard component < selectedPicker.count else {
+                print("Error: Trying to access invalid selectedPicker index: \(component)")
+                return
+            }
+            $selectedPicker.wrappedValue[component] = row
+            switch $selectedPicker.wrappedValue[0] {
             case 0:
-                print(row)
+                print("----- Main Picker case0 : \(row)")
             case 1:
-                print(-row)
+                print("----- Main Picker case1 : \(-row)")
             default:
                 fatalError("You Die")
             }

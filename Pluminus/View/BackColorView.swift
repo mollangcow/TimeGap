@@ -43,38 +43,21 @@ enum TimeGradient {
 }
 
 struct BackColorView: View {
-    
-    @Binding var isPickerView: Bool
-    @Binding var selected: [Int]
-    
-    func pickerResult() -> Int {
-        let value = selected[1]
-        return selected[0] == 1 ? -value : value
-    }
-    
-    func targetHourResult() -> Int {
-        let formattedString = Date.currentTime(timeZoneOffset: pickerResult())
-        
-        if let range = formattedString.range(of: "^(\\d+):", options: .regularExpression),
-           let timeOffset = Int(formattedString[range].dropLast()) {
-            return timeOffset
-        }
-        
-        return 0
-    }
+    @Binding var isShowingResult: Bool
+    @Binding var selectedPicker: [Int]
     
     var body: some View {
         ZStack {
-            if !isPickerView {
-                getBackgroundColor(targetHourResult: targetHourResult())
+            if isShowingResult == true {
+                getBackgroundColor(targetLocalTimeHH: calcTargetLocalTimeHH(selectedPicker: selectedPicker))
                     .edgesIgnoringSafeArea(.all)
             }
         }
     } // body닫기
 } // struct닫기
 
-func getBackgroundColor(targetHourResult: Int) -> some View {
-    switch targetHourResult {
+func getBackgroundColor(targetLocalTimeHH: Int) -> some View {
+    switch targetLocalTimeHH {
     case 0...1:
         return TimeGradient.G0001.gradient
     case 2...3:
