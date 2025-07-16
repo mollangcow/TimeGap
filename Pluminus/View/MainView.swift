@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject var locationManager = MyLocationManager()
+    @StateObject var timeViewModel = TimeViewModel()
     
     @Namespace private var animation
     
@@ -25,10 +26,6 @@ struct MainView: View {
     @State private var cLName = "Unknown"
     @State private var tzOffset = 0
     
-    @State private var currentTimeAString: String = ""
-    @State private var currentTimeHMMSSString: String = ""
-    @State private var currentDateStirng: String = ""
-    
     @State private var dataSource: [[String]] = [["+","-"], []]
     @State private var pickerFastOrSlow: [String] = ["ahead", "+"]
     @State private var pickerHour: Int = 0
@@ -42,25 +39,18 @@ struct MainView: View {
     
     private let threshold: CGFloat = 100
     
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 //BaseTime Section
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(currentTimeAString)
+                        Text(timeViewModel.currentTimeHMMSSString)
                             .font(.system(size: isShowingResult ? 32 : 68, weight: isShowingResult ? .thin : .heavy))
                             .foregroundStyle(isShowingResult ? Color.white : Color.primary)
                             .contentTransition(.numericText())
                         
-                        Text(currentTimeHMMSSString)
-                            .font(.system(size: 68, weight: isShowingResult ? .thin : .heavy))
-                            .foregroundStyle(isShowingResult ? Color.white : Color.primary)
-                            .contentTransition(.numericText())
-                        
-                        Text(currentDateStirng)
+                        Text(timeViewModel.currentDateString)
                             .font(.system(size: 20, weight: isShowingResult ? .light : .bold))
                             .foregroundStyle(isShowingResult ? Color.white : Color.primary)
                             .contentTransition(.numericText())
@@ -186,14 +176,6 @@ struct MainView: View {
                     .presentationDetents([.large])
                     .presentationCornerRadius(32)
             }
-//            .sheet(isPresented: $isShowingCLMapView) {
-//                CLMapView(isShowingCLMapView: $isShowingCLMapView, savedLocation: $savedLocation) { locationName in
-//                    cLName = locationName
-//                    isShowingCLMapView = false
-//                }
-//                .presentationDetents([.large])
-//                .presentationCornerRadius(32)
-//            }
             .sheet(isPresented: $isShowingCLMapView) {
                 TestAPI()
             }
@@ -256,13 +238,6 @@ struct MainView: View {
         .onReceive(locationManager.$currentLocalName) { newLocation in
             self.currentLocalName = newLocation
         }
-        .onReceive(timer) { _ in
-            withAnimation {
-                currentTimeAString = cTimeA(tzOffset: calcCurrentLocalGMT())
-                currentTimeHMMSSString = cTimeHMMSS(tzOffset: calcCurrentLocalGMT())
-                currentDateStirng = cDate(tzOffset: calcCurrentLocalGMT())
-            }
-        }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
@@ -271,40 +246,4 @@ struct MainView: View {
             }
         }
     } //body
-    
-    func cTimeA(tzOffset: Int) -> String {
-        let fmt = DateFormatter()
-        let offsetInSeconds = tzOffset * 3600
-        let targetTimeZone = TimeZone(secondsFromGMT: offsetInSeconds)
-        
-        fmt.timeZone = targetTimeZone
-        fmt.dateFormat = "a"
-        fmt.locale = Locale(identifier: "en_US")
-        
-        return fmt.string(from: Date())
-    }
-    
-    func cTimeHMMSS(tzOffset: Int) -> String {
-        let fmt = DateFormatter()
-        let offsetInSeconds = tzOffset * 3600
-        let targetTimeZone = TimeZone(secondsFromGMT: offsetInSeconds)
-        
-        fmt.timeZone = targetTimeZone
-        fmt.dateFormat = "h:mm:ss"
-        fmt.locale = Locale(identifier: "en_US")
-        
-        return fmt.string(from: Date())
-    }
-    
-    func cDate(tzOffset: Int) -> String {
-        let fmt = DateFormatter()
-        let offsetInSeconds = tzOffset * 3600
-        let targetTimeZone = TimeZone(secondsFromGMT: offsetInSeconds)
-        
-        fmt.timeZone = targetTimeZone
-        fmt.dateFormat = "E dd, MMM yyyy"
-        fmt.locale = Locale(identifier: "en_US")
-        
-        return fmt.string(from: Date())
-    }
 } //struct

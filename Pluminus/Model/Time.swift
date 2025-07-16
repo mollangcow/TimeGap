@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 func selectPickerResult(selectedPicker: [Int]) -> Int {
     let value = selectedPicker[1]
@@ -59,4 +60,44 @@ func calcTargetLocalTimeHH(selectedPicker: [Int]) -> Int {
     }
     
     return 0
+}
+
+class TimeViewModel: ObservableObject {
+    @Published var currentTimeHMMSSString: String = ""
+    @Published var currentDateString: String = ""
+
+    private var timer: Timer?
+
+    init() {
+        updateTime()
+        startUpdatingTime()
+    }
+
+    deinit {
+        stopUpdatingTime()
+    }
+
+    private func startUpdatingTime() {
+        // Run on main thread to update UI
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updateTime()
+        }
+    }
+
+    private func stopUpdatingTime() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    private func updateTime() {
+        let now = Date()
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss"
+        currentTimeHMMSSString = timeFormatter.string(from: now)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM d"
+        currentDateString = dateFormatter.string(from: now)
+    }
 }
